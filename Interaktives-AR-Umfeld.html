@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Siebträger 3D-Ansicht - Three Dimensions</title>
+  <meta name="description" content="Interaktive 3D-Ansicht eines Siebträgers. Erleben Sie das Produkt in Augmented Reality.">
+  <link rel="canonical" href="https://three-dimensions.de/Interaktives-AR-Umfeld.html">
+
+  <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
+  <script nomodule src="https://unpkg.com/@google/model-viewer/dist/model-viewer-legacy.js"></script>
+
+  <style>
+    html {
+      height: 100%;
+    }
+    :root {
+      --loader-text-color: #000000;
+      --fallback-text-color: #000000;
+      --blue-dark: #0d2c57;
+    }
+
+      body {
+        margin: 0;
+        background: transparent;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        font-family: Arial, sans-serif;
+        position: relative;
+        overflow: hidden;
+      }
+
+
+      /* Container für das „Fenster“ */
+      #viewer-wrapper {
+        width: 90vw;
+        height: 85vh;
+        max-width: 900px;
+        max-height: 900px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        box-sizing: border-box;
+      }
+
+      model-viewer {
+        width: 100%;
+        height: 100%;
+        background: transparent;
+      }
+
+
+    /* Originale AR-Buttons deaktivieren (sichtbar) */
+    model-viewer::part(ar-button),
+    button[slot="ar-button"],
+    model-viewer > button,
+    .button-ar,
+    model-viewer .ar-button,
+    model-viewer .icon,
+    model-viewer .quick-look-button {
+      display: none !important;
+      opacity: 0 !important;
+      visibility: hidden !important;
+      pointer-events: none !important;
+    }
+
+    /* Custom AR Button */
+    #ar-button {
+      display: none;
+      position: absolute;
+      bottom: calc(60px - 2rem);
+      left: 50%;
+      transform: translateX(-50%);
+      padding: 12px 24px;
+      background: #0D2C57;
+      color: #fff;
+      font-size: 16px;
+      font-weight: 600;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.25);
+      transition: 0.2s;
+      z-index: 1000;
+    }
+
+    #ar-button:hover {
+      background: #334868;
+      transform: translateX(-50%) scale(1.04);
+    }
+
+      @media (pointer: coarse) {
+        #ar-button {
+          bottom: calc(400px - 2rem);
+          padding: 24px 48px;
+          font-size: 24px;
+          border-radius: 16px;
+          z-index: 1500;
+        }
+
+        #viewer-wrapper {
+          width: 90vw;
+          height: 80vh;
+          max-width: none;
+          max-height: none;
+        }
+
+        model-viewer {
+          width: 100%;
+          height: 100%;
+        }
+      }
+
+
+    #overlay-loader {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: white;
+      display: flex;
+      color: var(--loader-text-color);
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+      transition: 0.4s;
+    }
+
+    #overlay-loader.hidden {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .fallback {
+      display: none;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+      font-size: 1.2rem;
+      z-index: 1001;
+      color: var(--fallback-text-color);
+    }
+
+    /* QR Overlay */
+    #qr-overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0,0,0,0.75);
+      backdrop-filter: blur(6px);
+      justify-content: center;
+      align-items: center;
+      z-index: 99999;
+    }
+
+    #qr-box {
+      background: white;
+      padding: 20px;
+      border-radius: 12px;
+      text-align: center;
+    }
+
+    #qr-box img {
+      width: 260px;
+      height: 260px;
+    }
+
+    footer {
+      width: 100%;
+      min-height: 15rem;
+      background-color: var(--blue-dark);
+      padding: 4rem 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      z-index: 100;
+    }
+
+    .footer-content {
+      max-width: 1200px;
+      width: 100%;
+      padding: 0 2rem;
+      position: relative;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .footer-text {
+      font-family: "Mandioca", "Helvetica", "Arial", sans-serif;
+      font-size: 1rem;
+      font-weight: 200;
+      letter-spacing: 0.02em;
+      color: #ffffff;
+      text-align: left;
+      line-height: 1.8em;
+      position: absolute;
+      left: -2rem;
+    }
+
+    .footer-text a {
+      color: #ffffff;
+      text-decoration: underline;
+      cursor: pointer;
+      transition: opacity 0.3s ease;
+    }
+
+    .footer-text a:hover {
+      opacity: 0.8;
+    }
+
+    .footer-links {
+      font-family: "Mandioca", "Helvetica", "Arial", sans-serif;
+      font-size: 1rem;
+      font-weight: 200;
+      letter-spacing: 0.02em;
+      color: #ffffff;
+      text-align: right;
+      line-height: 1.8em;
+      position: absolute;
+      right: -2rem;
+    }
+
+    .footer-links a {
+      color: #ffffff;
+      text-decoration: none;
+      cursor: pointer;
+      transition: opacity 0.3s ease;
+    }
+
+    .footer-links a:hover {
+      opacity: 0.8;
+    }
+
+    /* WeChat QR Code Modal */
+    .wechat-qr-modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.8);
+      z-index: 10000;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .wechat-qr-modal.active {
+      display: flex;
+    }
+
+    .wechat-qr-content {
+      background: #ffffff;
+      padding: 2rem;
+      border-radius: 1rem;
+      text-align: center;
+      max-width: 400px;
+      position: relative;
+    }
+
+    .wechat-qr-content img {
+      width: 100%;
+      max-width: 300px;
+      height: auto;
+      display: block;
+      margin: 0 auto;
+    }
+
+    .wechat-qr-close {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      background: none;
+      border: none;
+      font-size: 2rem;
+      color: #000000;
+      cursor: pointer;
+      line-height: 1;
+      padding: 0;
+      width: 2rem;
+      height: 2rem;
+    }
+
+    .wechat-qr-close:hover {
+      opacity: 0.7;
+    }
+
+  </style>
+</head>
+<body>
+
+    <div id="overlay-loader">🔄 Wird geladen...</div>
+
+    <div id="viewer-wrapper">
+      <model-viewer
+        id="viewer"
+        src="Maschine.glb"
+        ios-src="Maschine.usdz"
+        ar
+        ar-modes="scene-viewer quick-look webxr"
+        camera-controls
+        environment-image="neutral"
+        shadow-intensity="1"
+        exposure="1"
+        alt="3D Modell eines Siebträgers">
+      </model-viewer>
+    </div>
+
+
+<button id="ar-button">In AR ansehen</button>
+
+<div class="fallback" id="fallback">
+  ⚠️ Das 3D-Modell konnte nicht geladen werden.
+</div>
+
+<div id="qr-overlay">
+  <div id="qr-box">
+    <h2>Scanne den QR-Code für die AR Ansicht</h2>
+    <img id="qr-image" src="">
+    <br><br>
+    <button id="qr-close">Schließen</button>
+  </div>
+</div>
+
+<script>
+  const viewer = document.getElementById('viewer');
+  const overlay = document.getElementById('overlay-loader');
+  const fallback = document.getElementById('fallback');
+  const arButton = document.getElementById('ar-button');
+  const qrOverlay = document.getElementById('qr-overlay');
+  const qrImage = document.getElementById('qr-image');
+  const qrClose = document.getElementById('qr-close');
+
+  const mobileARUrl = "https://illumio3d.github.io/AR-Viewer-Machine/";
+
+  /* QR-Code generieren */
+  qrImage.src =
+    "https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=" +
+    encodeURIComponent(mobileARUrl);
+
+  /* Modell wird sichtbar → Loader entfernen und Button anzeigen */
+  viewer.addEventListener("model-visibility", () => {
+    overlay.classList.add("hidden");
+    arButton.style.display = 'block'; // Button erst anzeigen wenn Modell geladen ist
+  });
+
+  /* Fehler → Fallback anzeigen */
+  viewer.addEventListener("error", () => {
+    overlay.style.display = "none";
+    fallback.style.display = "block";
+  });
+
+  // Originale AR-Buttons im Shadow DOM visuell ausblenden (nur einmal)
+  function hideOriginalARButtons() {
+    try {
+      const root = viewer.shadowRoot;
+      if (!root) return;
+      const candidates = root.querySelectorAll('.ar-button, .icon, .quick-look-button, button[slot="ar-button"]');
+      candidates.forEach(el => {
+        el.style.opacity = '0';
+        el.style.visibility = 'hidden';
+        el.style.pointerEvents = 'none';
+        el.style.zIndex = '0';
+      });
+    } catch (e) {
+      // Fehler ignorieren
+    }
+  }
+
+  viewer.addEventListener('load', () => {
+    hideOriginalARButtons();
+    // Button auch beim 'load' Event anzeigen (falls model-visibility nicht gefeuert wird)
+    arButton.style.display = 'block';
+  });
+
+  /* AR Button Logik */
+  const isMobile = (() => {
+    try {
+      return (
+        (typeof navigator !== 'undefined' && navigator.maxTouchPoints > 0) &&
+        /Android|iPhone|iPad|iPod/i.test(navigator.userAgent)
+      );
+    } catch (e) { return false; }
+  })();
+
+  arButton.addEventListener("click", () => {
+    if (isMobile) {
+      // Vereinfachte Logik: auf Mobile direkt AR starten
+      try {
+        viewer.activateAR();
+      } catch (e) {
+        // Fallback: wenn AR nicht gestartet werden kann, QR anzeigen
+        qrOverlay.style.display = "flex";
+      }
+    } else {
+      // Desktop: QR-Overlay anzeigen
+      qrOverlay.style.display = "flex";
+    }
+  });
+
+  qrClose.addEventListener("click", () => {
+    qrOverlay.style.display = "none";
+  });
+</script>
+  <footer>
+    <div class="footer-content">
+      <p class="footer-text">
+        Finde mich auf <a href="https://www.instagram.com/threedimensions.de?igsh=dG5ubXJoNWJjYWR1&utm_source=qr" id="instagram-link" target="_blank" rel="noopener noreferrer">Instagram</a>,<br>
+        <a href="#" id="wechat-link" onclick="handleWeChatClick(event)">WeChat</a> und <a href="https://www.linkedin.com/in/milo-boettger-threed?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app" id="linkedin-link" target="_blank" rel="noopener noreferrer">LinkedIn</a>.<br>
+        kontakt@three-dimensions.de
+      </p>
+      <p class="footer-links">
+        <a href="Three-Dimensions-Anfrageformular.html">Kontakt</a> - <a href="Impressum.html">Impressum</a> - <a href="Datenschutz.html">Datenschutz</a><br>Three Dimensions<br>Milo Boettger
+      </p>
+    </div>
+  </footer>
+  <!-- WeChat QR Code Modal -->
+  <div id="wechat-qr-modal" class="wechat-qr-modal">
+    <div class="wechat-qr-content">
+      <button class="wechat-qr-close" onclick="closeWeChatModal()">&times;</button>
+      <h3 style="margin-top: 0; color: #000000; font-family: 'Helvetica', 'Arial', sans-serif;">Scan QR Code to add on WeChat</h3>
+      <img src="WeChatQRcode.JPG" alt="WeChat QR Code">
+    </div>
+  </div>
+</body>
+</html>

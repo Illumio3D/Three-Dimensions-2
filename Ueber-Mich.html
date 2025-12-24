@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Über Mich - Three Dimensions</title>
+  <meta name="description" content="Lernen Sie Milo Boettger kennen, Gründer von Three Dimensions. Spezialisiert auf 3D-Modelle, Animationen und AR-Erlebnisse für Produktvisualisierung.">
+  <meta name="keywords" content="Milo Boettger, Three Dimensions, 3D Visualisierung, AR, Produktvisualisierung">
+  <link rel="canonical" href="https://three-dimensions.de/Ueber-Mich.html">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    @font-face {
+      font-family: 'Mandioca';
+      src: local('Mandioca'), url('Mandioca.woff2') format('woff2'), url('Mandioca.woff') format('woff');
+      font-weight: normal;
+      font-style: normal;
+    }
+
+    :root {
+      --blue-light: #FAFAFA;
+      --blue-dark: #0d2c57;
+      --header-bg: #0d2c57;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+    }
+
+    body {
+      background: linear-gradient(to bottom, #FAFAFA, #FFFFFF);
+      font-family: "Quicksand", "Helvetica", "Arial", sans-serif;
+      color: var(--blue-dark);
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      width: 100%;
+      background: var(--header-bg);
+      padding: calc(2rem - 14px) 2rem;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 1000;
+    }
+
+    .brand {
+      margin: 0;
+      font-size: 1.75rem;
+      font-weight: normal;
+      letter-spacing: 0.02em;
+    }
+
+    .brand a {
+      color: #ffffff;
+      text-decoration: none;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      align-items: center;
+    }
+
+    .nav-links a {
+      color: #ffffff;
+      text-decoration: none;
+      font-family: "Mandioca", "Helvetica", "Arial", sans-serif;
+      font-size: 1rem;
+      font-weight: 200;
+      letter-spacing: 0.02em;
+    }
+
+    .services-dropdown {
+      position: relative;
+    }
+
+    .services-dropdown-button {
+      color: #ffffff;
+      text-decoration: none;
+      font-family: "Mandioca", "Helvetica", "Arial", sans-serif;
+      font-size: 1rem;
+      font-weight: 200;
+      letter-spacing: 0.02em;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 0;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .services-dropdown-button::after {
+      content: '▼';
+      font-size: 0.7rem;
+      transition: transform 0.3s ease;
+    }
+
+    .services-dropdown.active .services-dropdown-button::after {
+      transform: rotate(180deg);
+    }
+
+    .services-dropdown-menu {
+      position: absolute;
+      top: 100%;
+      right: 0;
+      margin-top: 1rem;
+      background-color: var(--blue-dark);
+      min-width: 200px;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(-10px);
+      transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s ease;
+      z-index: 1000;
+      border-radius: 0.5rem;
+      padding: 0.5rem 0;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    }
+
+    .services-dropdown.active .services-dropdown-menu {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+
+    .services-dropdown-menu a {
+      display: block;
+      padding: 0.75rem 1.5rem;
+      color: #ffffff;
+      text-decoration: none;
+      font-family: "Mandioca", "Helvetica", "Arial", sans-serif;
+      font-size: 1rem;
+      font-weight: 200;
+      letter-spacing: 0.02em;
+      transition: background-color 0.2s ease;
+    }
+
+    .services-dropdown-menu a:hover {
+      background-color: rgba(255, 255, 255, 0.1);
+    }
+
+    .content-section {
+      max-width: 1200px;
+      margin: 0 auto;
+      width: 100%;
+      padding: 4rem 2rem 8rem 2rem;
+    }
+
+    h1 {
+      font-family: "Helvetica", "Arial", sans-serif;
+      font-size: 3rem;
+      font-weight: 400;
+      color: var(--blue-dark);
+      margin-bottom: 2rem;
+    }
+
+    .content-text {
+      font-family: "Quicksand", "Helvetica", "Arial", sans-serif;
+      font-size: 1.2rem;
+      font-weight: 300;
+      line-height: 1.8;
+      color: var(--blue-dark);
+      max-width: 800px;
+    }
+
+    footer {
+      width: 100%;
+      min-height: 15rem;
+      background-color: var(--blue-dark);
+      padding: 4rem 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0;
+      border: none;
+      box-shadow: none;
+    }
+
+    .footer-content {
+      max-width: 1200px;
+      width: 100%;
+      padding: 0 2rem;
+      position: relative;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .footer-text {
+      font-family: "Mandioca", "Helvetica", "Arial", sans-serif;
+      font-size: 1rem;
+      font-weight: 200;
+      letter-spacing: 0.02em;
+      color: #ffffff;
+      text-align: left;
+      line-height: 1.8em;
+      position: absolute;
+      left: -2rem;
+      margin: 0;
+    }
+
+    .footer-text a {
+      color: #ffffff;
+      text-decoration: underline;
+      cursor: pointer;
+      transition: opacity 0.3s ease;
+    }
+
+    .footer-text a:hover {
+      opacity: 0.8;
+    }
+
+    .footer-links {
+      font-family: "Mandioca", "Helvetica", "Arial", sans-serif;
+      font-size: 1rem;
+      font-weight: 200;
+      letter-spacing: 0.02em;
+      color: #ffffff;
+      text-align: right;
+      line-height: 1.8em;
+      position: absolute;
+      right: -2rem;
+      margin: 0;
+    }
+
+    .footer-links a {
+      color: #ffffff;
+      text-decoration: none;
+      cursor: pointer;
+      transition: opacity 0.3s ease;
+    }
+
+    .footer-links a:hover {
+      opacity: 0.8;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h2 class="brand">
+      <a href="index.html">Three Dimensions</a>
+    </h2>
+    <nav class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="Three-Dimensions-Anfrageformular.html">Kontakt</a>
+      <a href="Ueber-Mich.html">Über Mich</a>
+      <div class="services-dropdown" id="servicesDropdown">
+        <button class="services-dropdown-button" onclick="toggleServicesDropdown(event)">Unsere Services</button>
+        <div class="services-dropdown-menu">
+          <a href="ar-produktvisualisierung.html">AR Produktvisualisierung</a>
+          <a href="Details-durch-3D.html">Details durch 3D</a>
+          <a href="3D-Renderings-fuer-Shops.html">3D Renderings für Shops</a>
+        </div>
+      </div>
+    </nav>
+  </header>
+  <div class="content-section">
+    <h1>Über Mich</h1>
+    <div class="content-text">
+      <p>Moin, ich bin Milo Boettger, ich studiere im Bereich Business/ Marketing und bin Gründer von Three Dimensions. Ein Jahr vor meinem Studium habe ich mich täglich mit 3D Software und Produktvisualisierung beschäftigt.</p>
+      <p>Was mich von Anfang an fasziniert hat, ist die Kontrolle die man über Beleuchtung, Kamerafahrten und Perspektiven hat. Mit jedem abgeschlossenen Projekt merkte ich, 3D bringt Produkte auf eine ganz neue Ebene. Mit jedem Projekt erkannte ich wie 3D die gesamte shopping-Welt revolutioniert. Schauen Sie sich Augmented Reality an: Kunden können Produkte virtuell bei sich ins Wohnzimmer stellen, sie in allen Farben und aus jedem Winkel sehen, bevor sie kaufen. </p>
+      <p>Meine Vision ist es, dass jeder Shop sein Produkt, ohne Probleme genau so zeigen kann wie du es möchtest. Das heißt, 3D implimentiert in jedem Shop. Im Moment nutzen dass fast nur die riesen Tech-Giganten. Amazon hat schon lange AR viewer eingebaut, Apple's ganze website besteht aus Renderings und Meta investiert mit RayBan massiv in AR-Brillen.</p>
+      <p>Gerade deshalb, denke ich, erscheint 3D vielen als Etwas für die Großen, als Etwas das für normale Shops außer Reichweite liegt. Genau das möchte ich ändern. Denn in 2026 ist das schon längst nicht mehr der Fall. Jeder kann heutzutage von den höheren Conversion-Rates, geringeren Retouren und einer besseren Kundenbindung profitieren. Die Zukunft rennt in Richtung Virtual/ Augmented- Reality und wir sind mittendrinnen.<br>The Future is Now. </p>
+    </div>
+  </div>
+  <footer>
+    <div class="footer-content">
+      <p class="footer-text">
+        Finde mich auf <a href="https://www.instagram.com/threedimensions.de?igsh=dG5ubXJoNWJjYWR1&utm_source=qr" id="instagram-link" target="_blank" rel="noopener noreferrer">Instagram</a>,<br>
+        <a href="#" id="wechat-link" onclick="handleWeChatClick(event)">WeChat</a> und <a href="https://www.linkedin.com/in/milo-boettger-threed?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app" id="linkedin-link" target="_blank" rel="noopener noreferrer">LinkedIn</a>.<br>
+        kontakt@three-dimensions.de
+      </p>
+      <p class="footer-links">
+        <a href="Three-Dimensions-Anfrageformular.html">Kontakt</a> - <a href="Impressum.html">Impressum</a> - <a href="Datenschutz.html">Datenschutz</a><br>Three Dimensions<br>Milo Boettger
+      </p>
+    </div>
+  </footer>
+  <!-- WeChat QR Code Modal -->
+  <div id="wechat-qr-modal" class="wechat-qr-modal">
+    <div class="wechat-qr-content">
+      <button class="wechat-qr-close" onclick="closeWeChatModal()">&times;</button>
+      <h3 style="margin-top: 0; color: #000000; font-family: 'Helvetica', 'Arial', sans-serif;">Scan QR Code to add on WeChat</h3>
+      <img src="WeChatQRcode.JPG" alt="WeChat QR Code">
+    </div>
+  </div>
+</body>
+</html>
+

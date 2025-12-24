@@ -1,0 +1,896 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
+  <title>Details durch 3D - Three Dimensions</title>
+  <meta name="description" content="Zeigen Sie die Details Ihres Produkts mit 3D-Exploded Views. Der Hero-Shot der Ihr Produkt verkauft - detaillierte Produktvisualisierung durch 3D-Animationen.">
+  <meta name="keywords" content="3D Exploded View, Produktdetails, 3D Animation, Hero-Shot, Produktvisualisierung, 3D-Darstellung">
+  <link rel="canonical" href="https://yourdomain.com/Details-durch-3D.html">
+  
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://yourdomain.com/Details-durch-3D.html">
+  <meta property="og:title" content="Details durch 3D - Three Dimensions">
+  <meta property="og:description" content="Der Hero-Shot der Ihr Produkt verkauft - detaillierte Produktvisualisierung durch 3D-Animationen.">
+  
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image">
+  <meta property="twitter:url" content="https://yourdomain.com/Details-durch-3D.html">
+  <meta property="twitter:title" content="Details durch 3D - Three Dimensions">
+  <meta property="twitter:description" content="Der Hero-Shot der Ihr Produkt verkauft - detaillierte Produktvisualisierung durch 3D-Animationen.">
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    @font-face {
+      font-family: 'Mandioca';
+      src: local('Mandioca'), url('Mandioca.woff2') format('woff2'), url('Mandioca.woff') format('woff');
+      font-weight: normal;
+      font-style: normal;
+    }
+
+    :root {
+      --blue-light: #FAFAFA;
+      --blue-dark: #0d2c57;
+      --header-bg: #0d2c57;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: transparent;
+      font-family: "Quicksand", "Helvetica", "Arial", sans-serif;
+      color: #ffffff;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      width: 100%;
+      background: var(--header-bg);
+      padding: calc(2rem - 14px) 2rem;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 1000;
+    }
+
+    .brand {
+      margin: 0;
+      font-size: 1.75rem;
+      font-weight: normal;
+      letter-spacing: 0.02em;
+    }
+
+    .brand a {
+      color: #ffffff;
+      text-decoration: none;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      align-items: center;
+    }
+
+    .services-dropdown {
+      position: relative;
+    }
+
+    .services-dropdown-button {
+      color: #ffffff;
+      text-decoration: none;
+      font-family: "Mandioca", "Helvetica", "Arial", sans-serif;
+      font-size: 1rem;
+      font-weight: 200;
+      letter-spacing: 0.02em;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 0;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .services-dropdown-button::after {
+      content: '▼';
+      font-size: 0.7rem;
+      transition: transform 0.3s ease;
+    }
+
+    .services-dropdown.active .services-dropdown-button::after {
+      transform: rotate(180deg);
+    }
+
+    .services-dropdown-menu {
+      position: absolute;
+      top: 100%;
+      right: 0;
+      margin-top: 1rem;
+      background-color: var(--blue-dark);
+      min-width: 200px;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(-10px);
+      transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s ease;
+      z-index: 1000;
+      border-radius: 0.5rem;
+      padding: 0.5rem 0;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    }
+
+    .services-dropdown.active .services-dropdown-menu {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+
+    .services-dropdown-menu a {
+      display: block;
+      padding: 0.75rem 1.5rem;
+      color: #ffffff;
+      text-decoration: none;
+      font-family: "Mandioca", "Helvetica", "Arial", sans-serif;
+      font-size: 1rem;
+      font-weight: 200;
+      letter-spacing: 0.02em;
+      transition: background-color 0.2s ease;
+    }
+
+    .services-dropdown-menu a:hover {
+      background-color: rgba(255, 255, 255, 0.1);
+    }
+
+    .nav-links a {
+      color: #ffffff;
+      text-decoration: none;
+      font-family: "Mandioca", "Helvetica", "Arial", sans-serif;
+      font-size: 1rem;
+      font-weight: 200;
+      letter-spacing: 0.02em;
+    }
+
+    .video-container {
+      width: 100%;
+      display: block;
+      position: relative;
+    }
+
+    .video-container video {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .hero-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: center;
+      padding-top: 4rem;
+      pointer-events: none;
+    }
+
+    .hero-title {
+      font-family: "Mandioca", "Helvetica", "Arial", sans-serif;
+      font-size: 6rem;
+      font-weight: normal;
+      color: #ffffff;
+      margin: 0;
+      opacity: 0;
+      transform: translateY(50px);
+      animation: fadeInUp 1.2s ease-out forwards;
+      text-align: center;
+    }
+
+    @keyframes fadeInUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .gradient-section {
+      width: 100%;
+      min-height: 100rem;
+      background: linear-gradient(to bottom, #000000, #30333a);
+      padding: 4rem 0 10rem 0;
+    }
+
+    .gradient-section.second {
+      min-height: 40rem;
+      padding: 2rem 0 5rem 0;
+    }
+
+    .content-section {
+      max-width: 1200px;
+      margin: 0 auto;
+      width: 100%;
+      padding: 0 2rem;
+    }
+
+    .text-section {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .text-section > * {
+      margin-top: 0;
+      padding-top: 0;
+    }
+
+    .section-title {
+      grid-column: 1 / -1;
+      margin: 4rem 0 0 0 !important;
+      font-family: "Mandioca", "Helvetica", "Arial", sans-serif;
+      font-size: 4rem;
+      font-weight: 400;
+      color: #ffffff;
+      text-align: center;
+      line-height: 1.3em;
+    }
+
+    .image-text-wrapper {
+      grid-column: 1 / -1;
+      display: flex;
+      align-items: flex-start;
+      gap: 3rem;
+      margin-top: 15rem;
+    }
+
+    .image-text-wrapper.right-aligned {
+      justify-content: flex-end;
+      margin-top: 12rem;
+    }
+
+    .image-text-wrapper.right-aligned .image-container img {
+      transform: translateX(1.5rem);
+    }
+
+    .image-text-wrapper.third-container {
+      margin-top: 12rem;
+    }
+
+    .image-text-wrapper.third-container .image-container img {
+      transform: translateY(1rem);
+      object-fit: contain;
+      object-position: center;
+    }
+
+    .image-container {
+      width: 45rem;
+      height: 25rem;
+      background-color: #050F1A;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      border-radius: 3.125rem;
+      flex-shrink: 0;
+    }
+
+    .image-container.second {
+      /* Add specific styling for the second image container here */
+    }
+
+    .image-container.third {
+      width: 37.5rem;
+      height: 39rem;
+    }
+
+    .image-container img {
+      width: 110%;
+      height: 110%;
+      object-fit: contain;
+    }
+
+    .image-container.third img {
+      width: 170%;
+      height: 170%;
+      object-fit: contain;
+      object-position: center;
+    }
+
+    .container-text {
+      display: flex;
+      flex-direction: column;
+      color: #ffffff;
+    }
+
+    .container-title {
+      font-family: "Mandioca", "Helvetica", "Arial", sans-serif;
+      font-size: 3.6rem;
+      font-weight: 400;
+      color: #ffffff;
+      margin: 0;
+      line-height: 1.3em;
+    }
+
+    .container-description {
+      font-family: "Helvetica", "Arial", sans-serif;
+      font-size: 1.5rem;
+      font-weight: 300;
+      color: #ffffff;
+      margin: 1rem 0 0 0;
+      line-height: 1.5em;
+    }
+
+    .gallery-container {
+      grid-column: 1 / -1;
+      margin-top: 8rem;
+      position: relative;
+      width: 57rem;
+      max-width: 100%;
+      margin-left: auto;
+      margin-right: auto;
+      overflow: hidden;
+      transform: scale(1.4);
+      transform-origin: center;
+    }
+
+    .gallery-wrapper {
+      display: flex;
+      gap: 0.5rem;
+      width: 100%;
+      transition: transform 0.5s ease;
+    }
+
+    .gallery-item {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      height: 22.5rem;
+      overflow: hidden;
+      transition: width 0.5s ease, opacity 0.5s ease, visibility 0.5s ease;
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .gallery-item img {
+      width: 40rem;
+      height: 22.5rem;
+      object-fit: contain;
+      display: block;
+    }
+
+    .gallery-nav-button {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 3rem;
+      height: 3rem;
+      border-radius: 50%;
+      background-color: #0d2c57;
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 10;
+      transition: opacity 0.3s ease;
+    }
+
+    .gallery-nav-button:hover {
+      opacity: 0.8;
+    }
+
+    .gallery-nav-button.hidden {
+      display: none;
+    }
+
+    .gallery-nav-button.prev {
+      left: 1rem;
+    }
+
+    .gallery-nav-button.next {
+      right: 1rem;
+    }
+
+    .gallery-nav-button svg {
+      width: 1.5rem;
+      height: 1.5rem;
+      fill: #ffffff;
+    }
+
+    /* Gallery states */
+    .gallery-container.state-0 .gallery-item:nth-child(1) {
+      width: 40rem;
+    }
+    .gallery-container.state-0 .gallery-item:nth-child(2) {
+      width: 16rem;
+    }
+    .gallery-container.state-0 .gallery-item:nth-child(3),
+    .gallery-container.state-0 .gallery-item:nth-child(4) {
+      width: 0;
+      opacity: 0;
+      visibility: hidden;
+      overflow: hidden;
+    }
+
+    .gallery-container.state-1 .gallery-item:nth-child(1) {
+      width: 8rem;
+    }
+    .gallery-container.state-1 .gallery-item:nth-child(2) {
+      width: 40rem;
+    }
+    .gallery-container.state-1 .gallery-item:nth-child(3) {
+      width: 8rem;
+    }
+    .gallery-container.state-1 .gallery-item:nth-child(4) {
+      width: 0;
+      opacity: 0;
+      visibility: hidden;
+      overflow: hidden;
+    }
+
+    .gallery-container.state-2 .gallery-item:nth-child(1) {
+      width: 0;
+      opacity: 0;
+      visibility: hidden;
+      overflow: hidden;
+    }
+    .gallery-container.state-2 .gallery-item:nth-child(2) {
+      width: 8rem;
+    }
+    .gallery-container.state-2 .gallery-item:nth-child(3) {
+      width: 40rem;
+    }
+    .gallery-container.state-2 .gallery-item:nth-child(4) {
+      width: 8rem;
+    }
+
+    .gallery-container.state-3 .gallery-item:nth-child(1),
+    .gallery-container.state-3 .gallery-item:nth-child(2) {
+      width: 0;
+      opacity: 0;
+      visibility: hidden;
+      overflow: hidden;
+    }
+    .gallery-container.state-3 .gallery-item:nth-child(3) {
+      width: 16rem;
+    }
+    .gallery-container.state-3 .gallery-item:nth-child(4) {
+      width: 40rem;
+    }
+
+    .ar-text {
+      grid-column: 1 / -1;
+      margin: 6rem 0 0 0 !important;
+      font-family: "Helvetica", "Arial", sans-serif;
+      font-size: 2.3rem;
+      font-weight: 220;
+      color: #ffffff;
+      text-align: center;
+      line-height: 1.3em;
+    }
+
+    .anfrage-button-container {
+      grid-column: 1 / -1;
+      margin: 3.5rem 0 0 0 !important;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+    }
+
+    .anfrage-button-container a.anfrage-button {
+      display: block !important;
+      width: 45% !important;
+      min-width: 200px;
+      max-width: 650px;
+      height: 6rem !important;
+      padding: 0 !important;
+      margin: 0 !important;
+      background-color: var(--blue-dark) !important;
+      color: #ffffff !important;
+      text-decoration: none !important;
+      border-radius: 1.5rem;
+      font-family: "Helvetica", "Arial", sans-serif;
+      font-size: 2.2rem;
+      font-weight: 400;
+      text-align: center;
+      line-height: 6rem !important;
+      transition: background-color 0.3s ease, transform 0.2s ease;
+      border: none;
+      cursor: pointer;
+      box-sizing: border-box;
+    }
+
+    .anfrage-button-container a.anfrage-button:hover {
+      background-color: #334868 !important;
+      transform: scale(1.02);
+    }
+
+    footer {
+      width: 100%;
+      min-height: 15rem;
+      background-color: var(--blue-dark);
+      padding: 4rem 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .footer-content {
+      max-width: 1200px;
+      width: 100%;
+      padding: 0 2rem;
+      position: relative;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .footer-text {
+      font-family: "Mandioca", "Helvetica", "Arial", sans-serif;
+      font-size: 1rem;
+      font-weight: 200;
+      letter-spacing: 0.02em;
+      color: #ffffff;
+      text-align: left;
+      line-height: 1.8em;
+      position: absolute;
+      left: -2rem;
+    }
+
+    .footer-text a {
+      color: #ffffff;
+      text-decoration: underline;
+      cursor: pointer;
+      transition: opacity 0.3s ease;
+    }
+
+    .footer-text a:hover {
+      opacity: 0.8;
+    }
+
+    .footer-links {
+      font-family: "Mandioca", "Helvetica", "Arial", sans-serif;
+      font-size: 1rem;
+      font-weight: 200;
+      letter-spacing: 0.02em;
+      color: #ffffff;
+      text-align: right;
+      line-height: 1.8em;
+      position: absolute;
+      right: -2rem;
+    }
+
+    .footer-links a {
+      color: #ffffff;
+      text-decoration: none;
+      cursor: pointer;
+      transition: opacity 0.3s ease;
+    }
+
+    .footer-links a:hover {
+      opacity: 0.8;
+    }
+
+    /* WeChat QR Code Modal */
+    .wechat-qr-modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.8);
+      z-index: 10000;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .wechat-qr-modal.active {
+      display: flex;
+    }
+
+    .wechat-qr-content {
+      background: #ffffff;
+      padding: 2rem;
+      border-radius: 1rem;
+      text-align: center;
+      max-width: 400px;
+      position: relative;
+    }
+
+    .wechat-qr-content img {
+      width: 100%;
+      max-width: 300px;
+      height: auto;
+      display: block;
+      margin: 0 auto;
+    }
+
+    .wechat-qr-close {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      background: none;
+      border: none;
+      font-size: 2rem;
+      color: #000000;
+      cursor: pointer;
+      line-height: 1;
+      padding: 0;
+      width: 2rem;
+      height: 2rem;
+    }
+
+    .wechat-qr-close:hover {
+      opacity: 0.7;
+    }
+
+  </style>
+</head>
+<body>
+  <header>
+    <h2 class="brand">
+      <a href="index.html">Three Dimensions</a>
+    </h2>
+    <nav class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="Three-Dimensions-Anfrageformular.html">Kontakt</a>
+      <a href="Ueber-Mich.html">Über Mich</a>
+      <div class="services-dropdown" id="servicesDropdown">
+        <button class="services-dropdown-button" onclick="toggleServicesDropdown(event)">Unsere Services</button>
+        <div class="services-dropdown-menu">
+          <a href="ar-produktvisualisierung.html">AR Produktvisualisierung</a>
+          <a href="Details-durch-3D.html">Details durch 3D</a>
+          <a href="3D-Renderings-fuer-Shops.html">3D Renderings für Shops</a>
+        </div>
+      </div>
+    </nav>
+  </header>
+  <div class="video-container">
+    <video id="explode-video" autoplay muted playsinline aria-label="Exploded View Video - 3D Produktdetails">
+      <source src="Explode Video0001-0120.mp4" type="video/mp4">
+    </video>
+    <div class="hero-overlay">
+      <h1 class="hero-title" id="hero-text">Der Hero-Shot der dein Produkt<br>verkauft.</h1>
+    </div>
+  </div>
+  <div class="gradient-section">
+    <div class="content-section">
+      <div class="text-section">
+        <h2 class="section-title">Welche Perspektive möchtest du<br> zuerst zeigen?</h2>
+        <div class="image-text-wrapper">
+          <div class="image-container">
+            <img src="Top plate transparent.png" alt="Top plate transparent view">
+          </div>
+          <div class="container-text">
+            <h3 class="container-title">Birds Eye</h3>
+            <p class="container-description">3D gibt dir die Freiheit, dein<br>Produkt aus jedem Winkel zu<br>zeigen - ohne Fotostudio, ohne<br>Kompromisse. Einmal modelliert,<br>unendlich oft inszeniert.</p>
+          </div>
+        </div>
+        <div class="image-text-wrapper right-aligned">
+          <div class="container-text">
+            <h3 class="container-title">3/4 Angle</h3>
+            <p class="container-description">Ob Draufsicht, Seitenansicht oder<br>extreme Nahaufnahme: Mit 3D<br>entscheidest du, was dein Kunde<br>sieht. Jede Perspektive, jederzeit<br>verfügbar.</p>
+          </div>
+          <div class="image-container second">
+            <img src="lüfter view transparent.png" alt="Lüfter view transparent">
+          </div>
+        </div>
+        <div class="image-text-wrapper third-container">
+          <div class="image-container third">
+            <img src="ExplodedView.png?v=2" alt="Exploded View - 3D-Animation zeigt Produktkomponenten im Detail">
+          </div>
+          <div class="container-text">
+            <h3 class="container-title">Exploded<br>View</h3>
+            <p class="container-description">Exploded Views zeigen, was sonst<br>verborgen bleibt - jede Komponente,<br>jedes Detail wird auf<br>einen Blick verständlich.<br><br>Technik als Verkaufsargument:<br>Dein Kunde sieht nicht nur das<br>Produkt sondern versteht, warum<br>es sein Geld wert ist. Perfekt für<br>Landingpages, Produktlaunches<br>und technische Dokumentationen.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="gradient-section second">
+    <div class="content-section">
+      <div class="text-section">
+        <h2 class="section-title" style="margin-top: 6rem !important;">Welche Perspektive du auch wählst,<br>wir setzen sie perfekt in Szene.</h2>
+        <div class="gallery-container state-0" id="gallery">
+          <div class="gallery-wrapper">
+            <div class="gallery-item">
+              <img src="Top plate schräg oben view.png" alt="Top plate schräg oben view">
+            </div>
+            <div class="gallery-item">
+              <img src="Heat distribution vor pfeilen.png" alt="Heat distribution vor pfeilen">
+            </div>
+            <div class="gallery-item">
+              <img src="Lüfter view lila boden.png" alt="Lüfter view lila boden">
+            </div>
+            <div class="gallery-item">
+              <img src="Exploded-View.png" alt="Exploded View">
+            </div>
+          </div>
+          <button class="gallery-nav-button prev" id="prevBtn">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/>
+            </svg>
+          </button>
+          <button class="gallery-nav-button next" id="nextBtn">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path d="M8.59 16.59L10 18l6-6-6-6-1.41 1.41L13.17 12z"/>
+            </svg>
+          </button>
+        </div>
+        <p class="ar-text">Zeige jetzt was dein Produkt kann.</p>
+        <div class="anfrage-button-container">
+          <a href="Three-Dimensions-Anfrageformular.html" class="anfrage-button">Jetzt Projekt umsetzen</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+    // Services dropdown functionality
+    function toggleServicesDropdown(event) {
+      event.stopPropagation();
+      const dropdown = document.getElementById('servicesDropdown');
+      dropdown.classList.toggle('active');
+    }
+
+    // Close dropdown when clicking outside
+    document.addEventListener('click', function(event) {
+      const dropdown = document.getElementById('servicesDropdown');
+      if (dropdown && !dropdown.contains(event.target)) {
+        dropdown.classList.remove('active');
+      }
+    });
+
+    // Fix cached image src (browser cache issue) - run immediately
+    (function() {
+      function fixImage() {
+        const explodedImg = document.querySelector('.image-container.third img');
+        if (explodedImg) {
+          if (explodedImg.src.includes('ExplodetView') || explodedImg.getAttribute('src') === 'ExplodetView.png') {
+            explodedImg.src = 'ExplodedView.png?v=' + Date.now();
+          }
+        } else {
+          // If image not found yet, try again after a short delay
+          setTimeout(fixImage, 100);
+        }
+      }
+      // Try immediately and also on DOMContentLoaded
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', fixImage);
+      } else {
+        fixImage();
+      }
+      // Also try after a delay to catch any late-loading issues
+      setTimeout(fixImage, 500);
+    })();
+
+    const video = document.getElementById('explode-video');
+    const heroText = document.getElementById('hero-text');
+    
+    // Initially hide the text
+    heroText.style.animation = 'none';
+    heroText.style.opacity = '0';
+    heroText.style.transform = 'translateY(50px)';
+    
+    video.addEventListener('timeupdate', function() {
+      if (video.currentTime >= 2.5 && heroText.style.opacity === '0') {
+        // Show text at 2.5 seconds
+        heroText.style.animation = 'fadeInUp 1.2s ease-out forwards';
+      }
+    });
+
+    // Gallery functionality
+    const gallery = document.getElementById('gallery');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    let currentState = 0;
+    const totalImages = 4;
+
+    function updateGallery() {
+      gallery.className = 'gallery-container state-' + currentState;
+      
+      // Hide/show navigation buttons
+      if (currentState === 0) {
+        prevBtn.classList.add('hidden');
+      } else {
+        prevBtn.classList.remove('hidden');
+      }
+      
+      if (currentState === totalImages - 1) {
+        nextBtn.classList.add('hidden');
+      } else {
+        nextBtn.classList.remove('hidden');
+      }
+    }
+
+    prevBtn.addEventListener('click', function() {
+      if (currentState > 0) {
+        currentState--;
+        updateGallery();
+      }
+    });
+
+    nextBtn.addEventListener('click', function() {
+      if (currentState < totalImages - 1) {
+        currentState++;
+        updateGallery();
+      }
+    });
+
+    // Initialize gallery
+    updateGallery();
+
+    // WeChat QR Code Modal
+    function handleWeChatClick(event) {
+      event.preventDefault();
+      const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+      
+      if (isMobile) {
+        // On mobile, open WeChat directly
+        window.location.href = 'weixin://contacts/profile/wxid_weq6wfvqn6ya12';
+      } else {
+        // On desktop, show QR code
+        const modal = document.getElementById('wechat-qr-modal');
+        if (modal) {
+          modal.classList.add('active');
+        }
+      }
+    }
+
+    // Close modal
+    function closeWeChatModal() {
+      const modal = document.getElementById('wechat-qr-modal');
+      if (modal) {
+        modal.classList.remove('active');
+      }
+    }
+
+    // Close modal when clicking outside
+    document.addEventListener('DOMContentLoaded', function() {
+      const modal = document.getElementById('wechat-qr-modal');
+      if (modal) {
+        modal.addEventListener('click', function(e) {
+          if (e.target === modal) {
+            closeWeChatModal();
+          }
+        });
+      }
+    });
+  </script>
+  <footer>
+    <div class="footer-content">
+      <p class="footer-text">
+        Finde mich auf <a href="https://www.instagram.com/threedimensions.de?igsh=dG5ubXJoNWJjYWR1&utm_source=qr" id="instagram-link" target="_blank" rel="noopener noreferrer">Instagram</a>,<br>
+        <a href="#" id="wechat-link" onclick="handleWeChatClick(event)">WeChat</a> und <a href="https://www.linkedin.com/in/milo-boettger-threed?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app" id="linkedin-link" target="_blank" rel="noopener noreferrer">LinkedIn</a>.<br>
+        kontakt@three-dimensions.de
+      </p>
+      <p class="footer-links">
+        <a href="Three-Dimensions-Anfrageformular.html">Kontakt</a> - <a href="Impressum.html">Impressum</a> - <a href="Datenschutz.html">Datenschutz</a><br>Three Dimensions<br>Milo Boettger
+      </p>
+    </div>
+  </footer>
+  <!-- WeChat QR Code Modal -->
+  <div id="wechat-qr-modal" class="wechat-qr-modal">
+    <div class="wechat-qr-content">
+      <button class="wechat-qr-close" onclick="closeWeChatModal()">&times;</button>
+      <h3 style="margin-top: 0; color: #000000; font-family: 'Helvetica', 'Arial', sans-serif;">Scan QR Code to add on WeChat</h3>
+      <img src="WeChatQRcode.JPG" alt="WeChat QR Code">
+    </div>
+  </div>
+</body>
+</html>
+

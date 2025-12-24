@@ -1,0 +1,889 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Three Dimensions - 3D-Modelle, Animationen & AR-Erlebnisse</title>
+  <meta name="description" content="Hochwertige 3D-Modelle, Animationen und AR-Erlebnisse für Ihr Produkt. Realistische Darstellung, weniger Retouren und höhere Conversion-Rate durch 3D und Augmented Reality.">
+  <meta name="keywords" content="3D-Modelle, 3D Animation, Augmented Reality, AR, Produktvisualisierung, 3D Rendering">
+  <link rel="canonical" href="https://three-dimensions.de/">
+  
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://three-dimensions.de/">
+  <meta property="og:image" content="https://three-dimensions.de/Machine-auf-tisch-weiter-rechts.png">
+  <meta property="og:title" content="Three Dimensions - 3D-Modelle, Animationen & AR-Erlebnisse">
+  <meta property="og:description" content="Hochwertige 3D-Modelle, Animationen und AR-Erlebnisse für Ihr Produkt.">
+  
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image">
+  <meta property="twitter:url" content="https://three-dimensions.de/">
+  <meta property="twitter:image" content="https://three-dimensions.de/Machine-auf-tisch-weiter-rechts.png">
+  <meta property="twitter:title" content="Three Dimensions - 3D-Modelle, Animationen & AR-Erlebnisse">
+  <meta property="twitter:description" content="Hochwertige 3D-Modelle, Animationen und AR-Erlebnisse für Ihr Produkt.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    @font-face {
+      font-family: 'Mandioca';
+      src: local('Mandioca'), url('Mandioca.woff2') format('woff2'), url('Mandioca.woff') format('woff');
+      font-weight: normal;
+      font-style: normal;
+    }
+
+    :root {
+      --blue-light: #FAFAFA;
+      --blue-dark: #0d2c57;
+      --header-bg: #0d2c57;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: transparent;
+      font-family: "Quicksand", "Helvetica", "Arial", sans-serif;
+      color: #ffffff;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      width: 100%;
+      background: var(--header-bg);
+      padding: calc(2rem - 14px) 2rem;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 1000;
+    }
+
+    .brand {
+      margin: 0;
+      font-size: 1.75rem;
+      font-weight: normal;
+      letter-spacing: 0.02em;
+    }
+
+    .brand a {
+      color: #ffffff;
+      text-decoration: none;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      align-items: center;
+    }
+
+    .services-dropdown {
+      position: relative;
+    }
+
+    .services-dropdown-button {
+      color: #ffffff;
+      text-decoration: none;
+      font-family: "Mandioca", "Helvetica", "Arial", sans-serif;
+      font-size: 1rem;
+      font-weight: 200;
+      letter-spacing: 0.02em;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 0;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .services-dropdown-button::after {
+      content: '▼';
+      font-size: 0.7rem;
+      transition: transform 0.3s ease;
+    }
+
+    .services-dropdown.active .services-dropdown-button::after {
+      transform: rotate(180deg);
+    }
+
+    .services-dropdown-menu {
+      position: absolute;
+      top: 100%;
+      right: 0;
+      margin-top: 1rem;
+      background-color: var(--blue-dark);
+      min-width: 200px;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(-10px);
+      transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s ease;
+      z-index: 1000;
+      border-radius: 0.5rem;
+      padding: 0.5rem 0;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    }
+
+    .services-dropdown.active .services-dropdown-menu {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+
+    .services-dropdown-menu a {
+      display: block;
+      padding: 0.75rem 1.5rem;
+      color: #ffffff;
+      text-decoration: none;
+      font-family: "Mandioca", "Helvetica", "Arial", sans-serif;
+      font-size: 1rem;
+      font-weight: 200;
+      letter-spacing: 0.02em;
+      transition: background-color 0.2s ease;
+    }
+
+    .services-dropdown-menu a:hover {
+      background-color: rgba(255, 255, 255, 0.1);
+    }
+
+    .nav-links a {
+      color: #ffffff;
+      text-decoration: none;
+      font-family: "Mandioca", "Helvetica", "Arial", sans-serif;
+      font-size: 1rem;
+      font-weight: 200;
+      letter-spacing: 0.02em;
+    }
+
+    .video-container {
+      width: 100%;
+      display: block;
+      position: relative;
+    }
+
+    .video-container video {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .hero-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: center;
+      padding-top: 10%;
+      pointer-events: none;
+    }
+
+    .hero-title {
+      font-family: "Quicksand", "Helvetica", "Arial", sans-serif;
+      font-size: 6rem;
+      font-weight: normal;
+      color: #ffffff;
+      margin: 0;
+      opacity: 0;
+      transform: translateY(50px);
+      animation: fadeInUp 1s ease-out forwards;
+    }
+
+    .hero-subtitle {
+      font-family: "Mandioca", "Helvetica", "Arial", sans-serif;
+      font-size: 2.5rem;
+      font-weight: 300;
+      color: #ffffff;
+      opacity: 0;
+      transform: translateY(50px);
+      animation: fadeInUp 1s ease-out 0.2s forwards;
+    }
+
+    @keyframes fadeInUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .gradient-section {
+      width: 100%;
+      min-height: 160vh;
+      background: linear-gradient(to bottom, var(--blue-dark), var(--blue-light));
+      padding: 6rem 0rem 0rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .white-gradient-section {
+      width: 100%;
+      min-height: 280vh; /* 175% of 200vh (first gradient height) */
+      background: linear-gradient(to bottom, #FFFFFF, #FAFAFA);
+    }
+
+    .cta-text {
+      grid-column: 1 / -1;
+      margin: 0 !important;
+      font-family: "Helvetica", "Arial", sans-serif;
+      font-size: 4rem;
+      font-weight: 400;
+      color: #000000;
+      text-align: center;
+      line-height: 1.3em;
+    }
+
+    .description-text-2 {
+      grid-column: 1 / -1;
+      margin: 2rem 0 0 0 !important;
+      font-family: "Helvetica", "Arial", sans-serif;
+      font-size: 1.5rem;
+      font-weight: 300;
+      color: #000000;
+      text-align: center;
+      line-height: 1.3em;
+    }
+
+    .ar-text {
+      grid-column: 1 / -1;
+      margin: 12rem 0 0 0 !important;
+      font-family: "Helvetica", "Arial", sans-serif;
+      font-size: 2.3rem;
+      font-weight: 220;
+      color: #000000;
+      text-align: left;
+      line-height: 1.3em;
+    }
+
+    .ar-description {
+      grid-column: 1 / -1;
+      margin: 1rem 0 0 0 !important;
+      font-family: "Helvetica", "Arial", sans-serif;
+      font-size: 1.5rem;
+      font-weight: 300;
+      color: #000000;
+      text-align: left;
+      line-height: 1.3em;
+    }
+
+    .ar-container {
+      grid-column: 1 / -1;
+      margin: 2rem 0 0 0 !important;
+      width: 64rem;
+      height: 32rem;
+      border-radius: 3.125rem;
+      background-color: rgba(227, 231, 255, 0.24);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .ar-container img {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+      transform: translate(0, 0); /* MOVE IMAGE: Adjust first value (X) for left/right, second value (Y) for up/down. Negative values move left/up, positive move right/down. Example: translate(-20px, -30px) moves image 20px left and 30px up */
+    }
+
+    .ar-container-button {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 64rem;
+      height: 32rem;
+      border-radius: 3.125rem;
+      background-color: transparent;
+      border: none;
+      cursor: pointer;
+      z-index: 10;
+      padding: 0;
+    }
+
+    .ar-container-button:hover {
+      background-color: rgba(13, 44, 87, 0.2);
+    }
+
+    .ar-container-2 {
+      width: 36rem;
+      height: 32rem;
+      border-radius: 3.125rem;
+      background-color: rgba(227, 231, 255, 0.24);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+      position: relative;
+      flex-shrink: 0;
+    }
+
+    .ar-container-2 img {
+      max-width: 150%;
+      max-height: 150%;
+      object-fit: cover;
+      transform: translate(-9.5rem, 1.5rem); /* MOVE IMAGE: Adjust first value (X) for left/right, second value (Y) for up/down. Negative values move left/up, positive move right/down. Example: translate(-20px, -30px) moves image 20px left and 30px up */
+    }
+
+    .ar-container-2-button {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 36rem;
+      height: 32rem;
+      border-radius: 3.125rem;
+      background-color: transparent;
+      border: none;
+      cursor: pointer;
+      z-index: 10;
+      padding: 0;
+    }
+
+    .ar-container-2-button:hover {
+      background-color: rgba(13, 44, 87, 0.2);
+    }
+
+    .ar-container-2-wrapper {
+      grid-column: 1 / -1;
+      margin: 12rem 0 0 0 !important;
+      display: flex;
+      align-items: flex-start;
+      gap: 3rem;
+    }
+
+    .ar-container-2-text-wrapper {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .ar-container-2-text {
+      font-family: "Helvetica", "Arial", sans-serif;
+      font-size: 2.3rem;
+      font-weight: 220;
+      color: #000000;
+      line-height: 1.3em;
+      margin: 0;
+      white-space: nowrap;
+    }
+
+    .ar-container-2-description {
+      margin: 1rem 0 0 0;
+      font-family: "Helvetica", "Arial", sans-serif;
+      font-size: 1.5rem;
+      font-weight: 300;
+      color: #000000;
+      text-align: left;
+      line-height: 1.3em;
+    }
+
+    .ar-container-3-wrapper {
+      grid-column: 1 / -1;
+      margin: 9rem 0 0 0 !important;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 3rem;
+    }
+
+    .ar-container-3-text-wrapper {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .ar-container-3-text {
+      font-family: "Helvetica", "Arial", sans-serif;
+      font-size: 2.3rem;
+      font-weight: 220;
+      color: #000000;
+      line-height: 1.3em;
+      margin: 0;
+    }
+
+    .ar-container-3-description {
+      margin: 1rem 0 0 0;
+      font-family: "Helvetica", "Arial", sans-serif;
+      font-size: 1.5rem;
+      font-weight: 300;
+      color: #000000;
+      text-align: left;
+      line-height: 1.3em;
+    }
+
+    .ar-container-3 {
+      width: 32rem;
+      height: 32rem;
+      border-radius: 3.125rem;
+      background-color: rgba(227, 231, 255, 0.24);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+      position: relative;
+      flex-shrink: 0;
+    }
+
+    .ar-container-3 img {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: cover;
+      transform: translate(4rem, -3.5rem); /* MOVE IMAGE: Adjust first value (X) for left/right, second value (Y) for up/down. Negative values move left/up, positive move right/down. Example: translate(-20px, -30px) moves image 20px left and 30px up */
+    }
+
+    .ar-container-3-button {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 32rem;
+      height: 32rem;
+      border-radius: 3.125rem;
+      background-color: transparent;
+      border: none;
+      cursor: pointer;
+      z-index: 10;
+      padding: 0;
+    }
+
+    .ar-container-3-button:hover {
+      background-color: rgba(13, 44, 87, 0.2);
+    }
+
+    .content-section {
+      max-width: 1200px;
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    .main-headline {
+      top: 70%;
+      font-family: "Helvetica", "Arial", sans-serif;
+      font-size: 4rem;
+      font-weight: 400;
+      color: #ffffff;
+      text-align: center;
+      margin: 0 0 2rem 0;
+      line-height: 1.3em;
+    }
+
+    .description-text {
+      position: absolute;
+      top: 50%;
+      left: 2rem;
+      right: 2rem;
+      transform: translateY(-65%);
+      padding: 0 2rem;
+      font-family: "Mandioca", "Helvetica", "Arial", sans-serif;
+      font-size: 1.5rem;
+      font-weight: 300;
+      color: #ffffff;
+      line-height: 1.3em; /* CHANGE TEXT HEIGHT/SPACING: Increase (e.g., '2.0') for more line spacing, decrease for less */
+      margin: 0;
+      z-index: 10;
+    }
+
+    .image-container {
+      position: relative;
+      max-width: 100%; /* CHANGE IMAGE CONTAINER WIDTH: Adjust this to make the image area wider or narrower */
+      width: 100%;
+    }
+
+    .content-image {
+      width: 100%;
+      height: auto; /* CHANGE IMAGE HEIGHT: Replace 'auto' with a specific value like '500px' or '60vh' to set image height */
+      display: block;
+    }
+
+    .text-section {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      margin-top: 9rem;
+    }
+
+    .text-section > * {
+      margin-top: 0;
+      padding-top: 0;
+    }
+
+    .bullet-points {
+      font-family: "Mandioca", "Helvetica", "Arial", sans-serif;
+      font-size: 1.5rem;
+      font-weight: 300;
+      color: #000000;
+      line-height: 1.3em;
+      margin: 0;
+      padding: 0;
+    }
+
+    .bullet-points li {
+      margin-bottom: 1.5rem;
+      list-style: none;
+      padding-left: 1.5rem;
+      position: relative;
+    }
+
+    .bullet-points li::before {
+      content: "•";
+      position: absolute;
+      left: 0;
+      font-size: 1.5rem;
+      color: #000000;
+    }
+
+    .section-title {
+      font-family: "Helvetica", "Arial", sans-serif;
+      font-size: 4rem;
+      font-weight: 400;
+      color: #000000;
+      text-align: left;
+      margin: 0;
+      line-height: 1.3em;/* Oben ausrichten in Grid-Zelle */
+    }
+
+    @media (max-width: 768px) {
+      .description-text {
+        position: static;
+        transform: none;
+        width: 100%;
+        margin-top: 1rem;
+      }
+
+      .text-section {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+      }
+
+      .section-title {
+        text-align: left;
+      }
+    }
+
+    footer {
+      width: 100%;
+      min-height: 15rem;
+      background-color: var(--blue-dark);
+      padding: 4rem 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .footer-content {
+      max-width: 1200px;
+      width: 100%;
+      padding: 0 2rem;
+      position: relative;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .footer-text {
+      font-family: "Mandioca", "Helvetica", "Arial", sans-serif;
+      font-size: 1rem;
+      font-weight: 200;
+      letter-spacing: 0.02em;
+      color: #ffffff;
+      text-align: left;
+      line-height: 1.8em;
+      position: absolute;
+      left: -2rem;
+    }
+
+    .footer-text a {
+      color: #ffffff;
+      text-decoration: underline;
+      cursor: pointer;
+      transition: opacity 0.3s ease;
+    }
+
+    .footer-text a:hover {
+      opacity: 0.8;
+    }
+
+    .footer-links {
+      font-family: "Mandioca", "Helvetica", "Arial", sans-serif;
+      font-size: 1rem;
+      font-weight: 200;
+      letter-spacing: 0.02em;
+      color: #ffffff;
+      text-align: right;
+      line-height: 1.8em;
+      position: absolute;
+      right: -2rem;
+    }
+
+    .footer-links a {
+      color: #ffffff;
+      text-decoration: none;
+      cursor: pointer;
+      transition: opacity 0.3s ease;
+    }
+
+    .footer-links a:hover {
+      opacity: 0.8;
+    }
+
+    /* WeChat QR Code Modal */
+    .wechat-qr-modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.8);
+      z-index: 10000;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .wechat-qr-modal.active {
+      display: flex;
+    }
+
+    .wechat-qr-content {
+      background: #ffffff;
+      padding: 2rem;
+      border-radius: 1rem;
+      text-align: center;
+      max-width: 400px;
+      position: relative;
+    }
+
+    .wechat-qr-content img {
+      width: 100%;
+      max-width: 300px;
+      height: auto;
+      display: block;
+      margin: 0 auto;
+    }
+
+    .wechat-qr-close {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      background: none;
+      border: none;
+      font-size: 2rem;
+      color: #000000;
+      cursor: pointer;
+      line-height: 1;
+      padding: 0;
+      width: 2rem;
+      height: 2rem;
+    }
+
+    .wechat-qr-close:hover {
+      opacity: 0.7;
+    }
+
+  </style>
+</head>
+<body>
+  <header>
+    <h2 class="brand">
+      <a href="index.html">Three Dimensions</a>
+    </h2>
+    <nav class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="Three-Dimensions-Anfrageformular.html">Kontakt</a>
+      <a href="Ueber-Mich.html">Über Mich</a>
+      <div class="services-dropdown" id="servicesDropdown">
+        <button class="services-dropdown-button" onclick="toggleServicesDropdown(event)">Unsere Services</button>
+        <div class="services-dropdown-menu">
+          <a href="ar-produktvisualisierung.html">AR Produktvisualisierung</a>
+          <a href="Details-durch-3D.html">Details durch 3D</a>
+          <a href="3D-Renderings-fuer-Shops.html">3D Renderings für Shops</a>
+        </div>
+      </div>
+    </nav>
+  </header>
+  <div class="video-container">
+    <video autoplay muted playsinline preload="metadata" aria-label="Three Dimensions Hero Video">
+      <source src="Landing page extend 265.mp4" type="video/mp4">
+    </video>
+    <div class="hero-overlay">
+      <h1 class="hero-title">Three Dimensions</h1>
+      <p class="hero-subtitle">Modeling, Animation und AR</p>
+    </div>
+  </div>
+  <div class="gradient-section">
+    <div class="content-section">
+      <h2 class="main-headline">Hochwertige 3D-Modelle, Animationen<br> & AR-Erlebnisse.</h2>
+      <div class="image-container">
+        <picture>
+          <source srcset="Machine-auf-tisch-weiter-rechts.webp" type="image/webp">
+          <img src="Machine-auf-tisch-weiter-rechts.png" alt="3D-Modell einer Kaffeemaschine auf einem Tisch - Beispiel für realistische Produktvisualisierung" class="content-image" loading="lazy">
+        </picture>
+        <p class="description-text">
+          Wir machen 3D und AR zugänglich für alle.<br>
+          Wir erstellen einen digitalen Zwilling deines Produkts,<br>
+          ganz ohne CAD Dateien oder 3D Modelle.<br>
+          Mit Three-Dimensions möchten wir detailreiche<br>
+          Produktanimationen und immersive AR-Lösungen<br>
+          zugänglicher für Shops aller Größen machen.<br>
+          The Future is now.
+
+        </p>
+      </div>
+      <div class="text-section">
+        <h2 class="section-title">Warum Alle auf 3D setzen?</h2>
+        <ul class="bullet-points">
+          <li>Realistische Darstellung: Deine Kunden sehen Größe, Material und Details wie im echten Leben.</li>
+          <li>Weniger Retouren: AR verhindert Fehlkäufe, weil Produkte vor dem Kauf virtuell ausprobiert werden können.</li>
+          <li>Höhere Conversion-Rate: 3D und AR steigern die Kaufbereitschaft deutlich.</li>
+          <li>Klare Differenzierung: Viele Shops nutzen noch klassische Fotos – 3D verschafft dir einen Vorsprung.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="white-gradient-section">
+    <div class="content-section">
+      <div class="text-section">
+        <p class="cta-text">Überzeuge dich selbst.</p>
+        <p class="description-text-2">Auf unseren 3 Beispielseiten zeigen wir dir wie AR,<br> Exploded Views und 3D Renderings jedes Produkt perfekt in Szene setzen.</p>
+        <p class="ar-text">AR erweckt dein Produkt<br>zum Leben.</p>
+        <p class="ar-description">Sieh dir an wie Augmented<br>Reality Kunden hilft sich für<br>dein Produkt zu entscheiden.</p>
+        <div class="ar-container">
+          <picture>
+            <source srcset="Tisch bild wix schräg.webp" type="image/webp">
+            <img src="Tisch bild wix schräg.png" alt="Augmented Reality Beispiel - Tisch in realer Umgebung visualisiert" loading="lazy">
+          </picture>
+          <button class="ar-container-button" onclick="window.location.href='ar-produktvisualisierung.html'" aria-label="AR Produktvisualisierung ansehen"></button>
+        </div>
+        <div class="ar-container-2-wrapper">
+          <div class="ar-container-2">
+            <picture>
+              <source srcset="ExplodedView.webp" type="image/webp">
+              <img src="ExplodedView.png?v=2" alt="Exploded View - 3D-Animation zeigt Produktkomponenten im Detail" loading="lazy">
+            </picture>
+            <button class="ar-container-2-button" onclick="window.location.href='Details-durch-3D.html'" aria-label="Details durch 3D ansehen"></button>
+          </div>
+          <div class="ar-container-2-text-wrapper">
+            <p class="ar-container-2-text">Zeig was in deinem<br>Produkt steckt.</p>
+            <p class="ar-container-2-description">Mithilfe von 3D-animationen<br>zeigen wir deinen Kunden die Features<br>die sonst versteckt bleiben.</p>
+          </div>
+        </div>
+        <div class="ar-container-3-wrapper">
+          <div class="ar-container-3-text-wrapper">
+            <p class="ar-container-3-text">Der Klassiker, ein Musthave</p>
+            <p class="ar-container-3-description">Heute aus keinem mordernen Shop mehr wegzudenken.<br>
+              Denn gerade modern- simple 3D Renderings,<br>
+              zeigen dein Produkt genau so, wie es gesehen werden soll.<br>
+              Einmal modelliert bedeutet, Produkt-Shots wie und wann<br>immer du willst. Ganz ohne Fotografen.</p>
+          </div>
+          <div class="ar-container-3">
+            <picture>
+              <source srcset="Lippenstift No1.webp" type="image/webp">
+              <img src="Lippenstift No1.png" alt="3D Rendering eines Lippenstifts - Beispiel für moderne Produktvisualisierung" loading="lazy">
+            </picture>
+            <button class="ar-container-3-button" onclick="window.location.href='3D-Renderings-fuer-Shops.html'" aria-label="3D Renderings für Shops ansehen"></button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+    // Services dropdown functionality
+    function toggleServicesDropdown(event) {
+      event.stopPropagation();
+      const dropdown = document.getElementById('servicesDropdown');
+      dropdown.classList.toggle('active');
+    }
+
+    // Close dropdown when clicking outside
+    document.addEventListener('click', function(event) {
+      const dropdown = document.getElementById('servicesDropdown');
+      if (dropdown && !dropdown.contains(event.target)) {
+        dropdown.classList.remove('active');
+      }
+    });
+
+    // Fix cached image src (browser cache issue) - run immediately
+    (function() {
+      function fixImage() {
+        const explodedImg = document.querySelector('.ar-container-2 img');
+        if (explodedImg) {
+          if (explodedImg.src.includes('ExplodetView') || explodedImg.getAttribute('src') === 'ExplodetView.png') {
+            explodedImg.src = 'ExplodedView.png?v=' + Date.now();
+          }
+        } else {
+          // If image not found yet, try again after a short delay
+          setTimeout(fixImage, 100);
+        }
+      }
+      // Try immediately and also on DOMContentLoaded
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', fixImage);
+      } else {
+        fixImage();
+      }
+      // Also try after a delay to catch any late-loading issues
+      setTimeout(fixImage, 500);
+    })();
+
+    // WeChat QR Code Modal
+    function handleWeChatClick(event) {
+      event.preventDefault();
+      const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+      
+      if (isMobile) {
+        // On mobile, open WeChat directly
+        window.location.href = 'weixin://contacts/profile/wxid_weq6wfvqn6ya12';
+      } else {
+        // On desktop, show QR code
+        const modal = document.getElementById('wechat-qr-modal');
+        if (modal) {
+          modal.classList.add('active');
+        }
+      }
+    }
+
+    // Close modal
+    function closeWeChatModal() {
+      const modal = document.getElementById('wechat-qr-modal');
+      if (modal) {
+        modal.classList.remove('active');
+      }
+    }
+
+    // Close modal when clicking outside
+    document.addEventListener('DOMContentLoaded', function() {
+      const modal = document.getElementById('wechat-qr-modal');
+      if (modal) {
+        modal.addEventListener('click', function(e) {
+          if (e.target === modal) {
+            closeWeChatModal();
+          }
+        });
+      }
+    });
+  </script>
+  <footer>
+    <div class="footer-content">
+      <p class="footer-text">
+        Finde mich auf <a href="https://www.instagram.com/threedimensions.de?igsh=dG5ubXJoNWJjYWR1&utm_source=qr" id="instagram-link" target="_blank" rel="noopener noreferrer">Instagram</a>,<br>
+        <a href="#" id="wechat-link" onclick="handleWeChatClick(event)">WeChat</a> und <a href="https://www.linkedin.com/in/milo-boettger-threed?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app" id="linkedin-link" target="_blank" rel="noopener noreferrer">LinkedIn</a>.<br>
+        kontakt@three-dimensions.de
+      </p>
+      <p class="footer-links">
+        <a href="Three-Dimensions-Anfrageformular.html">Kontakt</a> - <a href="Impressum.html">Impressum</a> - <a href="Datenschutz.html">Datenschutz</a><br>Three Dimensions<br>Milo Boettger
+      </p>
+    </div>
+  </footer>
+  <!-- WeChat QR Code Modal -->
+  <div id="wechat-qr-modal" class="wechat-qr-modal">
+    <div class="wechat-qr-content">
+      <button class="wechat-qr-close" onclick="closeWeChatModal()">&times;</button>
+      <h3 style="margin-top: 0; color: #000000; font-family: 'Helvetica', 'Arial', sans-serif;">Scan QR Code to add on WeChat</h3>
+      <img src="WeChatQRcode.JPG" alt="WeChat QR Code">
+    </div>
+  </div>
+</body>
+</html>

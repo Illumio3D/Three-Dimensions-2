@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Datenschutz - Three Dimensions</title>
+  <meta name="description" content="Datenschutzerklärung von Three Dimensions. Informationen zur Datenverarbeitung und Ihren Rechten gemäß DSGVO.">
+  <meta name="robots" content="noindex, follow">
+  <link rel="canonical" href="https://three-dimensions.de/Datenschutz.html">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    @font-face {
+      font-family: 'Mandioca';
+      src: local('Mandioca'), url('Mandioca.woff2') format('woff2'), url('Mandioca.woff') format('woff');
+      font-weight: normal;
+      font-style: normal;
+    }
+
+    :root {
+      --blue-light: #FAFAFA;
+      --blue-dark: #0d2c57;
+      --header-bg: #0d2c57;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: transparent;
+      font-family: "Quicksand", "Helvetica", "Arial", sans-serif;
+      color: #ffffff;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      width: 100%;
+      background: var(--header-bg);
+      padding: calc(2rem - 14px) 2rem;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 1000;
+    }
+
+    .brand {
+      margin: 0;
+      font-size: 1.75rem;
+      font-weight: normal;
+      letter-spacing: 0.02em;
+    }
+
+    .brand a {
+      color: #ffffff;
+      text-decoration: none;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      align-items: center;
+    }
+
+    .services-dropdown {
+      position: relative;
+    }
+
+    .services-dropdown-button {
+      color: #ffffff;
+      text-decoration: none;
+      font-family: "Mandioca", "Helvetica", "Arial", sans-serif;
+      font-size: 1rem;
+      font-weight: 200;
+      letter-spacing: 0.02em;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 0;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .services-dropdown-button::after {
+      content: '▼';
+      font-size: 0.7rem;
+      transition: transform 0.3s ease;
+    }
+
+    .services-dropdown.active .services-dropdown-button::after {
+      transform: rotate(180deg);
+    }
+
+    .services-dropdown-menu {
+      position: absolute;
+      top: 100%;
+      right: 0;
+      margin-top: 1rem;
+      background-color: var(--blue-dark);
+      min-width: 200px;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(-10px);
+      transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s ease;
+      z-index: 1000;
+      border-radius: 0.5rem;
+      padding: 0.5rem 0;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    }
+
+    .services-dropdown.active .services-dropdown-menu {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+
+    .services-dropdown-menu a {
+      display: block;
+      padding: 0.75rem 1.5rem;
+      color: #ffffff;
+      text-decoration: none;
+      font-family: "Mandioca", "Helvetica", "Arial", sans-serif;
+      font-size: 1rem;
+      font-weight: 200;
+      letter-spacing: 0.02em;
+      transition: background-color 0.2s ease;
+    }
+
+    .services-dropdown-menu a:hover {
+      background-color: rgba(255, 255, 255, 0.1);
+    }
+
+    .nav-links a {
+      color: #ffffff;
+      text-decoration: none;
+      font-family: "Mandioca", "Helvetica", "Arial", sans-serif;
+      font-size: 1rem;
+      font-weight: 200;
+      letter-spacing: 0.02em;
+    }
+
+    .gradient-section {
+      width: 100%;
+      min-height: 100vh;
+      background: linear-gradient(to bottom, #FAFAFA, #FFFFFF);
+    }
+
+    .content-section {
+      max-width: 1080px;
+      margin: 0 auto;
+      width: 100%;
+      padding-top: 10rem;
+      padding-left: 2rem;
+      padding-right: 2rem;
+      padding-bottom: 4rem;
+    }
+
+    .datenschutz-content {
+      color: var(--blue-dark);
+      font-family: "Helvetica", "Arial", sans-serif;
+      font-size: 1.2rem;
+      line-height: 1.8em;
+    }
+
+    .datenschutz-content h1 {
+      font-family: "Mandioca", "Helvetica", "Arial", sans-serif;
+      font-size: 3rem;
+      margin-bottom: 2rem;
+    }
+
+    .datenschutz-content h2 {
+      font-family: "Mandioca", "Helvetica", "Arial", sans-serif;
+      font-size: 2rem;
+      margin-top: 2rem;
+      margin-bottom: 1rem;
+    }
+
+    footer {
+      width: 100%;
+      min-height: 15rem;
+      background-color: var(--blue-dark);
+      padding: 4rem 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .footer-content {
+      max-width: 1200px;
+      width: 100%;
+      padding: 0 2rem;
+      position: relative;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .footer-text {
+      font-family: "Mandioca", "Helvetica", "Arial", sans-serif;
+      font-size: 1rem;
+      font-weight: 200;
+      letter-spacing: 0.02em;
+      color: #ffffff;
+      text-align: left;
+      line-height: 1.8em;
+      position: absolute;
+      left: -2rem;
+    }
+
+    .footer-text a {
+      color: #ffffff;
+      text-decoration: underline;
+      cursor: pointer;
+      transition: opacity 0.3s ease;
+    }
+
+    .footer-text a:hover {
+      opacity: 0.8;
+    }
+
+    .footer-links {
+      font-family: "Mandioca", "Helvetica", "Arial", sans-serif;
+      font-size: 1rem;
+      font-weight: 200;
+      letter-spacing: 0.02em;
+      color: #ffffff;
+      text-align: right;
+      line-height: 1.8em;
+      position: absolute;
+      right: -2rem;
+    }
+
+    .footer-links a {
+      color: #ffffff;
+      text-decoration: none;
+      cursor: pointer;
+      transition: opacity 0.3s ease;
+    }
+
+    .footer-links a:hover {
+      opacity: 0.8;
+    }
+
+    /* WeChat QR Code Modal */
+    .wechat-qr-modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.8);
+      z-index: 10000;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .wechat-qr-modal.active {
+      display: flex;
+    }
+
+    .wechat-qr-content {
+      background: #ffffff;
+      padding: 2rem;
+      border-radius: 1rem;
+      text-align: center;
+      max-width: 400px;
+      position: relative;
+    }
+
+    .wechat-qr-content img {
+      width: 100%;
+      max-width: 300px;
+      height: auto;
+      display: block;
+      margin: 0 auto;
+    }
+
+    .wechat-qr-close {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      background: none;
+      border: none;
+      font-size: 2rem;
+      color: #000000;
+      cursor: pointer;
+      line-height: 1;
+      padding: 0;
+      width: 2rem;
+      height: 2rem;
+    }
+
+    .wechat-qr-close:hover {
+      opacity: 0.7;
+    }
+
+  </style>
+</head>
+<body>
+  <header>
+    <h2 class="brand">
+      <a href="index.html">Three Dimensions</a>
+    </h2>
+    <nav class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="Three-Dimensions-Anfrageformular.html">Kontakt</a>
+      <a href="Ueber-Mich.html">Über Mich</a>
+      <div class="services-dropdown" id="servicesDropdown">
+        <button class="services-dropdown-button" onclick="toggleServicesDropdown(event)">Unsere Services</button>
+        <div class="services-dropdown-menu">
+          <a href="ar-produktvisualisierung.html">AR Produktvisualisierung</a>
+          <a href="Details-durch-3D.html">Details durch 3D</a>
+          <a href="3D-Renderings-fuer-Shops.html">3D Renderings für Shops</a>
+        </div>
+      </div>
+    </nav>
+  </header>
+  <div class="gradient-section">
+    <div class="content-section">
+      <div class="datenschutz-content">
+        <h1>Datenschutzerklärung</h1>
+        <h2>1. Verantwortliche Stelle</h2>
+        <p>
+          Die verantwortliche Stelle für die Datenverarbeitung auf dieser Website ist:<br><br>
+          Milo Boettger<br>
+          Nernstweg 21<br>
+          22765 Hamburg<br><br>
+          Telefon: +49 1727379305<br>
+          E-Mail: kontakt@three-dimensions.de
+        </p>
+        <h2>2. Datenerfassung auf dieser Website</h2>
+        <h3>Kontaktformular</h3>
+        <p>
+          Wenn Sie uns per Kontaktformular Anfragen zukommen lassen, werden Ihre Angaben aus dem Anfrageformular inklusive der von Ihnen dort angegebenen Kontaktdaten zwecks Bearbeitung der Anfrage und für den Fall von Anschlussfragen bei uns gespeichert.
+        </p>
+        <p>
+          <strong>Erhobene Daten:</strong> Name (optional), Unternehmensname, E-Mail-Adresse, Interessen (3D Modell erstellen, AR-optimiertes 3D Modell, Produkt-Renderings, 3D Animation, oder sonstige Angaben), Link zu Ihrer Website (optional), Budget-Range (optional), gewünschter Projektabschluss (optional), Projektbeschreibung.
+        </p>
+        <p>
+          <strong>Rechtsgrundlage:</strong> Die Verarbeitung Ihrer Daten erfolgt auf Grundlage Ihrer freiwilligen Einwilligung (Art. 6 Abs. 1 lit. a DSGVO). Sie können Ihre Einwilligung jederzeit widerrufen. Dazu reicht eine formlose Mitteilung per E-Mail an uns.
+        </p>
+        <p>
+          <strong>Zweck der Datenverarbeitung:</strong> Die von Ihnen eingegebenen Daten werden ausschließlich zur Bearbeitung Ihrer Anfrage und zur Kontaktaufnahme verwendet. Eine Weitergabe an Dritte erfolgt nicht.
+        </p>
+        <p>
+          <strong>Speicherdauer:</strong> Ihre Daten werden nach Bearbeitung Ihrer Anfrage gelöscht, spätestens jedoch nach 6 Monaten, sofern keine gesetzlichen Aufbewahrungspflichten bestehen.
+        </p>
+        <h2>3. Ihre Rechte</h2>
+        <p>
+          Sie haben jederzeit das Recht:
+        </p>
+        <ul>
+          <li>Auskunft über Ihre bei uns gespeicherten personenbezogenen Daten zu erhalten (Art. 15 DSGVO)</li>
+          <li>Berichtigung unrichtiger Daten zu verlangen (Art. 16 DSGVO)</li>
+          <li>Löschung Ihrer bei uns gespeicherten Daten zu verlangen (Art. 17 DSGVO)</li>
+          <li>Einschränkung der Datenverarbeitung zu verlangen, soweit wir Ihre Daten aufgrund gesetzlicher Pflichten noch nicht löschen dürfen (Art. 18 DSGVO)</li>
+          <li>Widerspruch gegen die Verarbeitung Ihrer Daten bei uns einzulegen (Art. 21 DSGVO)</li>
+          <li>Datenübertragbarkeit, soweit Sie in die Datenverarbeitung eingewilligt haben oder einen Vertrag mit uns abgeschlossen haben (Art. 20 DSGVO)</li>
+        </ul>
+        <p>
+          Sofern Sie uns eine Einwilligung erteilt haben, können Sie diese jederzeit mit Wirkung für die Zukunft widerrufen.
+        </p>
+        <p>
+          Sie können sich jederzeit mit einer Beschwerde an eine Aufsichtsbehörde wenden, z. B. an die zuständige Aufsichtsbehörde des Bundeslandes Ihres Wohnsitzes oder an die für uns als verantwortliche Stelle zuständige Behörde.
+        </p>
+        <h2>4. Kontakt für Datenschutzfragen</h2>
+        <p>
+          Wenn Sie Fragen zum Datenschutz haben, schreiben Sie uns bitte eine E-Mail oder wenden Sie sich direkt an die für den Datenschutz verantwortliche Person in unserem Unternehmen:
+        </p>
+        <p>
+          Milo Boettger<br>
+          Nernstweg 21<br>
+          22765 Hamburg<br><br>
+          Telefon: +49 1727379305<br>
+          E-Mail: kontakt@three-dimensions.de
+        </p>
+      </div>
+    </div>
+  </div>
+  <footer>
+    <div class="footer-content">
+      <p class="footer-text">
+        Finde mich auf <a href="https://www.instagram.com/threedimensions.de?igsh=dG5ubXJoNWJjYWR1&utm_source=qr" id="instagram-link" target="_blank" rel="noopener noreferrer">Instagram</a>,<br>
+        <a href="#" id="wechat-link" onclick="handleWeChatClick(event)">WeChat</a> und <a href="https://www.linkedin.com/in/milo-boettger-threed?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app" id="linkedin-link" target="_blank" rel="noopener noreferrer">LinkedIn</a>.<br>
+        kontakt@three-dimensions.de
+      </p>
+      <p class="footer-links">
+        <a href="Three-Dimensions-Anfrageformular.html">Kontakt</a> - <a href="Impressum.html">Impressum</a> - <a href="Datenschutz.html">Datenschutz</a><br>Three Dimensions<br>Milo Boettger
+      </p>
+    </div>
+  </footer>
+  <!-- WeChat QR Code Modal -->
+  <div id="wechat-qr-modal" class="wechat-qr-modal">
+    <div class="wechat-qr-content">
+      <button class="wechat-qr-close" onclick="closeWeChatModal()">&times;</button>
+      <h3 style="margin-top: 0; color: #000000; font-family: 'Helvetica', 'Arial', sans-serif;">Scan QR Code to add on WeChat</h3>
+      <img src="WeChatQRcode.JPG" alt="WeChat QR Code">
+    </div>
+  </div>
+</body>
+</html>
+

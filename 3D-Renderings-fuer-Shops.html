@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>3D Renderings für Shops - Three Dimensions</title>
+  <meta name="description" content="Professionelle 3D Renderings für Online-Shops. Hochwertige Produktvisualisierung die verkauft.">
+  <meta name="keywords" content="3D Renderings, Shop Renderings, Produktvisualisierung, E-Commerce, 3D-Shop">
+  <link rel="canonical" href="https://three-dimensions.de/3D-Renderings-fuer-Shops.html">
+  
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://three-dimensions.de/3D-Renderings-fuer-Shops.html">
+  <meta property="og:image" content="https://three-dimensions.de/Lippenstift No1.png">
+  <meta property="og:title" content="3D Renderings für Shops - Three Dimensions">
+  <meta property="og:description" content="Professionelle 3D Renderings für Online-Shops.">
+  
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image">
+  <meta property="twitter:url" content="https://three-dimensions.de/3D-Renderings-fuer-Shops.html">
+  <meta property="twitter:image" content="https://three-dimensions.de/Lippenstift No1.png">
+  <meta property="twitter:title" content="3D Renderings für Shops - Three Dimensions">
+  <meta property="twitter:description" content="Professionelle 3D Renderings für Online-Shops.">
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    @font-face {
+      font-family: 'Mandioca';
+      src: local('Mandioca'), url('Mandioca.woff2') format('woff2'), url('Mandioca.woff') format('woff');
+      font-weight: normal;
+      font-style: normal;
+    }
+
+    :root {
+      --blue-light: #FAFAFA;
+      --blue-dark: #0d2c57;
+      --header-bg: #0d2c57;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: #000000;
+      font-family: "Quicksand", "Helvetica", "Arial", sans-serif;
+      color: #ffffff;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      width: 100%;
+      background: var(--header-bg);
+      padding: calc(2rem - 14px) 2rem;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 1000;
+    }
+
+    .brand {
+      margin: 0;
+      font-size: 1.75rem;
+      font-weight: normal;
+      letter-spacing: 0.02em;
+    }
+
+    .brand a {
+      color: #ffffff;
+      text-decoration: none;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      align-items: center;
+    }
+
+    .nav-links a {
+      color: #ffffff;
+      text-decoration: none;
+      font-family: "Mandioca", "Helvetica", "Arial", sans-serif;
+      font-size: 1rem;
+      font-weight: 200;
+      letter-spacing: 0.02em;
+    }
+
+    .services-dropdown {
+      position: relative;
+    }
+
+    .services-dropdown-button {
+      color: #ffffff;
+      text-decoration: none;
+      font-family: "Mandioca", "Helvetica", "Arial", sans-serif;
+      font-size: 1rem;
+      font-weight: 200;
+      letter-spacing: 0.02em;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 0;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .services-dropdown-button::after {
+      content: '▼';
+      font-size: 0.7rem;
+      transition: transform 0.3s ease;
+    }
+
+    .services-dropdown.active .services-dropdown-button::after {
+      transform: rotate(180deg);
+    }
+
+    .services-dropdown-menu {
+      position: absolute;
+      top: 100%;
+      right: 0;
+      margin-top: 1rem;
+      background-color: var(--blue-dark);
+      min-width: 200px;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(-10px);
+      transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s ease;
+      z-index: 1000;
+      border-radius: 0.5rem;
+      padding: 0.5rem 0;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    }
+
+    .services-dropdown.active .services-dropdown-menu {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+
+    .services-dropdown-menu a {
+      display: block;
+      padding: 0.75rem 1.5rem;
+      color: #ffffff;
+      text-decoration: none;
+      font-family: "Mandioca", "Helvetica", "Arial", sans-serif;
+      font-size: 1rem;
+      font-weight: 200;
+      letter-spacing: 0.02em;
+      transition: background-color 0.2s ease;
+    }
+
+    .services-dropdown-menu a:hover {
+      background-color: rgba(255, 255, 255, 0.1);
+    }
+
+    .video-container {
+      width: 100%;
+      display: block;
+      position: relative;
+    }
+
+    .video-container video {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .content-section {
+      max-width: 1200px;
+      margin: 0 auto;
+      width: 100%;
+      padding: 0 2rem;
+      position: relative;
+      z-index: 10;
+    }
+
+    .containers-wrapper {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      position: relative;
+      margin-bottom: 6rem;
+    }
+
+    .anfrage-button-container {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-top: 1rem;
+    }
+
+    .anfrage-button-container a.anfrage-button {
+      display: block !important;
+      width: 45% !important;
+      min-width: 200px;
+      max-width: 650px;
+      height: 6rem !important;
+      padding: 0 !important;
+      margin: 0 !important;
+      background-color: var(--blue-dark) !important;
+      color: #ffffff !important;
+      text-decoration: none !important;
+      border-radius: 1.5rem;
+      font-family: "Helvetica", "Arial", sans-serif;
+      font-size: 2.2rem;
+      font-weight: 400;
+      text-align: center;
+      line-height: 6rem !important;
+      transition: background-color 0.3s ease, transform 0.2s ease;
+      border: none;
+      cursor: pointer;
+      box-sizing: border-box;
+    }
+
+    .anfrage-button-container a.anfrage-button:hover {
+      background-color: #334868 !important;
+      transform: scale(1.02);
+    }
+
+    .color-container {
+      width: 25rem;
+      height: 35rem;
+      border-radius: 3.125rem;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+      overflow: hidden;
+      position: relative;
+      opacity: 0;
+      transform: translateX(-100px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+
+    .color-container.animate {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    .color-container video {
+      width: 120%;
+      height: 120%;
+      object-fit: cover;
+      position: absolute;
+      top: -6rem;
+      left: 1.5rem;
+      opacity: 1;
+      transition: opacity 0.3s ease;
+      pointer-events: none;
+      mix-blend-mode: screen;
+    }
+
+    .container-text {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 2rem;
+      background: linear-gradient(to top, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0.4) 70%, transparent 100%);
+      color: #ffffff;
+      transform: translateY(100%);
+      transition: transform 0.4s ease;
+      z-index: 5;
+    }
+
+    .color-container:hover .container-text {
+      transform: translateY(0);
+    }
+
+    .container-text h3 {
+      font-family: "Helvetica", "Arial", sans-serif;
+      font-size: 1.8rem;
+      font-weight: 600;
+      margin: 0 0 1rem 0;
+      color: #ffffff;
+    }
+
+    .container-text p {
+      font-family: "Quicksand", "Helvetica", "Arial", sans-serif;
+      font-size: 1rem;
+      font-weight: 300;
+      line-height: 1.6;
+      margin: 0;
+      color: #ffffff;
+    }
+
+    .color-container.first {
+      background-color: rgba(255, 158, 158, 0.3);
+    }
+
+    .color-container.second {
+      background-color: rgba(255, 201, 201, 0.3);
+    }
+
+    .color-container.third {
+      background-color: rgba(255, 227, 227, 0.3);
+    }
+
+    .background-section {
+      width: 100%;
+      min-height: 100vh;
+      background-image: url('Noire Hintergrund-1.png');
+      background-size: 180%;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+      background-color: #000000;
+      position: relative;
+      padding: 9rem 0 10rem 0;
+    }
+
+    footer {
+      width: 100%;
+      min-height: 15rem;
+      background-color: var(--blue-dark);
+      padding: 4rem 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .footer-content {
+      max-width: 1200px;
+      width: 100%;
+      padding: 0 2rem;
+      position: relative;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .footer-text {
+      font-family: "Mandioca", "Helvetica", "Arial", sans-serif;
+      font-size: 1rem;
+      font-weight: 200;
+      letter-spacing: 0.02em;
+      color: #ffffff;
+      text-align: left;
+      line-height: 1.8em;
+      position: absolute;
+      left: -2rem;
+    }
+
+    .footer-text a {
+      color: #ffffff;
+      text-decoration: underline;
+      cursor: pointer;
+      transition: opacity 0.3s ease;
+    }
+
+    .footer-text a:hover {
+      opacity: 0.8;
+    }
+
+    .footer-links {
+      font-family: "Mandioca", "Helvetica", "Arial", sans-serif;
+      font-size: 1rem;
+      font-weight: 200;
+      letter-spacing: 0.02em;
+      color: #ffffff;
+      text-align: right;
+      line-height: 1.8em;
+      position: absolute;
+      right: -2rem;
+    }
+
+    .footer-links a {
+      color: #ffffff;
+      text-decoration: none;
+      cursor: pointer;
+      transition: opacity 0.3s ease;
+    }
+
+    .footer-links a:hover {
+      opacity: 0.8;
+    }
+
+    /* WeChat QR Code Modal */
+    .wechat-qr-modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.8);
+      z-index: 10000;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .wechat-qr-modal.active {
+      display: flex;
+    }
+
+    .wechat-qr-content {
+      background: #ffffff;
+      padding: 2rem;
+      border-radius: 1rem;
+      text-align: center;
+      max-width: 400px;
+      position: relative;
+    }
+
+    .wechat-qr-content img {
+      width: 100%;
+      max-width: 300px;
+      height: auto;
+      display: block;
+      margin: 0 auto;
+    }
+
+    .wechat-qr-close {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      background: none;
+      border: none;
+      font-size: 2rem;
+      color: #000000;
+      cursor: pointer;
+      line-height: 1;
+      padding: 0;
+      width: 2rem;
+      height: 2rem;
+    }
+
+    .wechat-qr-close:hover {
+      opacity: 0.7;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h2 class="brand">
+      <a href="index.html">Three Dimensions</a>
+    </h2>
+    <nav class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="Three-Dimensions-Anfrageformular.html">Kontakt</a>
+      <a href="Ueber-Mich.html">Über Mich</a>
+      <div class="services-dropdown" id="servicesDropdown">
+        <button class="services-dropdown-button" onclick="toggleServicesDropdown(event)">Unsere Services</button>
+        <div class="services-dropdown-menu">
+          <a href="ar-produktvisualisierung.html">AR Produktvisualisierung</a>
+          <a href="Details-durch-3D.html">Details durch 3D</a>
+          <a href="3D-Renderings-fuer-Shops.html">3D Renderings für Shops</a>
+        </div>
+      </div>
+    </nav>
+  </header>
+  <div class="video-container">
+    <video id="lippenstift-hero-video" autoplay muted playsinline preload="metadata" aria-label="Lippenstift Hero Video - 3D Rendering">
+      <source src="Lippenstift Hero.mp4" type="video/mp4">
+    </video>
+  </div>
+  <div class="background-section">
+    <div class="content-section">
+      <div class="containers-wrapper">
+        <div class="color-container first">
+          <video muted playsinline preload="metadata">
+            <source src="Rot transparent.webm" type="video/webm">
+          </video>
+          <div class="container-text">
+            <h3>NOIRE №1</h3>
+            <p>Steigere deine Online-Verkäufe mit fotorealistischen 3D-Renderings. Kunden können Produkte interaktiv aus jedem Winkel betrachten und erhalten ein klares Bild, bevor sie kaufen. Reduziere Retouren um bis zu 40% und steigere die Conversion-Rate deutlich durch bessere Produktpräsentation.</p>
+          </div>
+        </div>
+        <div class="color-container second">
+          <video muted playsinline preload="metadata">
+            <source src="Hellrot transparent.webm" type="video/webm">
+          </video>
+          <div class="container-text">
+            <h3>NOIRE №11</h3>
+            <p>Spare bis zu 80% der Kosten für Produktfotografie. 3D-Renderings sind jederzeit verfügbar, unabhängig von Wetter, Tageszeit oder Produktverfügbarkeit. Perfekt für E-Commerce, Kataloge, Social Media und Marketing-Materialien ohne zusätzliche Shootings.</p>
+          </div>
+        </div>
+        <div class="color-container third">
+          <video muted playsinline preload="metadata">
+            <source src="Pinktransparent.webm" type="video/webm">
+          </video>
+          <div class="container-text">
+            <h3>NOIRE №6</h3>
+            <p>Präsentiere deine Produkte in unbegrenzten Farben, Varianten und Umgebungen ohne zusätzliche Kosten. Erstelle virtuelle Showrooms und unbegrenzt viele Varianten für A/B-Tests, personalisierte Shopping-Erlebnisse und schnelleres Time-to-Market. Maximale Flexibilität für dein Marketing.</p>
+          </div>
+        </div>
+      </div>
+      <div class="anfrage-button-container">
+        <a href="Three-Dimensions-Anfrageformular.html" class="anfrage-button">Jetzt Projekt umsetzen</a>
+      </div>
+      <!-- Content can be added here -->
+    </div>
+  </div>
+  <footer>
+    <div class="footer-content">
+      <p class="footer-text">
+        Finde mich auf <a href="https://www.instagram.com/threedimensions.de?igsh=dG5ubXJoNWJjYWR1&utm_source=qr" id="instagram-link" target="_blank" rel="noopener noreferrer">Instagram</a>,<br>
+        <a href="#" id="wechat-link" onclick="handleWeChatClick(event)">WeChat</a> und <a href="https://www.linkedin.com/in/milo-boettger-threed?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app" id="linkedin-link" target="_blank" rel="noopener noreferrer">LinkedIn</a>.<br>
+        kontakt@three-dimensions.de
+      </p>
+      <p class="footer-links">
+        <a href="Three-Dimensions-Anfrageformular.html">Kontakt</a> - <a href="Impressum.html">Impressum</a> - <a href="Datenschutz.html">Datenschutz</a><br>Three Dimensions<br>Milo Boettger
+      </p>
+    </div>
+  </footer>
+  <script>
+    // WeChat QR Code Modal
+    function handleWeChatClick(event) {
+      event.preventDefault();
+      const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+      
+      if (isMobile) {
+        // On mobile, open WeChat directly
+        window.location.href = 'weixin://contacts/profile/wxid_weq6wfvqn6ya12';
+      } else {
+        // On desktop, show QR code
+        const modal = document.getElementById('wechat-qr-modal');
+        if (modal) {
+          modal.classList.add('active');
+        }
+      }
+    }
+
+    // Close modal
+    function closeWeChatModal() {
+      const modal = document.getElementById('wechat-qr-modal');
+      if (modal) {
+        modal.classList.remove('active');
+      }
+    }
+
+    // Close modal when clicking outside
+    document.addEventListener('DOMContentLoaded', function() {
+      const modal = document.getElementById('wechat-qr-modal');
+      if (modal) {
+        modal.addEventListener('click', function(e) {
+          if (e.target === modal) {
+            closeWeChatModal();
+          }
+        });
+      }
+
+      // Video hover play functionality
+      const containers = document.querySelectorAll('.color-container');
+      containers.forEach(container => {
+        const video = container.querySelector('video');
+        if (video) {
+          let hasPlayed = false;
+          
+          // Load first frame
+          video.addEventListener('loadedmetadata', () => {
+            video.currentTime = 0;
+          });
+          
+          // Stop video at the end and keep it on last frame
+          video.addEventListener('ended', () => {
+            hasPlayed = true;
+            video.pause();
+          });
+          
+          container.addEventListener('mouseenter', () => {
+            if (!hasPlayed) {
+              video.play().catch(e => console.log('Video play error:', e));
+            }
+          });
+        }
+      });
+
+      // Scroll animation for containers
+      const observerOptions = {
+        threshold: 0.2,
+        rootMargin: '0px 0px 0px 0px'
+      };
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry, index) => {
+          if (entry.isIntersecting) {
+            setTimeout(() => {
+              entry.target.classList.add('animate');
+            }, index * 150); // Stagger animation for each container
+            observer.unobserve(entry.target);
+          }
+        });
+      }, observerOptions);
+
+      containers.forEach(container => {
+        observer.observe(container);
+      });
+    });
+
+    // Services dropdown functionality
+    function toggleServicesDropdown(event) {
+      event.stopPropagation();
+      const dropdown = document.getElementById('servicesDropdown');
+      dropdown.classList.toggle('active');
+    }
+
+    // Close dropdown when clicking outside
+    document.addEventListener('click', function(event) {
+      const dropdown = document.getElementById('servicesDropdown');
+      if (dropdown && !dropdown.contains(event.target)) {
+        dropdown.classList.remove('active');
+      }
+    });
+  </script>
+  <!-- WeChat QR Code Modal -->
+  <div id="wechat-qr-modal" class="wechat-qr-modal">
+    <div class="wechat-qr-content">
+      <button class="wechat-qr-close" onclick="closeWeChatModal()">&times;</button>
+      <h3 style="margin-top: 0; color: #000000; font-family: 'Helvetica', 'Arial', sans-serif;">Scan QR Code to add on WeChat</h3>
+      <img src="WeChatQRcode.JPG" alt="WeChat QR Code">
+    </div>
+  </div>
+</body>
+</html>
+
