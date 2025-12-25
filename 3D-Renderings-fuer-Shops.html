@@ -555,13 +555,13 @@
         });
       }
 
-      // Video hover play functionality
+      // Video setup and scroll-triggered play functionality
       const containers = document.querySelectorAll('.color-container');
+      
+      // Setup video error handling and metadata loading
       containers.forEach(container => {
         const video = container.querySelector('video');
         if (video) {
-          let hasPlayed = false;
-          
           // Handle transparent video compatibility
           // Check if browser supports WebM with VP9 codec
           const canPlayWebM = video.canPlayType('video/webm; codecs="vp9"');
@@ -584,19 +584,12 @@
           
           // Stop video at the end and keep it on last frame
           video.addEventListener('ended', () => {
-            hasPlayed = true;
             video.pause();
-          });
-          
-          container.addEventListener('mouseenter', () => {
-            if (!hasPlayed && video.style.display !== 'none') {
-              video.play().catch(e => console.log('Video play error:', e));
-            }
           });
         }
       });
 
-      // Scroll animation for containers
+      // Scroll animation and video playback when containers come into view
       const observerOptions = {
         threshold: 0.2,
         rootMargin: '0px 0px 0px 0px'
@@ -607,6 +600,12 @@
           if (entry.isIntersecting) {
             setTimeout(() => {
               entry.target.classList.add('animate');
+              
+              // Play video when container comes into view
+              const video = entry.target.querySelector('video');
+              if (video && video.style.display !== 'none') {
+                video.play().catch(e => console.log('Video play error:', e));
+              }
             }, index * 150); // Stagger animation for each container
             observer.unobserve(entry.target);
           }
