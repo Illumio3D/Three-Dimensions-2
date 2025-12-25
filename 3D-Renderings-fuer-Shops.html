@@ -468,7 +468,9 @@
       <div class="containers-wrapper">
         <div class="color-container first">
           <video muted playsinline preload="metadata">
-            <source src="Rot transparent.webm" type="video/webm">
+            <source src="Rot transparent.webm" type="video/webm; codecs=vp9">
+            <!-- Safari fallback: Add HEVC with alpha channel when available -->
+            <!-- <source src="Rot transparent.mov" type="video/quicktime"> -->
           </video>
           <div class="container-text">
             <h3>NOIRE №1</h3>
@@ -477,7 +479,9 @@
         </div>
         <div class="color-container second">
           <video muted playsinline preload="metadata">
-            <source src="Hellrot transparent.webm" type="video/webm">
+            <source src="Hellrot transparent.webm" type="video/webm; codecs=vp9">
+            <!-- Safari fallback: Add HEVC with alpha channel when available -->
+            <!-- <source src="Hellrot transparent.mov" type="video/quicktime"> -->
           </video>
           <div class="container-text">
             <h3>NOIRE №11</h3>
@@ -486,7 +490,9 @@
         </div>
         <div class="color-container third">
           <video muted playsinline preload="metadata">
-            <source src="Pinktransparent.webm" type="video/webm">
+            <source src="Pinktransparent.webm" type="video/webm; codecs=vp9">
+            <!-- Safari fallback: Add HEVC with alpha channel when available -->
+            <!-- <source src="Pinktransparent.mov" type="video/quicktime"> -->
           </video>
           <div class="container-text">
             <h3>NOIRE №6</h3>
@@ -549,12 +555,36 @@
         });
       }
 
+      // Detect Safari and handle transparent videos
+      const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+      
       // Video hover play functionality
       const containers = document.querySelectorAll('.color-container');
       containers.forEach(container => {
         const video = container.querySelector('video');
         if (video) {
           let hasPlayed = false;
+          
+          // Safari WebM transparency workaround
+          if (isSafari) {
+            // Check if video can play WebM with alpha
+            const canPlayWebM = video.canPlayType('video/webm; codecs="vp9"');
+            
+            // If Safari can't play WebM properly, hide video or show fallback
+            video.addEventListener('error', function() {
+              console.log('Video playback error on Safari, hiding video element');
+              video.style.display = 'none';
+            });
+            
+            // Set a timeout to check if video loaded
+            setTimeout(() => {
+              if (video.readyState < 2) {
+                console.log('Video not loading on Safari, may need HEVC alternative');
+                // Video is still not ready, it might not be supported
+                // Keep it visible but it won't play
+              }
+            }, 1000);
+          }
           
           // Load first frame
           video.addEventListener('loadedmetadata', () => {
@@ -568,7 +598,7 @@
           });
           
           container.addEventListener('mouseenter', () => {
-            if (!hasPlayed) {
+            if (!hasPlayed && video.style.display !== 'none') {
               video.play().catch(e => console.log('Video play error:', e));
             }
           });
