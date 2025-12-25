@@ -438,131 +438,20 @@
       opacity: 0.7;
     }
 
-    /* Mobile Responsiveness */
+    /* Proportional scaling for all devices - keeps same layout, scales everything down */
     @media screen and (max-width: 768px) {
       body {
-        font-size: 14px;
-      }
-
-      header {
-        padding: 1rem;
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 1rem;
-      }
-
-      .brand {
-        font-size: 1.5rem;
-        margin: 0;
-      }
-
-      .nav-links {
-        flex-direction: column;
-        gap: 0.5rem;
-        width: 100%;
-      }
-
-      .nav-links a {
-        font-size: 0.9rem;
-        padding: 0.5rem 0;
-      }
-
-      .services-dropdown-button {
-        font-size: 0.9rem;
-        padding: 0.5rem 0;
-      }
-
-      .video-container {
-        height: 50vh;
-        min-height: 300px;
-      }
-
-      .video-container video {
-        height: 100%;
-      }
-
-      .content-section {
-        padding: 0 1rem;
-      }
-
-      .containers-wrapper {
-        flex-direction: column;
-        align-items: center;
-        gap: 2rem;
-        margin-bottom: 3rem;
-      }
-
-      .color-container {
-        width: 90%;
-        max-width: 20rem;
-        height: 28rem;
-      }
-
-      .color-container video {
-        width: 110%;
-        height: 110%;
-        top: -3rem;
-        left: 0.5rem;
-      }
-
-      .container-text {
-        padding: 1.5rem;
-      }
-
-      .container-text h3 {
-        font-size: 1.5rem;
-      }
-
-      .container-text p {
-        font-size: 0.85rem;
-        line-height: 1.4;
-      }
-
-      .anfrage-button-container a.anfrage-button {
-        width: 90% !important;
-        font-size: 1.5rem;
-        height: 4rem !important;
-        line-height: 4rem !important;
-      }
-
-      footer {
-        padding: 2rem 1rem;
-      }
-
-      .footer-text,
-      .footer-links {
-        font-size: 0.85rem;
-      }
-
-      .wechat-qr-content {
-        width: 90%;
-        max-width: 350px;
-        padding: 1.5rem;
-      }
-
-      .wechat-qr-content img {
-        max-width: 200px;
+        zoom: 0.55; /* Scale everything to 55% on mobile */
+        -moz-transform: scale(0.55);
+        -moz-transform-origin: 0 0;
       }
     }
 
-    /* Tablet and smaller desktop */
     @media screen and (min-width: 769px) and (max-width: 1024px) {
-      .content-section {
-        max-width: 900px;
-      }
-
-      .containers-wrapper {
-        gap: 0.75rem;
-      }
-
-      .color-container {
-        width: 20rem;
-        height: 30rem;
-      }
-
-      .anfrage-button-container a.anfrage-button {
-        width: 60% !important;
-        font-size: 1.8rem;
+      body {
+        zoom: 0.75; /* Scale to 75% on tablets */
+        -moz-transform: scale(0.75);
+        -moz-transform-origin: 0 0;
       }
     }
   </style>
