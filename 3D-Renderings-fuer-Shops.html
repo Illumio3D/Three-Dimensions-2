@@ -468,7 +468,9 @@
       <div class="containers-wrapper">
         <div class="color-container first">
           <video muted playsinline preload="metadata">
-            <source src="Rot transparent.webm" type="video/webm">
+            <source src="Rot transparent.webm" type="video/webm; codecs=vp9">
+            <!-- Safari fallback: HEVC with alpha channel -->
+            <source src="Rot-transparent.hevc.mp4" type="video/mp4; codecs=hvc1">
           </video>
           <div class="container-text">
             <h3>NOIRE №1</h3>
@@ -477,7 +479,9 @@
         </div>
         <div class="color-container second">
           <video muted playsinline preload="metadata">
-            <source src="Hellrot transparent.webm" type="video/webm">
+            <source src="Hellrot transparent.webm" type="video/webm; codecs=vp9">
+            <!-- Safari fallback: HEVC with alpha channel -->
+            <source src="Hellrot-transparent.hevc.mp4" type="video/mp4; codecs=hvc1">
           </video>
           <div class="container-text">
             <h3>NOIRE №11</h3>
@@ -486,7 +490,9 @@
         </div>
         <div class="color-container third">
           <video muted playsinline preload="metadata">
-            <source src="Pinktransparent.webm" type="video/webm">
+            <source src="Pinktransparent.webm" type="video/webm; codecs=vp9">
+            <!-- Safari fallback: HEVC with alpha channel -->
+            <source src="Pinktransparent.hevc.mp4" type="video/mp4; codecs=hvc1">
           </video>
           <div class="container-text">
             <h3>NOIRE №6</h3>
@@ -556,6 +562,21 @@
         if (video) {
           let hasPlayed = false;
           
+          // Handle transparent video compatibility
+          // Check if browser supports WebM with VP9 codec
+          const canPlayWebM = video.canPlayType('video/webm; codecs="vp9"');
+          
+          // If browser reports no or weak support for WebM VP9
+          if (!canPlayWebM || canPlayWebM === 'maybe') {
+            console.log('Browser may not support WebM VP9 with alpha transparency');
+          }
+          
+          // Handle video load errors gracefully
+          video.addEventListener('error', function() {
+            console.log('Video playback error - may need alternative format for this browser');
+            video.style.display = 'none';
+          });
+          
           // Load first frame
           video.addEventListener('loadedmetadata', () => {
             video.currentTime = 0;
@@ -568,7 +589,7 @@
           });
           
           container.addEventListener('mouseenter', () => {
-            if (!hasPlayed) {
+            if (!hasPlayed && video.style.display !== 'none') {
               video.play().catch(e => console.log('Video play error:', e));
             }
           });

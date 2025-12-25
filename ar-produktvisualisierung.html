@@ -621,7 +621,9 @@
         <p class="ar-description-text">3D zeigt Produkte klarer, AR macht sie erlebbar. Kunden verstehen sofort,<br>was sie kaufen und treffen sichere Entscheidungen.<br>Für dich heißt das, weniger Retouren und steigende Verkäufe.</p>
         <div class="iphone-video-container">
           <video autoplay muted playsinline aria-label="AR-Demo auf iPhone - Produktvisualisierung in Augmented Reality">
-            <source src="Iphone fbegining00086400.webm" type="video/webm">
+            <source src="Iphone fbegining00086400.webm" type="video/webm; codecs=vp9">
+            <!-- Safari fallback: HEVC with alpha channel -->
+            <source src="Iphone-fbegining00086400.hevc.mp4" type="video/mp4; codecs=hvc1">
           </video>
         </div>
       </div>
@@ -814,6 +816,25 @@
           if (e.target === modal) {
             closeWeChatModal();
           }
+        });
+      }
+
+      // Handle transparent video compatibility
+      const iphoneVideo = document.querySelector('.iphone-video-container video');
+      
+      if (iphoneVideo) {
+        // Check if browser supports WebM with VP9 codec
+        const canPlayWebM = iphoneVideo.canPlayType('video/webm; codecs="vp9"');
+        
+        // If browser reports no or weak support for WebM VP9
+        if (!canPlayWebM || canPlayWebM === 'maybe') {
+          console.log('Browser may not support WebM VP9 with alpha transparency');
+        }
+        
+        // Handle video load errors gracefully
+        iphoneVideo.addEventListener('error', function() {
+          console.log('Video playback error - may need alternative format for this browser');
+          iphoneVideo.style.display = 'none';
         });
       }
     });
