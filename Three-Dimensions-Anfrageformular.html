@@ -669,20 +669,234 @@
       opacity: 0.7;
     }
 
-    /* Proportional scaling for all devices - keeps same layout, scales everything down */
-    @media screen and (max-width: 768px) {
-      body {
-        zoom: 0.55; /* Scale everything to 55% on mobile */
-        -moz-transform: scale(0.55);
-        -moz-transform-origin: 0 0;
+    /* Modern Responsive Design with Flexible Layouts */
+    
+    /* Tablet Landscape and Small Desktop (769px - 1024px) */
+    @media screen and (max-width: 1024px) {
+      .form-grid {
+        grid-template-columns: 1fr;
+        max-width: 90%;
+      }
+
+      .contact-form {
+        grid-template-columns: 1fr;
+      }
+
+      .form-group {
+        grid-column: 1 / -1;
       }
     }
 
-    @media screen and (min-width: 769px) and (max-width: 1024px) {
-      body {
-        zoom: 0.75; /* Scale to 75% on tablets */
-        -moz-transform: scale(0.75);
-        -moz-transform-origin: 0 0;
+    /* Tablet Portrait (768px and below) */
+    @media screen and (max-width: 768px) {
+      html {
+        font-size: 14px;
+      }
+
+      /* Flexible header */
+      header {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 1rem 1.5rem;
+        gap: 1rem;
+      }
+
+      .brand {
+        font-size: 1.8rem;
+      }
+
+      .nav-links {
+        flex-direction: column;
+        width: 100%;
+        gap: 0.5rem;
+      }
+
+      .nav-links a {
+        padding: 0.6rem 0;
+        font-size: 1rem;
+      }
+
+      .services-dropdown-button {
+        width: 100%;
+        text-align: left;
+        padding: 0.6rem 0;
+      }
+
+      .services-dropdown-menu {
+        position: static;
+        width: 100%;
+        margin-top: 0.5rem;
+      }
+
+      /* Form section */
+      .form-section {
+        padding: 2rem 1rem;
+      }
+
+      .form-grid {
+        grid-template-columns: 1fr;
+        max-width: 100%;
+        gap: 2rem;
+      }
+
+      .form-title {
+        font-size: 2.5rem;
+        margin-bottom: 1.5rem;
+      }
+
+      .form-description {
+        font-size: 1.1rem;
+        line-height: 1.6;
+      }
+
+      .form-email {
+        font-size: 1.1rem;
+      }
+
+      /* Form layout */
+      .contact-form {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+      }
+
+      .form-group {
+        grid-column: 1 / -1;
+      }
+
+      .form-group.inline {
+        flex-direction: column;
+        gap: 0.8rem;
+      }
+
+      .form-group.inline > * {
+        width: 100%;
+      }
+
+      /* Form inputs */
+      .form-input,
+      .form-textarea,
+      .form-select {
+        font-size: 1rem;
+        padding: 0.9rem;
+      }
+
+      .form-textarea {
+        min-height: 140px;
+      }
+
+      /* Checkbox groups */
+      .interests-options {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+      }
+
+      .form-checkbox-wrapper {
+        padding: 0.7rem;
+      }
+
+      /* Button */
+      .form-button {
+        font-size: 1.1rem;
+        padding: 1rem 1.5rem;
+      }
+
+      /* Social icons */
+      .form-social-icons-container {
+        gap: 1.5rem;
+      }
+
+      .form-social-icons-container img {
+        height: 1.4rem;
+        width: 1.4rem;
+      }
+
+      /* Footer */
+      footer {
+        padding: 2.5rem 1.5rem;
+      }
+
+      .footer-text,
+      .footer-links {
+        font-size: 0.95rem;
+        line-height: 1.6;
+      }
+
+      /* Modal */
+      .wechat-qr-content {
+        width: 90%;
+        max-width: 400px;
+        padding: 2rem;
+      }
+
+      .wechat-qr-content img {
+        max-width: 220px;
+      }
+    }
+
+    /* Mobile (480px and below) */
+    @media screen and (max-width: 480px) {
+      html {
+        font-size: 13px;
+      }
+
+      header {
+        padding: 1rem;
+      }
+
+      .brand {
+        font-size: 1.6rem;
+      }
+
+      .form-section {
+        padding: 1.5rem 0.8rem;
+      }
+
+      .form-title {
+        font-size: 2rem;
+      }
+
+      .form-description,
+      .form-email {
+        font-size: 1rem;
+      }
+
+      .form-input,
+      .form-textarea,
+      .form-select {
+        font-size: 0.95rem;
+        padding: 0.8rem;
+      }
+
+      .form-button {
+        font-size: 1rem;
+        padding: 0.9rem 1.3rem;
+      }
+
+      .form-social-icons-container {
+        gap: 1.2rem;
+      }
+
+      .form-social-icons-container img {
+        height: 1.2rem;
+        width: 1.2rem;
+      }
+
+      footer {
+        padding: 2rem 1rem;
+      }
+
+      .footer-text,
+      .footer-links {
+        font-size: 0.85rem;
+      }
+
+      .wechat-qr-content {
+        width: 95%;
+        padding: 1.5rem;
+      }
+
+      .wechat-qr-content img {
+        max-width: 180px;
       }
     }
 
