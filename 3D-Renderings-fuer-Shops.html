@@ -555,9 +555,6 @@
         });
       }
 
-      // Detect Safari and handle transparent videos
-      const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
-      
       // Video hover play functionality
       const containers = document.querySelectorAll('.color-container');
       containers.forEach(container => {
@@ -565,26 +562,20 @@
         if (video) {
           let hasPlayed = false;
           
-          // Safari WebM transparency workaround
-          if (isSafari) {
-            // Check if video can play WebM with alpha
-            const canPlayWebM = video.canPlayType('video/webm; codecs="vp9"');
-            
-            // If Safari can't play WebM properly, hide video or show fallback
-            video.addEventListener('error', function() {
-              console.log('Video playback error on Safari, hiding video element');
-              video.style.display = 'none';
-            });
-            
-            // Set a timeout to check if video loaded
-            setTimeout(() => {
-              if (video.readyState < 2) {
-                console.log('Video not loading on Safari, may need HEVC alternative');
-                // Video is still not ready, it might not be supported
-                // Keep it visible but it won't play
-              }
-            }, 1000);
+          // Handle transparent video compatibility
+          // Check if browser supports WebM with VP9 codec
+          const canPlayWebM = video.canPlayType('video/webm; codecs="vp9"');
+          
+          // If browser reports no or weak support for WebM VP9
+          if (!canPlayWebM || canPlayWebM === 'maybe') {
+            console.log('Browser may not support WebM VP9 with alpha transparency');
           }
+          
+          // Handle video load errors gracefully
+          video.addEventListener('error', function() {
+            console.log('Video playback error - may need alternative format for this browser');
+            video.style.display = 'none';
+          });
           
           // Load first frame
           video.addEventListener('loadedmetadata', () => {

@@ -955,7 +955,11 @@
             }
           } catch (error) {
             // Network or other error - show email fallback
-            formStatus.innerHTML = 'Die Anfrage konnte nicht gesendet werden. Bitte senden Sie uns stattdessen eine E-Mail an <a href="mailto:kontakt@three-dimensions.de?subject=Projektanfrage&body=' + encodeURIComponent('Name: ' + data.name + '\nUnternehmen: ' + data.company + '\nE-Mail: ' + data.email + '\n\nNachricht:\n' + data.message) + '">kontakt@three-dimensions.de</a>';
+            formStatus.textContent = 'Die Anfrage konnte nicht gesendet werden. Bitte senden Sie uns stattdessen eine E-Mail an ';
+            const emailLink = document.createElement('a');
+            emailLink.href = 'mailto:kontakt@three-dimensions.de?subject=Projektanfrage&body=' + encodeURIComponent('Name: ' + data.name + '\nUnternehmen: ' + data.company + '\nE-Mail: ' + data.email + '\n\nNachricht:\n' + data.message);
+            emailLink.textContent = 'kontakt@three-dimensions.de';
+            formStatus.appendChild(emailLink);
             formStatus.className = 'form-status error';
             console.error('Form submission error:', error);
           } finally {
@@ -966,9 +970,10 @@
       }
     });
 
-    // Email validation helper
+    // Email validation helper - using a more robust pattern
     function isValidEmail(email) {
-      return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+      // RFC 5322 simplified pattern - allows most valid emails while blocking obvious invalids
+      return /^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/.test(email);
     }
 
     // Services dropdown functionality
