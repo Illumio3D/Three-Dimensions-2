@@ -444,21 +444,6 @@
       opacity: 0.7;
     }
 
-    /* Version Badge */
-    .version-badge {
-      position: fixed;
-      bottom: 10px;
-      right: 10px;
-      background: rgba(13, 44, 87, 0.9);
-      color: #4CAF50;
-      padding: 6px 12px;
-      border-radius: 4px;
-      font-size: 11px;
-      font-family: monospace;
-      z-index: 9999;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.3);
-      border: 1px solid #4CAF50;
-    }
   </style>
 </head>
 <body>
@@ -490,9 +475,9 @@
       <div class="containers-wrapper">
         <div class="color-container first">
           <video muted playsinline preload="metadata">
-            <source src="Rot transparent.webm" type="video/webm; codecs=vp9">
+            <source src="Rot transparent.webm" type='video/webm; codecs="vp9"'>
             <!-- Safari fallback: HEVC with alpha channel -->
-            <source src="Rot transparent-HEVC.mov" type="video/quicktime">
+            <source src="Rot transparent-HEVC.mov" type='video/mp4; codecs="hvc1"' data-alpha-format="hevc">
           </video>
           <div class="container-text">
             <h3>NOIRE №1</h3>
@@ -501,9 +486,9 @@
         </div>
         <div class="color-container second">
           <video muted playsinline preload="metadata">
-            <source src="Hellrot transparent.webm" type="video/webm; codecs=vp9">
-            <!-- Safari fallback: ProRes 4444 with alpha channel -->
-            <source src="Hellrot transparent-4444.mov" type="video/quicktime">
+            <source src="Hellrot transparent.webm" type='video/webm; codecs="vp9"'>
+            <!-- Safari fallback: HEVC with alpha channel -->
+            <source src="Hellrot transparent-HEVC.mov" type='video/mp4; codecs="hvc1"' data-alpha-format="hevc">
           </video>
           <div class="container-text">
             <h3>NOIRE №11</h3>
@@ -512,9 +497,9 @@
         </div>
         <div class="color-container third">
           <video muted playsinline preload="metadata">
-            <source src="Pinktransparent.webm" type="video/webm; codecs=vp9">
+            <source src="Pinktransparent.webm" type='video/webm; codecs="vp9"'>
             <!-- Safari fallback: HEVC with alpha channel -->
-            <source src="Pinktransparent-HEVC.mov" type="video/quicktime">
+            <source src="Pinktransparent-HEVC.mov" type='video/mp4; codecs="hvc1"' data-alpha-format="hevc">
           </video>
           <div class="container-text">
             <h3>NOIRE №6</h3>
@@ -573,6 +558,24 @@
         modal.addEventListener('click', function(e) {
           if (e.target === modal) {
             closeWeChatModal();
+          }
+        });
+      }
+
+      const isSafari = (() => {
+        const ua = navigator.userAgent || '';
+        const isIOSWebKit = /AppleWebKit/.test(ua) && /Mobile|iP(ad|hone|od)/.test(ua);
+        const isMacSafari = /Safari/.test(ua) && !/Chrome|Chromium|CriOS|FxiOS|EdgiOS/.test(ua);
+        return isIOSWebKit || isMacSafari;
+      })();
+
+      if (isSafari) {
+        const safariVideos = document.querySelectorAll('.color-container video');
+        safariVideos.forEach(video => {
+          const alphaSource = video.querySelector('source[data-alpha-format]');
+          if (alphaSource) {
+            video.prepend(alphaSource);
+            video.load();
           }
         });
       }
@@ -662,8 +665,6 @@
       }
     });
   </script>
-  <!-- Version Badge -->
-  <div class="version-badge">✓ Video Fix Branch</div>
   <!-- WeChat QR Code Modal -->
   <div id="wechat-qr-modal" class="wechat-qr-modal">
     <div class="wechat-qr-content">
@@ -674,4 +675,3 @@
   </div>
 </body>
 </html>
-

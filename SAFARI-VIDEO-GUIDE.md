@@ -1,6 +1,83 @@
-# Safari Transparent Video Support - Solutions & Recommendations
+# Safari Transparent Video Support (Alpha) – Solutions & Recommendations
 
-## The Problem
+## 1) Safari’s Alpha-Transparency Support (What Works / What Doesn’t)
+- Safari (macOS + iOS) **does not render WebM VP9 alpha** – it falls back to opaque playback, producing the black background you’re seeing.
+- Safari **does render HEVC/H.265 with alpha** when the file is properly encoded:
+  - Container: `.mov` or `.mp4` with the **`hvc1`** tag
+  - Pixel format: **`yuva420p`** (or `yuva444p10le` for higher quality)
+  - Hardware support exists on **iOS 13+ / iPadOS 13+ / macOS 11+ (Safari 14+)**. Older Safari versions will ignore the alpha channel.
+- ProRes 4444 retains alpha but is huge and may not play efficiently on the web; prefer HEVC with alpha for Safari.
+
+## 2) Recommended Codec, Container & Encoding Settings for Safari
+Use HEVC with alpha and make sure the `hvc1` brand is present (Finder’s HEVC export often omits this tag, which breaks Safari). Re-encode your ProRes 4444 master with FFmpeg:
+
+```bash
+# HEVC with alpha (Safari-ready)
+ffmpeg -i "input_prores_4444.mov" \
+  -c:v hevc -tag:v hvc1 \               # hvc1 ensures Safari picks the HEVC track
+  -pix_fmt yuva420p \                   # 8-bit with alpha; use yuva444p10le for higher fidelity
+  -alpha_quality 0.75 \                 # tunes alpha compression; lower = higher quality
+  -b:v 2.5M \                           # adjust to balance quality/file size
+  "output-hevc-alpha.mov"
+```
+
+**Browser source order recommendation**
+1. WebM VP9 with alpha (Chrome/Firefox/Edge)
+2. HEVC with alpha (`hvc1`) for Safari
+3. (Optional) Plain MP4/H.264 fallback without alpha, or a PNG/WebP poster
+
+## 3) Cross-Browser HTML/CSS Example
+
+```html
+<style>
+  .transparent-video {
+    width: 100%;
+    height: auto;
+    background: transparent;
+    mix-blend-mode: normal;
+    isolation: isolate;
+    display: block;
+  }
+</style>
+
+<video class="transparent-video" muted playsinline preload="metadata" aria-label="Transparent product video">
+  <!-- Chrome / Firefox / Edge -->
+  <source src="product.webm" type='video/webm; codecs="vp9,alpha"'>
+  <!-- Safari (alpha supported on iOS 13+ / macOS 11+) -->
+  <source src="product-hevc.mov" type='video/mp4; codecs="hvc1"'>
+  <!-- Optional opaque fallback -->
+  <source src="product.mp4" type="video/mp4">
+  Sorry, your browser does not support embedded videos.
+</video>
+```
+
+Key points:
+- Use `muted playsinline` for iOS autoplay eligibility.
+- Explicit codec strings (`vp9,alpha` and `hvc1`) help Safari pick the correct track.
+- Keep the WebM source first so Chromium browsers choose it; Safari will skip it and load the HEVC source.
+
+## 4) Workarounds if Native Transparency Fails
+- **WebM + HEVC fallback (recommended path):** Current site structure already does this; ensure HEVC is properly tagged (`hvc1`) and encoded with alpha.
+- **PNG/APNG sequence:** Universal transparency but larger; use when alpha must be guaranteed on very old Safari.
+- **Animated WebP:** Good compression; Safari 14+ only.
+- **Canvas rendering of PNG sequence:** Maximum control; heavier on CPU but works everywhere.
+- **Static PNG fallback:** Provide a poster image if both alpha-capable formats fail.
+
+## 5) Safari Version Limitations & Graceful Handling
+- Alpha in HEVC requires **iOS/iPadOS 13+** and **macOS 11+/Safari 14+**. Older Safari will display opaque video.
+- Provide a graceful fallback: keep an opaque MP4 or a transparent PNG/APNG poster. Example:
+
+```html
+<video ... poster="product.png">
+  <source src="product.webm" type='video/webm; codecs="vp9,alpha"'>
+  <source src="product-hevc.mov" type='video/mp4; codecs="hvc1"'>
+</video>
+<noscript><img src="product.png" alt="Product preview"></noscript>
+```
+
+---
+
+## The Problem (Current Site)
 
 Safari browser does not fully support WebM videos with alpha channel (transparency), which are currently used on the Three Dimensions website. These transparent videos work perfectly in Chrome but fail to display transparency in Safari.
 
@@ -15,7 +92,7 @@ Safari browser does not fully support WebM videos with alpha channel (transparen
 | Format | Chrome | Firefox | Safari | Edge |
 |--------|--------|---------|--------|------|
 | WebM (VP9) with Alpha | ✅ | ✅ | ❌ | ✅ |
-| HEVC (H.265) with Alpha | ❌ | ❌ | ✅ (iOS 13+, macOS 10.15+) | ❌ |
+| HEVC (H.265) with Alpha | ❌ | ❌ | ✅ (iOS 13+, macOS 11+) | ❌ |
 | PNG Sequence | ✅ | ✅ | ✅ | ✅ |
 
 ## Implemented Temporary Solution
