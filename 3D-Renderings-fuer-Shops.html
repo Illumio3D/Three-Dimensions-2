@@ -574,7 +574,7 @@
         });
       }
 
-      // Video hover play functionality
+      // Video hover play functionality - can set up immediately
       const containers = document.querySelectorAll('.color-container');
       containers.forEach(container => {
         const video = container.querySelector('video');
@@ -614,7 +614,12 @@
           });
         }
       });
+    });
 
+    // Scroll animation for containers - wait for full page load including hero video
+    window.addEventListener('load', function() {
+      const containers = document.querySelectorAll('.color-container');
+      
       // Scroll animation for containers
       const observerOptions = {
         threshold: 0.2,
