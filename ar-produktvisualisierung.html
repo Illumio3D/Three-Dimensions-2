@@ -621,9 +621,9 @@
         <p class="ar-description-text">3D zeigt Produkte klarer, AR macht sie erlebbar. Kunden verstehen sofort,<br>was sie kaufen und treffen sichere Entscheidungen.<br>Für dich heißt das, weniger Retouren und steigende Verkäufe.</p>
         <div class="iphone-video-container">
           <video autoplay muted playsinline aria-label="AR-Demo auf iPhone - Produktvisualisierung in Augmented Reality">
-            <source src="Iphone fbegining00086400.webm" type="video/webm; codecs=vp9">
+            <source src="Iphone fbegining00086400.webm" type='video/webm; codecs="vp9,alpha"'>
             <!-- Safari fallback: HEVC with alpha channel -->
-            <source src="Iphone fbegining-HEVC.mov" type="video/quicktime">
+            <source src="Iphone fbegining-HEVC.mov" type='video/mp4; codecs="hvc1"' data-alpha-format="hevc">
           </video>
         </div>
       </div>
@@ -823,6 +823,21 @@
       const iphoneVideo = document.querySelector('.iphone-video-container video');
       
       if (iphoneVideo) {
+        const isSafari = (() => {
+          const ua = navigator.userAgent || '';
+          const isIOSWebKit = /AppleWebKit/.test(ua) && /Mobile|iP(ad|hone|od)/.test(ua);
+          const isMacSafari = /Safari/.test(ua) && !/Chrome|Chromium|CriOS|FxiOS|EdgiOS/.test(ua);
+          return isIOSWebKit || isMacSafari;
+        })();
+
+        if (isSafari) {
+          const alphaSource = iphoneVideo.querySelector('source[data-alpha-format]');
+          if (alphaSource) {
+            iphoneVideo.prepend(alphaSource);
+            iphoneVideo.load();
+          }
+        }
+
         // Check if browser supports WebM with VP9 codec
         const canPlayWebM = iphoneVideo.canPlayType('video/webm; codecs="vp9"');
         
@@ -864,4 +879,3 @@
     
 </body>
 </html>
-

@@ -490,9 +490,9 @@
       <div class="containers-wrapper">
         <div class="color-container first">
           <video muted playsinline preload="metadata">
-            <source src="Rot transparent.webm" type="video/webm; codecs=vp9">
+            <source src="Rot transparent.webm" type='video/webm; codecs="vp9,alpha"'>
             <!-- Safari fallback: HEVC with alpha channel -->
-            <source src="Rot transparent-HEVC.mov" type="video/quicktime">
+            <source src="Rot transparent-HEVC.mov" type='video/mp4; codecs="hvc1"' data-alpha-format="hevc">
           </video>
           <div class="container-text">
             <h3>NOIRE №1</h3>
@@ -501,9 +501,9 @@
         </div>
         <div class="color-container second">
           <video muted playsinline preload="metadata">
-            <source src="Hellrot transparent.webm" type="video/webm; codecs=vp9">
+            <source src="Hellrot transparent.webm" type='video/webm; codecs="vp9,alpha"'>
             <!-- Safari fallback: ProRes 4444 with alpha channel -->
-            <source src="Hellrot transparent-4444.mov" type="video/quicktime">
+            <source src="Hellrot transparent-4444.mov" type='video/quicktime; codecs="ap4h"' data-alpha-format="prores">
           </video>
           <div class="container-text">
             <h3>NOIRE №11</h3>
@@ -512,9 +512,9 @@
         </div>
         <div class="color-container third">
           <video muted playsinline preload="metadata">
-            <source src="Pinktransparent.webm" type="video/webm; codecs=vp9">
+            <source src="Pinktransparent.webm" type='video/webm; codecs="vp9,alpha"'>
             <!-- Safari fallback: HEVC with alpha channel -->
-            <source src="Pinktransparent-HEVC.mov" type="video/quicktime">
+            <source src="Pinktransparent-HEVC.mov" type='video/mp4; codecs="hvc1"' data-alpha-format="hevc">
           </video>
           <div class="container-text">
             <h3>NOIRE №6</h3>
@@ -573,6 +573,24 @@
         modal.addEventListener('click', function(e) {
           if (e.target === modal) {
             closeWeChatModal();
+          }
+        });
+      }
+
+      const isSafari = (() => {
+        const ua = navigator.userAgent || '';
+        const isIOSWebKit = /AppleWebKit/.test(ua) && /Mobile|iP(ad|hone|od)/.test(ua);
+        const isMacSafari = /Safari/.test(ua) && !/Chrome|Chromium|CriOS|FxiOS|EdgiOS/.test(ua);
+        return isIOSWebKit || isMacSafari;
+      })();
+
+      if (isSafari) {
+        const safariVideos = document.querySelectorAll('.color-container video');
+        safariVideos.forEach(video => {
+          const alphaSource = video.querySelector('source[data-alpha-format]');
+          if (alphaSource) {
+            video.prepend(alphaSource);
+            video.load();
           }
         });
       }
@@ -674,4 +692,3 @@
   </div>
 </body>
 </html>
-
