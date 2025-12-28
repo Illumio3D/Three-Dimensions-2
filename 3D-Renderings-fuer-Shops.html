@@ -230,6 +230,7 @@
       width: 25rem;
       height: 35rem;
       border-radius: 3.125rem;
+      background: rgba(255, 255, 255, 0.05);
       backdrop-filter: blur(10px);
       -webkit-backdrop-filter: blur(10px);
       border: 1px solid rgba(255, 255, 255, 0.2);
@@ -238,12 +239,15 @@
       position: relative;
       opacity: 0;
       transform: translateX(-100px);
+      -webkit-transform: translateX(-100px);
       transition: opacity 0.8s ease, transform 0.8s ease;
+      -webkit-transition: opacity 0.8s ease, -webkit-transform 0.8s ease;
     }
 
     .color-container.animate {
       opacity: 1;
       transform: translateX(0);
+      -webkit-transform: translateX(0);
     }
 
     .color-container video {
@@ -257,6 +261,8 @@
       transition: opacity 0.3s ease;
       pointer-events: none;
       background: transparent;
+      mix-blend-mode: normal;
+      isolation: isolate;
     }
 
     .container-text {
@@ -313,7 +319,7 @@
       background-position: center;
       background-repeat: no-repeat;
       background-attachment: fixed;
-      background-color: #000000;
+      background-color: transparent;
       position: relative;
       padding: 9rem 0 10rem 0;
     }
@@ -437,6 +443,22 @@
     .wechat-qr-close:hover {
       opacity: 0.7;
     }
+
+    /* Version Badge */
+    .version-badge {
+      position: fixed;
+      bottom: 10px;
+      right: 10px;
+      background: rgba(13, 44, 87, 0.9);
+      color: #4CAF50;
+      padding: 6px 12px;
+      border-radius: 4px;
+      font-size: 11px;
+      font-family: monospace;
+      z-index: 9999;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+      border: 1px solid #4CAF50;
+    }
   </style>
 </head>
 <body>
@@ -470,7 +492,7 @@
           <video muted playsinline preload="metadata">
             <source src="Rot transparent.webm" type="video/webm; codecs=vp9">
             <!-- Safari fallback: HEVC with alpha channel -->
-            <source src="Rot-transparent.hevc.mp4" type="video/mp4; codecs=hvc1">
+            <source src="Rot transparent-HEVC.mov" type="video/quicktime">
           </video>
           <div class="container-text">
             <h3>NOIRE №1</h3>
@@ -480,8 +502,8 @@
         <div class="color-container second">
           <video muted playsinline preload="metadata">
             <source src="Hellrot transparent.webm" type="video/webm; codecs=vp9">
-            <!-- Safari fallback: HEVC with alpha channel -->
-            <source src="Hellrot-transparent.hevc.mp4" type="video/mp4; codecs=hvc1">
+            <!-- Safari fallback: ProRes 4444 with alpha channel -->
+            <source src="Hellrot transparent-4444.mov" type="video/quicktime">
           </video>
           <div class="container-text">
             <h3>NOIRE №11</h3>
@@ -492,7 +514,7 @@
           <video muted playsinline preload="metadata">
             <source src="Pinktransparent.webm" type="video/webm; codecs=vp9">
             <!-- Safari fallback: HEVC with alpha channel -->
-            <source src="Pinktransparent.hevc.mp4" type="video/mp4; codecs=hvc1">
+            <source src="Pinktransparent-HEVC.mov" type="video/quicktime">
           </video>
           <div class="container-text">
             <h3>NOIRE №6</h3>
@@ -555,7 +577,7 @@
         });
       }
 
-      // Video hover play functionality
+      // Video hover play functionality - can set up immediately
       const containers = document.querySelectorAll('.color-container');
       containers.forEach(container => {
         const video = container.querySelector('video');
@@ -595,19 +617,26 @@
           });
         }
       });
+    });
 
+    // Scroll animation for containers - wait for full page load including hero video
+    window.addEventListener('load', function() {
+      const containers = document.querySelectorAll('.color-container');
+      
       // Scroll animation for containers
       const observerOptions = {
         threshold: 0.2,
-        rootMargin: '0px 0px 0px 0px'
+        rootMargin: '-100px 0px -100px 0px' // Require scrolling to trigger
       };
 
       const observer = new IntersectionObserver((entries) => {
-        entries.forEach((entry, index) => {
+        entries.forEach((entry) => {
           if (entry.isIntersecting) {
+            // Get index of this container relative to all containers
+            const containerIndex = Array.from(containers).indexOf(entry.target);
             setTimeout(() => {
               entry.target.classList.add('animate');
-            }, index * 150); // Stagger animation for each container
+            }, containerIndex * 150); // Stagger animation for each container
             observer.unobserve(entry.target);
           }
         });
@@ -633,6 +662,8 @@
       }
     });
   </script>
+  <!-- Version Badge -->
+  <div class="version-badge">✓ Video Fix Branch</div>
   <!-- WeChat QR Code Modal -->
   <div id="wechat-qr-modal" class="wechat-qr-modal">
     <div class="wechat-qr-content">
