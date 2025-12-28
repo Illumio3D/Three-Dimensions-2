@@ -1,0 +1,725 @@
+/* ==========================================================================
+   Three Dimensions - Responsive Design System
+   ============================================================================
+   
+   RESPONSIVE STRATEGY:
+   - Uses CSS clamp() for fluid typography scaling
+   - Uses viewport units (vw) for proportional spacing
+   - Uses CSS custom properties for consistent scaling ratios
+   - Minimal breakpoints - relies on fluid scaling where possible
+   - Mobile navigation via hamburger menu
+   - Preserves visual proportions across all screen sizes
+   
+   BREAKPOINTS (only where necessary):
+   - Mobile: 0 - 768px
+   - Tablet: 768px - 1024px  
+   - Desktop: 1024px+
+   
+   ========================================================================== */
+
+/* ==========================================================================
+   CSS Custom Properties for Responsive Scaling
+   ========================================================================== */
+:root {
+  /* Base scale factor - adjusts globally */
+  --scale-factor: 1;
+  
+  /* Fluid typography scale using clamp() */
+  /* Format: clamp(min, preferred, max) */
+  --font-hero-title: clamp(2.5rem, 5vw + 1rem, 6rem);
+  --font-hero-subtitle: clamp(1.25rem, 2.5vw + 0.5rem, 2.5rem);
+  --font-main-headline: clamp(2rem, 4vw + 0.5rem, 4rem);
+  --font-section-title: clamp(1.5rem, 3vw + 0.5rem, 4rem);
+  --font-container-title: clamp(1.5rem, 3vw + 0.25rem, 3.6rem);
+  --font-description: clamp(1rem, 1.5vw + 0.25rem, 1.5rem);
+  --font-ar-text: clamp(1.25rem, 2vw + 0.5rem, 2.3rem);
+  --font-cta-text: clamp(1.75rem, 3.5vw + 0.5rem, 4rem);
+  --font-button: clamp(1.2rem, 2vw + 0.2rem, 2.2rem);
+  --font-nav: clamp(0.85rem, 1vw + 0.25rem, 1rem);
+  --font-brand: clamp(1.25rem, 1.5vw + 0.5rem, 1.75rem);
+  
+  /* Fluid spacing scale */
+  --space-xs: clamp(0.5rem, 1vw, 1rem);
+  --space-sm: clamp(1rem, 2vw, 2rem);
+  --space-md: clamp(2rem, 4vw, 4rem);
+  --space-lg: clamp(3rem, 6vw, 6rem);
+  --space-xl: clamp(4rem, 8vw, 9rem);
+  --space-2xl: clamp(6rem, 10vw, 12rem);
+  
+  /* Container widths - fluid with max constraints */
+  --container-sm: min(90vw, 32rem);
+  --container-md: min(90vw, 45rem);
+  --container-lg: min(90vw, 64rem);
+  --container-content: min(92vw, 1200px);
+  
+  /* Border radius - scales proportionally */
+  --radius-sm: clamp(0.5rem, 1vw, 1rem);
+  --radius-md: clamp(1rem, 2vw, 1.5rem);
+  --radius-lg: clamp(1.5rem, 3vw, 3.125rem);
+}
+
+/* ==========================================================================
+   Mobile Navigation - Hamburger Menu
+   ========================================================================== */
+.mobile-menu-toggle {
+  display: none;
+  flex-direction: column;
+  justify-content: space-around;
+  width: 2rem;
+  height: 1.5rem;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  z-index: 1001;
+}
+
+.mobile-menu-toggle span {
+  width: 100%;
+  height: 2px;
+  background-color: #ffffff;
+  border-radius: 2px;
+  transition: all 0.3s ease;
+  transform-origin: left;
+}
+
+/* Hamburger animation when active */
+.mobile-menu-toggle.active span:nth-child(1) {
+  transform: rotate(45deg);
+}
+
+.mobile-menu-toggle.active span:nth-child(2) {
+  opacity: 0;
+  transform: translateX(-10px);
+}
+
+.mobile-menu-toggle.active span:nth-child(3) {
+  transform: rotate(-45deg);
+}
+
+/* ==========================================================================
+   Responsive Header & Navigation
+   ========================================================================== */
+@media (max-width: 768px) {
+  header {
+    padding: 1rem !important;
+  }
+  
+  .brand {
+    font-size: var(--font-brand) !important;
+  }
+  
+  .mobile-menu-toggle {
+    display: flex;
+  }
+  
+  .nav-links {
+    position: fixed;
+    top: 0;
+    right: -100%;
+    width: 75%;
+    max-width: 300px;
+    height: 100vh;
+    background: var(--header-bg, #0d2c57);
+    flex-direction: column;
+    justify-content: flex-start;
+    padding: 5rem 2rem 2rem;
+    gap: 1.5rem !important;
+    transition: right 0.3s ease;
+    box-shadow: -4px 0 20px rgba(0, 0, 0, 0.3);
+    z-index: 999;
+    overflow-y: auto;
+  }
+  
+  .nav-links.active {
+    right: 0;
+  }
+  
+  .nav-links a {
+    font-size: 1.1rem !important;
+    padding: 0.5rem 0;
+    display: block;
+    width: 100%;
+  }
+  
+  .services-dropdown {
+    width: 100%;
+  }
+  
+  .services-dropdown-button {
+    width: 100%;
+    justify-content: space-between;
+    font-size: 1.1rem !important;
+    padding: 0.5rem 0;
+  }
+  
+  .services-dropdown-menu {
+    position: static !important;
+    transform: none !important;
+    margin-top: 0.5rem !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    display: none;
+    background-color: rgba(255, 255, 255, 0.1) !important;
+    border-radius: 0.5rem;
+    box-shadow: none !important;
+  }
+  
+  .services-dropdown.active .services-dropdown-menu {
+    display: block;
+  }
+  
+  /* Mobile menu overlay */
+  .mobile-menu-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 998;
+  }
+  
+  .mobile-menu-overlay.active {
+    display: block;
+  }
+}
+
+/* ==========================================================================
+   Responsive Hero Section & Videos
+   ========================================================================== */
+.video-container {
+  width: 100% !important;
+  position: relative;
+}
+
+.video-container video {
+  width: 100% !important;
+  height: auto !important;
+  display: block;
+  object-fit: cover;
+}
+
+.hero-overlay {
+  padding-top: clamp(5%, 10%, 15%) !important;
+}
+
+.hero-title {
+  font-size: var(--font-hero-title) !important;
+  padding: 0 1rem;
+  text-align: center;
+}
+
+.hero-subtitle {
+  font-size: var(--font-hero-subtitle) !important;
+  padding: 0 1rem;
+  text-align: center;
+}
+
+/* ==========================================================================
+   Responsive Content Sections
+   ========================================================================== */
+.content-section {
+  max-width: var(--container-content) !important;
+  padding: 0 clamp(1rem, 4vw, 2rem) !important;
+  width: 100% !important;
+}
+
+.gradient-section {
+  min-height: auto !important;
+  padding: var(--space-lg) 0 !important;
+}
+
+.white-gradient-section {
+  min-height: auto !important;
+}
+
+/* ==========================================================================
+   Responsive Typography
+   ========================================================================== */
+.main-headline {
+  font-size: var(--font-main-headline) !important;
+  padding: 0 1rem;
+}
+
+.section-title {
+  font-size: var(--font-section-title) !important;
+}
+
+.cta-text {
+  font-size: var(--font-cta-text) !important;
+  padding: 0 1rem;
+}
+
+.description-text,
+.description-text-2 {
+  font-size: var(--font-description) !important;
+  padding: 0 1rem;
+}
+
+.ar-text,
+.ar-container-2-text,
+.ar-container-3-text {
+  font-size: var(--font-ar-text) !important;
+}
+
+.ar-description,
+.ar-container-2-description,
+.ar-container-3-description {
+  font-size: var(--font-description) !important;
+}
+
+.container-title {
+  font-size: var(--font-container-title) !important;
+}
+
+.container-description {
+  font-size: var(--font-description) !important;
+}
+
+/* ==========================================================================
+   Responsive AR Containers (index.html)
+   ========================================================================== */
+.ar-container {
+  width: var(--container-lg) !important;
+  height: auto !important;
+  min-height: clamp(16rem, 40vw, 32rem);
+  aspect-ratio: 2 / 1;
+  border-radius: var(--radius-lg) !important;
+}
+
+.ar-container-button {
+  width: 100% !important;
+  height: 100% !important;
+  border-radius: var(--radius-lg) !important;
+}
+
+.ar-container-2 {
+  width: var(--container-sm) !important;
+  height: auto !important;
+  min-height: clamp(16rem, 35vw, 32rem);
+  border-radius: var(--radius-lg) !important;
+}
+
+.ar-container-2-button {
+  width: 100% !important;
+  height: 100% !important;
+  border-radius: var(--radius-lg) !important;
+}
+
+.ar-container-3 {
+  width: var(--container-sm) !important;
+  height: auto !important;
+  min-height: clamp(16rem, 35vw, 32rem);
+  aspect-ratio: 1 / 1;
+  border-radius: var(--radius-lg) !important;
+}
+
+.ar-container-3-button {
+  width: 100% !important;
+  height: 100% !important;
+  border-radius: var(--radius-lg) !important;
+}
+
+/* ==========================================================================
+   Responsive Wrapper Layouts
+   ========================================================================== */
+.ar-container-2-wrapper,
+.ar-container-3-wrapper {
+  margin-top: var(--space-xl) !important;
+  gap: clamp(1.5rem, 3vw, 3rem) !important;
+}
+
+@media (max-width: 900px) {
+  .ar-container-2-wrapper {
+    flex-direction: column !important;
+    align-items: center !important;
+  }
+  
+  .ar-container-3-wrapper {
+    flex-direction: column-reverse !important;
+    align-items: center !important;
+  }
+  
+  .ar-container-2-text-wrapper,
+  .ar-container-3-text-wrapper {
+    text-align: center !important;
+    width: 100%;
+  }
+  
+  .ar-container-2-text,
+  .ar-container-3-text,
+  .ar-container-2-description,
+  .ar-container-3-description {
+    text-align: center !important;
+    white-space: normal !important;
+  }
+  
+  .ar-container-2,
+  .ar-container-3 {
+    width: min(90vw, 36rem) !important;
+  }
+}
+
+/* ==========================================================================
+   Responsive Text Section (two-column layout)
+   ========================================================================== */
+.text-section {
+  margin-top: var(--space-lg) !important;
+}
+
+@media (max-width: 768px) {
+  .text-section {
+    grid-template-columns: 1fr !important;
+    gap: var(--space-sm) !important;
+  }
+  
+  .section-title,
+  .bullet-points,
+  .cta-text,
+  .description-text-2,
+  .ar-text,
+  .ar-description {
+    text-align: center !important;
+  }
+  
+  .bullet-points {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+}
+
+/* ==========================================================================
+   Responsive Image Container (description text overlay)
+   ========================================================================== */
+@media (max-width: 768px) {
+  .image-container {
+    position: relative;
+  }
+  
+  .description-text {
+    position: static !important;
+    transform: none !important;
+    padding: var(--space-sm) !important;
+    text-align: center !important;
+  }
+}
+
+/* ==========================================================================
+   Responsive Footer
+   ========================================================================== */
+footer {
+  padding: var(--space-md) 0 !important;
+  min-height: auto !important;
+}
+
+.footer-content {
+  flex-direction: column !important;
+  gap: var(--space-sm);
+  padding: 0 var(--space-sm) !important;
+  position: static !important;
+}
+
+.footer-text,
+.footer-links {
+  position: static !important;
+  text-align: center !important;
+}
+
+@media (min-width: 768px) {
+  .footer-content {
+    flex-direction: row !important;
+    justify-content: space-between !important;
+  }
+  
+  .footer-text {
+    text-align: left !important;
+  }
+  
+  .footer-links {
+    text-align: right !important;
+  }
+}
+
+/* ==========================================================================
+   Responsive Buttons
+   ========================================================================== */
+.anfrage-button-container a.anfrage-button {
+  width: min(90%, 650px) !important;
+  height: clamp(3.5rem, 8vw, 6rem) !important;
+  font-size: var(--font-button) !important;
+  line-height: clamp(3.5rem, 8vw, 6rem) !important;
+  border-radius: var(--radius-md) !important;
+}
+
+#ar-button {
+  padding: clamp(0.75rem, 2vw, 1.5rem) clamp(1.5rem, 4vw, 3rem) !important;
+  font-size: clamp(0.875rem, 2vw, 1.5rem) !important;
+  border-radius: clamp(0.5rem, 1vw, 1rem) !important;
+}
+
+/* ==========================================================================
+   Responsive Details-durch-3D Page
+   ========================================================================== */
+.image-text-wrapper {
+  margin-top: var(--space-xl) !important;
+  gap: clamp(1.5rem, 3vw, 3rem) !important;
+}
+
+@media (max-width: 900px) {
+  .image-text-wrapper {
+    flex-direction: column !important;
+    align-items: center !important;
+  }
+  
+  .image-text-wrapper.right-aligned {
+    flex-direction: column !important;
+    justify-content: center !important;
+  }
+  
+  .image-text-wrapper.right-aligned .image-container img {
+    transform: none !important;
+  }
+  
+  .image-text-wrapper .container-text {
+    text-align: center !important;
+    width: 100%;
+  }
+  
+  .image-container {
+    width: min(90vw, 45rem) !important;
+    height: auto !important;
+    min-height: clamp(15rem, 40vw, 25rem);
+  }
+  
+  .image-container.third {
+    width: min(90vw, 37.5rem) !important;
+    height: auto !important;
+    min-height: clamp(20rem, 50vw, 39rem);
+    aspect-ratio: auto;
+  }
+}
+
+/* ==========================================================================
+   Responsive Gallery (Details-durch-3D)
+   ========================================================================== */
+.gallery-container {
+  width: min(95vw, 57rem) !important;
+  transform: scale(clamp(0.8, 0.8 + 0.4 * (100vw - 320px) / (1200 - 320), 1.4)) !important;
+}
+
+@media (max-width: 768px) {
+  .gallery-container {
+    transform: scale(1) !important;
+    margin-top: var(--space-md) !important;
+  }
+  
+  .gallery-item {
+    height: clamp(12rem, 30vw, 22.5rem) !important;
+  }
+  
+  .gallery-item img {
+    width: min(90vw, 40rem) !important;
+    height: clamp(12rem, 30vw, 22.5rem) !important;
+  }
+  
+  .gallery-nav-button {
+    width: 2.5rem !important;
+    height: 2.5rem !important;
+  }
+  
+  .gallery-nav-button svg {
+    width: 1.25rem !important;
+    height: 1.25rem !important;
+  }
+}
+
+/* ==========================================================================
+   Responsive 3D-Renderings-fuer-Shops Page
+   ========================================================================== */
+.containers-wrapper {
+  gap: clamp(0.5rem, 2vw, 1rem) !important;
+  flex-wrap: wrap !important;
+  justify-content: center !important;
+}
+
+.color-container {
+  width: clamp(18rem, 30vw, 25rem) !important;
+  height: clamp(25rem, 45vw, 35rem) !important;
+  border-radius: var(--radius-lg) !important;
+}
+
+@media (max-width: 900px) {
+  .containers-wrapper {
+    flex-direction: column !important;
+    align-items: center !important;
+  }
+  
+  .color-container {
+    width: min(90vw, 25rem) !important;
+    height: clamp(28rem, 70vw, 35rem) !important;
+  }
+}
+
+.background-section {
+  background-size: cover !important;
+  background-attachment: scroll !important; /* Fixed can cause issues on mobile */
+  padding: var(--space-lg) 0 !important;
+}
+
+@media (min-width: 1024px) {
+  .background-section {
+    background-attachment: fixed !important;
+  }
+}
+
+/* ==========================================================================
+   Responsive AR-Produktvisualisierung Page
+   ========================================================================== */
+.ar-title-text,
+.ar-section-title {
+  font-size: var(--font-main-headline) !important;
+  padding: 0 1rem;
+}
+
+.ar-description-text,
+.ar-section-description {
+  font-size: var(--font-description) !important;
+  padding: 0 1rem;
+}
+
+.iphone-video-container video {
+  max-width: 100%;
+  height: auto !important;
+}
+
+#ar-viewer-wrapper {
+  width: min(95vw, 900px) !important;
+  height: clamp(300px, 60vw, 600px) !important;
+}
+
+/* ==========================================================================
+   Responsive Form Page (Anfrageformular)
+   ========================================================================== */
+.form-title {
+  font-size: var(--font-main-headline) !important;
+}
+
+.form-description {
+  font-size: var(--font-description) !important;
+}
+
+.form-container {
+  margin-top: var(--space-lg) !important;
+  padding: clamp(1.5rem, 4vw, 2.5rem) !important;
+  border-radius: var(--radius-md) !important;
+}
+
+@media (max-width: 768px) {
+  .form-email-wrapper {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: var(--space-sm);
+  }
+  
+  .form-social-icons {
+    margin-left: 0 !important;
+  }
+  
+  .form-social-media {
+    margin-left: 0 !important;
+  }
+  
+  .form-social-icons-container {
+    margin-left: 0 !important;
+    justify-content: flex-start !important;
+  }
+}
+
+/* ==========================================================================
+   Responsive Legal Pages (Impressum, Datenschutz)
+   ========================================================================== */
+.impressum-content h1,
+.datenschutz-content h1 {
+  font-size: clamp(2rem, 4vw + 0.5rem, 3rem) !important;
+}
+
+.impressum-content h2,
+.datenschutz-content h2 {
+  font-size: clamp(1.25rem, 2.5vw + 0.25rem, 2rem) !important;
+}
+
+.impressum-content,
+.datenschutz-content {
+  font-size: clamp(1rem, 1.5vw + 0.25rem, 1.2rem) !important;
+}
+
+/* ==========================================================================
+   Responsive Ueber-Mich Page
+   ========================================================================== */
+.content-section h1 {
+  font-size: clamp(2rem, 4vw + 0.5rem, 3rem) !important;
+}
+
+.content-text {
+  font-size: clamp(1rem, 1.5vw + 0.25rem, 1.2rem) !important;
+}
+
+/* ==========================================================================
+   WeChat Modal - Already Responsive
+   ========================================================================== */
+.wechat-qr-content {
+  width: min(90vw, 400px) !important;
+  padding: clamp(1rem, 3vw, 2rem) !important;
+}
+
+/* ==========================================================================
+   Safe Area Insets (for devices with notches)
+   ========================================================================== */
+@supports (padding: max(0px)) {
+  header {
+    padding-left: max(1rem, env(safe-area-inset-left)) !important;
+    padding-right: max(1rem, env(safe-area-inset-right)) !important;
+  }
+  
+  .content-section {
+    padding-left: max(1rem, env(safe-area-inset-left)) !important;
+    padding-right: max(1rem, env(safe-area-inset-right)) !important;
+  }
+  
+  footer {
+    padding-bottom: max(2rem, env(safe-area-inset-bottom)) !important;
+  }
+}
+
+/* ==========================================================================
+   Performance: Reduce Motion for Users Who Prefer It
+   ========================================================================== */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ==========================================================================
+   Print Styles
+   ========================================================================== */
+@media print {
+  header,
+  footer,
+  .video-container,
+  .mobile-menu-toggle,
+  .mobile-menu-overlay {
+    display: none !important;
+  }
+  
+  .content-section {
+    max-width: 100% !important;
+    padding: 0 !important;
+  }
+}
