@@ -383,6 +383,21 @@
         });
       }
     });
+
+    // Services dropdown functionality
+    function toggleServicesDropdown(event) {
+      event.stopPropagation();
+      const dropdown = document.getElementById('servicesDropdown');
+      dropdown.classList.toggle('active');
+    }
+
+    // Close dropdown when clicking outside
+    document.addEventListener('click', function(event) {
+      const dropdown = document.getElementById('servicesDropdown');
+      if (dropdown && !dropdown.contains(event.target)) {
+        dropdown.classList.remove('active');
+      }
+    });
   </script>
 </body>
 </html>
