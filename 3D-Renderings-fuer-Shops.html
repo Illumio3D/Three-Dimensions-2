@@ -238,12 +238,15 @@
       position: relative;
       opacity: 0;
       transform: translateX(-100px);
+      -webkit-transform: translateX(-100px);
       transition: opacity 0.8s ease, transform 0.8s ease;
+      -webkit-transition: opacity 0.8s ease, -webkit-transform 0.8s ease;
     }
 
     .color-container.animate {
       opacity: 1;
       transform: translateX(0);
+      -webkit-transform: translateX(0);
     }
 
     .color-container video {
@@ -485,8 +488,8 @@
         <div class="color-container first">
           <video muted playsinline preload="metadata">
             <source src="Rot transparent.webm" type="video/webm; codecs=vp9">
-            <!-- Safari fallback: MOV with alpha channel -->
-            <source src="Rot transparent.mov" type="video/quicktime">
+            <!-- Safari fallback: HEVC with alpha channel -->
+            <source src="Rot transparent.mov" type='video/mp4; codecs="hvc1"'>
           </video>
           <div class="container-text">
             <h3>NOIRE №1</h3>
@@ -496,8 +499,8 @@
         <div class="color-container second">
           <video muted playsinline preload="metadata">
             <source src="Hellrot transparent.webm" type="video/webm; codecs=vp9">
-            <!-- Safari fallback: MOV with alpha channel -->
-            <source src="Hellrot transparent.mov" type="video/quicktime">
+            <!-- Safari fallback: HEVC with alpha channel -->
+            <source src="Hellrot transparent.mov" type='video/mp4; codecs="hvc1"'>
           </video>
           <div class="container-text">
             <h3>NOIRE №11</h3>
@@ -507,8 +510,8 @@
         <div class="color-container third">
           <video muted playsinline preload="metadata">
             <source src="Pinktransparent.webm" type="video/webm; codecs=vp9">
-            <!-- Safari fallback: MOV with alpha channel -->
-            <source src="Pinktransparent.mov" type="video/quicktime">
+            <!-- Safari fallback: HEVC with alpha channel -->
+            <source src="Pinktransparent.mov" type='video/mp4; codecs="hvc1"'>
           </video>
           <div class="container-text">
             <h3>NOIRE №6</h3>
@@ -615,15 +618,17 @@
       // Scroll animation for containers
       const observerOptions = {
         threshold: 0.2,
-        rootMargin: '0px 0px 0px 0px'
+        rootMargin: '-100px 0px -100px 0px' // Require scrolling to trigger
       };
 
       const observer = new IntersectionObserver((entries) => {
-        entries.forEach((entry, index) => {
+        entries.forEach((entry) => {
           if (entry.isIntersecting) {
+            // Get index of this container relative to all containers
+            const containerIndex = Array.from(containers).indexOf(entry.target);
             setTimeout(() => {
               entry.target.classList.add('animate');
-            }, index * 150); // Stagger animation for each container
+            }, containerIndex * 150); // Stagger animation for each container
             observer.unobserve(entry.target);
           }
         });
