@@ -24,6 +24,15 @@
   /* Base scale factor - adjusts globally */
   --scale-factor: 1;
   
+  /* Gallery scale calculation - simplified for maintainability */
+  /* On mobile (320px): 0.8, on desktop (1200px): 1.4 */
+  --gallery-scale-mobile: 0.8;
+  --gallery-scale-desktop: 1.4;
+  
+  /* Background attachment - scroll on mobile for performance, fixed on desktop */
+  --bg-attachment-mobile: scroll;
+  --bg-attachment-desktop: fixed;
+  
   /* Fluid typography scale using clamp() */
   /* Format: clamp(min, preferred, max) */
   --font-hero-title: clamp(2.5rem, 5vw + 1rem, 6rem);
@@ -506,12 +515,19 @@ footer {
    ========================================================================== */
 .gallery-container {
   width: min(95vw, 57rem) !important;
-  transform: scale(clamp(0.8, 0.8 + 0.4 * (100vw - 320px) / (1200 - 320), 1.4)) !important;
+  /* Scale from 0.8 (mobile) to 1.4 (desktop) based on viewport width */
+  transform: scale(var(--gallery-scale-desktop)) !important;
+}
+
+@media (max-width: 1024px) {
+  .gallery-container {
+    transform: scale(1) !important;
+  }
 }
 
 @media (max-width: 768px) {
   .gallery-container {
-    transform: scale(1) !important;
+    transform: scale(var(--gallery-scale-mobile)) !important;
     margin-top: var(--space-md) !important;
   }
   
@@ -564,13 +580,15 @@ footer {
 
 .background-section {
   background-size: cover !important;
-  background-attachment: scroll !important; /* Fixed can cause issues on mobile */
+  /* Use CSS custom property for background attachment - scroll on mobile for performance */
+  background-attachment: var(--bg-attachment-mobile) !important;
   padding: var(--space-lg) 0 !important;
 }
 
 @media (min-width: 1024px) {
   .background-section {
-    background-attachment: fixed !important;
+    /* Enable parallax effect on desktop where performance is not an issue */
+    background-attachment: var(--bg-attachment-desktop) !important;
   }
 }
 
