@@ -12,23 +12,42 @@
    
    BREAKPOINTS (only where necessary):
    - Mobile: 0 - 768px
-   - Tablet: 768px - 1024px  
-   - Desktop: 1024px+
+   - Tablet: 768px - 900px  
+   - Desktop: 900px+
+   
+   HOW TO ADJUST SPACING/SIZING:
+   1. Find the section for the page you want to adjust (index.html, ar-produktvisualisierung.html, etc.)
+   2. Look for comments with "ADJUST THIS" - these are the values you can fine-tune
+   3. Change the rem/px values to increase or decrease spacing/sizes
+   
+   VALUE GUIDE:
+   - 0.25rem = ~4px (very small)
+   - 0.5rem = ~8px (small)
+   - 0.75rem = ~12px (medium-small)
+   - 1rem = ~16px (medium)
+   - 1.5rem = ~24px (medium-large)
+   - 2rem = ~32px (large)
+   - 3rem = ~48px (extra large)
    
    ========================================================================== */
 
 /* ==========================================================================
    CSS Custom Properties for Responsive Scaling
+   
+   GLOBAL VARIABLES - Changing these affects ALL pages
+   To adjust specific elements, see page-specific sections below
    ========================================================================== */
 :root {
   /* Base scale factor - adjusts globally */
   --scale-factor: 1;
   
-  /* Height reduction factor for mobile (40% reduction = 0.6 multiplier) */
-  --height-reduction-factor: 0.6;
+  /* LINE 28: Height reduction factor for "Jetzt Projekt umsetzen" buttons
+     ADJUST: 0.6 = 40% reduction, 0.8 = 20% reduction, 0.9 = 10% reduction */
+  --height-reduction-factor: 0.6; /* ADJUST THIS: button height reduction (0.6 = 40% smaller) */
   
-  /* Gallery item height for mobile */
-  --gallery-item-height-mobile: clamp(12rem, 50vw, 22.5rem);
+  /* LINE 31: Gallery item height for mobile (Details-durch-3D page)
+     ADJUST: change values to resize gallery on mobile */
+  --gallery-item-height-mobile: clamp(12rem, 50vw, 22.5rem); /* ADJUST THIS: mobile gallery height */
   
   /* Gallery scale calculation - simplified for maintainability */
   /* On mobile (320px): 0.8, on desktop (1200px): 1.4 */
@@ -39,33 +58,43 @@
   --bg-attachment-mobile: scroll;
   --bg-attachment-desktop: fixed;
   
-  /* Fluid typography scale using clamp() */
-  /* Format: clamp(min, preferred, max) */
-  --font-hero-title: clamp(2.5rem, 5vw + 1rem, 6rem);
-  --font-hero-subtitle: clamp(1.25rem, 2.5vw + 0.5rem, 2.5rem);
-  --font-main-headline: clamp(2rem, 4vw + 0.5rem, 4rem);
-  --font-section-title: clamp(1.5rem, 3vw + 0.5rem, 4rem);
-  --font-container-title: clamp(1.5rem, 3vw + 0.25rem, 3.6rem);
-  --font-description: clamp(1rem, 1.5vw + 0.25rem, 1.5rem);
-  --font-ar-text: clamp(1.25rem, 2vw + 0.5rem, 2.3rem);
-  --font-cta-text: clamp(1.75rem, 3.5vw + 0.5rem, 4rem);
-  --font-button: clamp(1.2rem, 2vw + 0.2rem, 2.2rem);
-  --font-nav: clamp(0.85rem, 1vw + 0.25rem, 1rem);
-  --font-brand: clamp(1.25rem, 1.5vw + 0.5rem, 1.75rem);
+  /* -------------------------------------------------------------------------
+     TYPOGRAPHY - Font sizes (affects all pages)
+     Format: clamp(minimum, preferred, maximum)
+     - First value: smallest size (mobile)
+     - Second value: scales with viewport width
+     - Third value: largest size (desktop)
+     ------------------------------------------------------------------------- */
+  --font-hero-title: clamp(2.5rem, 5vw + 1rem, 6rem); /* ADJUST: hero section titles */
+  --font-hero-subtitle: clamp(1.25rem, 2.5vw + 0.5rem, 2.5rem); /* ADJUST: hero subtitles */
+  --font-main-headline: clamp(2rem, 4vw + 0.5rem, 4rem); /* ADJUST: main page headlines */
+  --font-section-title: clamp(1.5rem, 3vw + 0.5rem, 4rem); /* ADJUST: section titles */
+  --font-container-title: clamp(1.5rem, 3vw + 0.25rem, 3.6rem); /* ADJUST: container titles */
+  --font-description: clamp(1rem, 1.5vw + 0.25rem, 1.5rem); /* ADJUST: description text */
+  --font-ar-text: clamp(1.25rem, 2vw + 0.5rem, 2.3rem); /* ADJUST: AR section text */
+  --font-cta-text: clamp(1.75rem, 3.5vw + 0.5rem, 4rem); /* ADJUST: CTA text */
+  --font-button: clamp(1.2rem, 2vw + 0.2rem, 2.2rem); /* ADJUST: button text */
+  --font-nav: clamp(0.85rem, 1vw + 0.25rem, 1rem); /* ADJUST: navigation text */
+  --font-brand: clamp(1.25rem, 1.5vw + 0.5rem, 1.75rem); /* ADJUST: brand name */
   
-  /* Fluid spacing scale */
-  --space-xs: clamp(0.5rem, 1vw, 1rem);
-  --space-sm: clamp(1rem, 2vw, 2rem);
-  --space-md: clamp(2rem, 4vw, 4rem);
-  --space-lg: clamp(3rem, 6vw, 6rem);
-  --space-xl: clamp(4rem, 8vw, 9rem);
-  --space-2xl: clamp(6rem, 10vw, 12rem);
+  /* -------------------------------------------------------------------------
+     SPACING - Margins and padding (affects all pages)
+     Used throughout the site - changing these affects global spacing
+     ------------------------------------------------------------------------- */
+  --space-xs: clamp(0.5rem, 1vw, 1rem); /* ADJUST: extra small spacing */
+  --space-sm: clamp(1rem, 2vw, 2rem); /* ADJUST: small spacing */
+  --space-md: clamp(2rem, 4vw, 4rem); /* ADJUST: medium spacing */
+  --space-lg: clamp(3rem, 6vw, 6rem); /* ADJUST: large spacing */
+  --space-xl: clamp(4rem, 8vw, 9rem); /* ADJUST: extra large spacing */
+  --space-2xl: clamp(6rem, 10vw, 12rem); /* ADJUST: 2x large spacing */
   
-  /* Container widths - fluid with max constraints */
-  --container-sm: min(90vw, 32rem);
-  --container-md: min(90vw, 45rem);
-  --container-lg: min(90vw, 64rem);
-  --container-content: min(92vw, 1200px);
+  /* -------------------------------------------------------------------------
+     CONTAINER WIDTHS - Max widths for content areas
+     ------------------------------------------------------------------------- */
+  --container-sm: min(90vw, 32rem); /* ADJUST: small container max width */
+  --container-md: min(90vw, 45rem); /* ADJUST: medium container max width */
+  --container-lg: min(90vw, 64rem); /* ADJUST: large container max width */
+  --container-content: min(92vw, 1200px); /* ADJUST: main content max width */
   
   /* Border radius - scales proportionally */
   --radius-sm: clamp(0.5rem, 1vw, 1rem);
@@ -308,94 +337,152 @@
 
 /* ==========================================================================
    Responsive AR Containers (index.html) - Mobile Only
+   
+   MOBILE SPACING GUIDE - Adjust these values to fine-tune margins:
+   - 0.25rem = very small gap
+   - 0.5rem = small gap
+   - 0.75rem = medium-small gap
+   - 1rem = medium gap
+   - 1.5rem = medium-large gap
+   - 2rem = large gap
    ========================================================================== */
 @media (max-width: 768px) {
-  /* Reduce gaps between text sections and containers - halved again */
+  
+  /* -------------------------------------------------------------------
+     INDEX.HTML - "Überzeuge dich selbst" section text spacing
+     ------------------------------------------------------------------- */
+  
+  /* LINE 314-316: Gap below "Überzeuge dich selbst." title
+     ADJUST: margin-bottom to increase/decrease space after CTA title */
   .cta-text {
-    margin-bottom: 0.5rem !important;
+    margin-bottom: 0.5rem !important; /* ADJUST THIS: space below "Überzeuge dich selbst." */
   }
   
+  /* LINE 318-320: Gap below "Auf unseren 3 Beispielseiten..." text
+     ADJUST: margin-bottom to change space before "AR erweckt dein Produkt" */
   .description-text-2 {
-    margin-bottom: 0.75rem !important;
+    margin-bottom: 0.75rem !important; /* ADJUST THIS: space below description, before AR text */
   }
   
+  /* LINE 322-325: "AR erweckt dein Produkt zum Leben" text spacing
+     ADJUST: margin-top = space above, margin-bottom = space below title */
   .ar-text {
-    margin-top: 0.75rem !important;
-    margin-bottom: 0.5rem !important;
+    margin-top: 0.75rem !important; /* ADJUST THIS: space above "AR erweckt dein Produkt" */
+    margin-bottom: 0.5rem !important; /* ADJUST THIS: space below "AR erweckt dein Produkt" */
   }
   
+  /* LINE 327-329: "Sieh dir an wie Augmented Reality..." description spacing
+     ADJUST: margin-bottom to change gap before first container (table image) */
   .ar-description {
-    margin-bottom: 0.75rem !important;
+    margin-bottom: 0.75rem !important; /* ADJUST THIS: space below AR description, before 1st container */
   }
   
-  /* Reduce margins between container wrappers - halved again */
+  /* -------------------------------------------------------------------
+     INDEX.HTML - Container wrapper spacing (gaps between sections)
+     ------------------------------------------------------------------- */
+  
+  /* LINE 332-334: Gap above 2nd container section ("Zeig was in deinem Produkt")
+     ADJUST: margin-top to change space after 1st container */
   .ar-container-2-wrapper {
-    margin-top: 1rem !important;
+    margin-top: 1rem !important; /* ADJUST THIS: space above 2nd container section */
   }
   
+  /* LINE 336-338: Gap above 3rd container section ("Der Klassiker, ein Musthave")
+     ADJUST: margin-top to change space after 2nd container */
   .ar-container-3-wrapper {
-    margin-top: 1rem !important;
+    margin-top: 1rem !important; /* ADJUST THIS: space above 3rd container section */
   }
   
-  /* Reduce gap between first container and second text wrapper */
+  /* LINE 341-343: Gap below 1st container (table image)
+     ADJUST: margin-bottom to change space before "Zeig was in deinem Produkt" text */
   .ar-container {
-    margin-bottom: 1rem !important;
+    margin-bottom: 1rem !important; /* ADJUST THIS: space below 1st container (table) */
   }
   
-  /* Reduce gap between second container and third text */
+  /* LINE 346-348: Gap below 2nd text wrapper
+     ADJUST: margin-bottom to change space after 2nd text section */
   .ar-container-2-text-wrapper {
-    margin-bottom: 0.75rem !important;
+    margin-bottom: 0.75rem !important; /* ADJUST THIS: space below 2nd text section */
   }
   
-  /* Reduce gap between text and next container */
+  /* LINE 351-354: Gap below container titles ("Zeig was..." and "Der Klassiker...")
+     ADJUST: margin-bottom to change space between title and description */
   .ar-container-2-text,
   .ar-container-3-text {
-    margin-bottom: 0.25rem !important;
+    margin-bottom: 0.25rem !important; /* ADJUST THIS: space below section titles */
   }
   
+  /* LINE 356-359: Gap below container descriptions
+     ADJUST: margin-bottom to change space after descriptions */
   .ar-container-2-description,
   .ar-container-3-description {
-    margin-bottom: 0.5rem !important;
+    margin-bottom: 0.5rem !important; /* ADJUST THIS: space below section descriptions */
   }
 
-  /* First AR container */
+  /* -------------------------------------------------------------------
+     INDEX.HTML - First AR Container (Table/Coffee machine image)
+     ------------------------------------------------------------------- */
+  
+  /* LINE 362-366: 1st container dimensions
+     ADJUST: width, min-height to change container size */
   .ar-container {
-    width: min(90vw, 64rem) !important;
+    width: min(90vw, 64rem) !important; /* ADJUST THIS: container width */
     height: auto !important;
-    min-height: clamp(16rem, 40vw, 32rem);
+    min-height: clamp(16rem, 40vw, 32rem); /* ADJUST THIS: minimum height */
   }
 
-  /* Second AR container - move image 25% to the left with stronger specificity */
+  /* -------------------------------------------------------------------
+     INDEX.HTML - Second AR Container (Exploded view image)
+     ------------------------------------------------------------------- */
+  
+  /* LINE 369-373: 2nd container dimensions
+     ADJUST: width, min-height to change container size */
   .ar-container-2 {
-    width: min(90vw, 36rem) !important;
+    width: min(90vw, 36rem) !important; /* ADJUST THIS: container width */
     height: auto !important;
-    min-height: clamp(16rem, 35vw, 32rem);
+    min-height: clamp(16rem, 35vw, 32rem); /* ADJUST THIS: minimum height */
   }
   
+  /* LINE 375-379: 2nd container image position
+     ADJUST: object-position (0%=left, 50%=center, 100%=right)
+     ADJUST: translateX to shift image (negative=left, positive=right) */
   .white-gradient-section .ar-container-2 img,
   .ar-container-2 img {
-    object-position: 25% center !important; /* 25% from left (moved left) */
-    transform: translateX(-10%) !important; /* Additional shift left */
+    object-position: 25% center !important; /* ADJUST THIS: 0-100%, lower=more left */
+    transform: translateX(-10%) !important; /* ADJUST THIS: negative=left, positive=right */
   }
 
-  /* Third AR container - reduce height by 10% only, move image 10% right */
+  /* -------------------------------------------------------------------
+     INDEX.HTML - Third AR Container (Lipstick image)
+     ------------------------------------------------------------------- */
+  
+  /* LINE 382-386: 3rd container dimensions
+     ADJUST: height to change container size (original: 32rem, current: 28.8rem = 10% smaller) */
   .ar-container-3 {
-    width: min(90vw, 32rem) !important;
-    height: 28.8rem !important; /* 10% reduction from original 32rem */
+    width: min(90vw, 32rem) !important; /* ADJUST THIS: container width */
+    height: 28.8rem !important; /* ADJUST THIS: container height (32rem=original, 28.8rem=10% smaller) */
     min-height: unset !important;
   }
   
+  /* LINE 388-392: 3rd container image position
+     ADJUST: object-position (0%=left, 50%=center, 100%=right) */
   .white-gradient-section .ar-container-3 img,
   .ar-container-3 img {
-    object-position: 60% center !important; /* 10% right from center */
+    object-position: 60% center !important; /* ADJUST THIS: 0-100%, higher=more right */
     transform: none !important;
   }
   
+  /* LINE 394-397: 3rd container button size
+     ADJUST: height and width to match container changes */
   .ar-container-3-button {
-    height: 28.8rem !important; /* Match container height - 10% reduction */
-    width: min(90vw, 32rem) !important;
+    height: 28.8rem !important; /* ADJUST THIS: should match .ar-container-3 height */
+    width: min(90vw, 32rem) !important; /* ADJUST THIS: should match .ar-container-3 width */
   }
 
+  /* -------------------------------------------------------------------
+     INDEX.HTML - Container layout (text position relative to image)
+     ------------------------------------------------------------------- */
+  
   /* Text wrapper for AR containers - text below each container */
   .ar-container-2-wrapper {
     flex-direction: column-reverse !important; /* Image first, then text */
@@ -425,30 +512,39 @@
 
 /* ==========================================================================
    Responsive Text Section (two-column layout) - Mobile Only
+   
+   INDEX.HTML - "Warum Alle auf 3D setzen?" section
    ========================================================================== */
 @media (max-width: 768px) {
+  /* LINE 488-492: Text section layout and top margin
+     ADJUST: margin-top to change space above "Warum Alle auf 3D setzen?" section */
   .text-section {
     grid-template-columns: 1fr !important;
     gap: var(--space-sm) !important;
-    margin-top: 4.5rem !important; /* Half of original 9rem */
+    margin-top: 4.5rem !important; /* ADJUST THIS: space above "Warum Alle auf 3D setzen?" */
   }
   
-  /* Ensure section title is larger than bullet points */
+  /* LINE 495-498: Section title font size ("Warum Alle auf 3D setzen?")
+     ADJUST: font-size to change title size */
   .section-title {
-    font-size: 1.75rem !important;
+    font-size: 1.75rem !important; /* ADJUST THIS: title font size */
     text-align: center !important;
   }
   
+  /* LINE 500-505: Bullet points font size and padding
+     ADJUST: font-size, padding-left/right */
   .bullet-points {
-    font-size: 1rem !important; /* Smaller than section title */
-    padding-left: 1rem;
-    padding-right: 1rem;
+    font-size: 1rem !important; /* ADJUST THIS: bullet points font size (should be smaller than title) */
+    padding-left: 1rem; /* ADJUST THIS: left padding */
+    padding-right: 1rem; /* ADJUST THIS: right padding */
     text-align: center !important;
   }
   
+  /* LINE 507-510: Individual bullet point spacing
+     ADJUST: margin-bottom to change gap between bullet points */
   .bullet-points li {
     font-size: 1rem !important;
-    margin-bottom: 0.75rem !important; /* Half of original 1.5rem */
+    margin-bottom: 0.75rem !important; /* ADJUST THIS: space between bullet points */
   }
   
   .cta-text,
@@ -458,14 +554,16 @@
     text-align: center !important;
   }
   
-  /* Reduce margin for cta-text */
+  /* LINE 520-522: Space above "Überzeuge dich selbst" section
+     ADJUST: margin-top to change gap before CTA section */
   .cta-text {
-    margin-top: 3rem !important; /* Reduced margin */
+    margin-top: 3rem !important; /* ADJUST THIS: space above "Überzeuge dich selbst" */
   }
   
-  /* Add more space at bottom of gradient section */
+  /* LINE 525-527: Bottom padding of gradient section
+     ADJUST: padding-bottom to change space at bottom of white gradient area */
   .white-gradient-section {
-    padding-bottom: var(--space-xl) !important;
+    padding-bottom: var(--space-xl) !important; /* ADJUST THIS: space at bottom of gradient section */
   }
 }
 
@@ -537,13 +635,17 @@
 
 /* ==========================================================================
    Responsive Details-durch-3D Page - Mobile Only
+   
+   DETAILS-DURCH-3D.HTML - Image containers and text layout
    ========================================================================== */
 @media (max-width: 900px) {
+  /* LINE 611-614: Main wrapper layout - stacks content vertically on mobile */
   .image-text-wrapper {
     flex-direction: column !important;
     align-items: center !important;
   }
   
+  /* LINE 616-619: Right-aligned wrapper (for alternating layout) */
   .image-text-wrapper.right-aligned {
     flex-direction: column !important;
     justify-content: center !important;
@@ -558,37 +660,48 @@
     width: 100%;
   }
   
+  /* LINE 630-634: Image container dimensions
+     ADJUST: width, min-height to change container size */
   .image-container {
-    width: min(90vw, 45rem) !important;
+    width: min(90vw, 45rem) !important; /* ADJUST THIS: container width */
     height: auto !important;
-    min-height: clamp(15rem, 40vw, 25rem);
+    min-height: clamp(15rem, 40vw, 25rem); /* ADJUST THIS: minimum height */
   }
   
+  /* LINE 636-641: Third image container (larger one)
+     ADJUST: width, min-height for the third container specifically */
   .image-container.third {
-    width: min(90vw, 37.5rem) !important;
+    width: min(90vw, 37.5rem) !important; /* ADJUST THIS: 3rd container width */
     height: auto !important;
-    min-height: clamp(20rem, 50vw, 39rem);
+    min-height: clamp(20rem, 50vw, 39rem); /* ADJUST THIS: 3rd container min-height */
     aspect-ratio: auto;
   }
 }
 
 /* ==========================================================================
    Responsive Gallery (Details-durch-3D) - Mobile Only
+   
+   DETAILS-DURCH-3D.HTML - Gallery carousel at bottom of page
    ========================================================================== */
 @media (max-width: 768px) {
+  /* LINE 648-654: Gallery container width and spacing
+     ADJUST: margin-top to change space above gallery */
   .gallery-container {
     width: 100% !important;
     max-width: 100vw !important;
     transform: none !important; /* Remove scaling to prevent overflow */
-    margin-top: var(--space-md) !important;
+    margin-top: var(--space-md) !important; /* ADJUST THIS: space above gallery */
     overflow: hidden !important;
   }
   
+  /* LINE 656-659: Gallery item dimensions
+     ADJUST: height, max-width to change gallery image size */
   .gallery-item {
-    height: var(--gallery-item-height-mobile) !important;
-    max-width: 90vw !important;
+    height: var(--gallery-item-height-mobile) !important; /* ADJUST in :root: --gallery-item-height-mobile */
+    max-width: 90vw !important; /* ADJUST THIS: max width of gallery items */
   }
   
+  /* LINE 661-666: Gallery item image styling */
   .gallery-item img {
     width: 100% !important;
     max-width: 90vw !important;
@@ -596,9 +709,11 @@
     object-fit: cover !important;
   }
   
+  /* LINE 668-676: Gallery navigation buttons
+     ADJUST: width, height to change button size */
   .gallery-nav-button {
-    width: 2.5rem !important;
-    height: 2.5rem !important;
+    width: 2.5rem !important; /* ADJUST THIS: nav button width */
+    height: 2.5rem !important; /* ADJUST THIS: nav button height */
   }
   
   .gallery-nav-button svg {
@@ -609,18 +724,24 @@
 
 /* ==========================================================================
    Responsive 3D-Renderings-fuer-Shops Page
+   
+   3D-RENDERINGS-FUER-SHOPS.HTML - Color containers layout
    ========================================================================== */
 /* Only apply container changes on mobile - desktop uses original styling */
 @media (max-width: 900px) {
+  /* LINE 701-705: Containers wrapper - stacks lipstick containers vertically
+     ADJUST: gap to change space between containers */
   .containers-wrapper {
     flex-direction: column !important;
     align-items: center !important;
-    gap: 1rem !important;
+    gap: 1rem !important; /* ADJUST THIS: space between lipstick containers */
   }
   
+  /* LINE 707-710: Individual color container dimensions
+     ADJUST: width, height to change container size */
   .color-container {
-    width: min(90vw, 25rem) !important;
-    height: clamp(28rem, 70vw, 35rem) !important;
+    width: min(90vw, 25rem) !important; /* ADJUST THIS: container width */
+    height: clamp(28rem, 70vw, 35rem) !important; /* ADJUST THIS: container height */
   }
 }
 
@@ -633,18 +754,24 @@
 
 /* ==========================================================================
    Responsive AR-Produktvisualisierung Page - Mobile Only
+   
+   AR-PRODUKTVISUALISIERUNG.HTML - AR viewer and model display
    ========================================================================== */
 @media (max-width: 768px) {
+  /* LINE 724-728: AR page title text
+     ADJUST: font-size, padding for title sizing */
   .ar-title-text,
   .ar-section-title {
-    font-size: var(--font-main-headline) !important;
-    padding: 0 1rem;
+    font-size: var(--font-main-headline) !important; /* ADJUST in :root: --font-main-headline */
+    padding: 0 1rem; /* ADJUST THIS: left/right padding */
   }
 
+  /* LINE 730-734: AR page description text
+     ADJUST: font-size, padding for description sizing */
   .ar-description-text,
   .ar-section-description {
-    font-size: var(--font-description) !important;
-    padding: 0 1rem;
+    font-size: var(--font-description) !important; /* ADJUST in :root: --font-description */
+    padding: 0 1rem; /* ADJUST THIS: left/right padding */
   }
 
   .iphone-video-container video {
@@ -652,9 +779,11 @@
     height: auto !important;
   }
 
+  /* LINE 741-744: AR viewer wrapper dimensions
+     ADJUST: width, height to change the 3D model viewer size */
   #ar-viewer-wrapper {
-    width: min(95vw, 900px) !important;
-    height: clamp(300px, 60vw, 600px) !important;
+    width: min(95vw, 900px) !important; /* ADJUST THIS: AR viewer width */
+    height: clamp(300px, 60vw, 600px) !important; /* ADJUST THIS: AR viewer height */
   }
   
   /* AR model container - make button appear below model */
@@ -664,10 +793,11 @@
     align-items: center !important;
   }
   
-  /* In AR ansehen button should be below the model viewer */
+  /* LINE 754-759: "In AR ansehen" button position and spacing
+     ADJUST: margin-top to change space between model and button */
   #ar-button {
     order: 2 !important;
-    margin-top: 1rem !important;
+    margin-top: 1rem !important; /* ADJUST THIS: space above "In AR ansehen" button */
     position: relative !important;
     bottom: auto !important;
   }
@@ -675,19 +805,26 @@
 
 /* ==========================================================================
    Responsive Form Page (Anfrageformular) - Mobile Only
+   
+   THREE-DIMENSIONS-ANFRAGEFORMULAR.HTML - Contact form layout
    ========================================================================== */
 @media (max-width: 768px) {
+  /* LINE 766-768: Form title font size
+     ADJUST: font-size for form page title */
   .form-title {
-    font-size: var(--font-main-headline) !important;
+    font-size: var(--font-main-headline) !important; /* ADJUST in :root: --font-main-headline */
   }
 
+  /* LINE 770-772: Form description font size */
   .form-description {
-    font-size: var(--font-description) !important;
+    font-size: var(--font-description) !important; /* ADJUST in :root: --font-description */
   }
 
+  /* LINE 774-777: Form container spacing
+     ADJUST: margin-top, padding for form container */
   .form-container {
-    margin-top: var(--space-lg) !important;
-    padding: clamp(1.5rem, 4vw, 2.5rem) !important;
+    margin-top: var(--space-lg) !important; /* ADJUST in :root: --space-lg */
+    padding: clamp(1.5rem, 4vw, 2.5rem) !important; /* ADJUST THIS: form padding */
   }
 
   .form-email-wrapper {
