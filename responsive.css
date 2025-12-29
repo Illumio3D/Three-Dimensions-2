@@ -619,12 +619,15 @@
    Responsive Buttons - Mobile Only
    ========================================================================== */
 @media (max-width: 768px) {
-  /* Jetzt Projekt umsetzen button - 40% shorter height */
+  /* Jetzt Projekt umsetzen button - proportional scaling from desktop
+     Desktop: width ~45%, height 6rem, font-size 2.2rem
+     On mobile: keep similar width-to-height ratio for proper proportions */
   .anfrage-button-container a.anfrage-button {
-    width: min(90%, 650px) !important;
-    height: calc(clamp(3.5rem, 8vw, 6rem) * var(--height-reduction-factor)) !important; /* 40% reduction */
-    font-size: var(--font-button) !important;
-    line-height: calc(clamp(3.5rem, 8vw, 6rem) * var(--height-reduction-factor)) !important;
+    width: min(85%, 550px) !important; /* ADJUST THIS: button width (wider for better proportions) */
+    height: clamp(3rem, 6vw, 4rem) !important; /* ADJUST THIS: button height (shorter for mobile) */
+    font-size: clamp(1rem, 3vw, 1.5rem) !important; /* ADJUST THIS: button text size */
+    line-height: clamp(3rem, 6vw, 4rem) !important; /* Should match height */
+    border-radius: 1rem !important; /* ADJUST THIS: button corner rounding */
   }
 
   #ar-button {
@@ -773,6 +776,19 @@
     font-size: var(--font-description) !important; /* ADJUST in :root: --font-description */
     padding: 0 1rem; /* ADJUST THIS: left/right padding */
   }
+  
+  /* AR-PRODUKTVISUALISIERUNG: Remove gap between hero video and background
+     The gradient background should start immediately after video.
+     Text padding creates the visual gap inside the gradient. */
+  .white-gradient-section {
+    margin-top: 0 !important; /* ADJUST THIS: gap above gradient section (0 = no gap) */
+    padding-top: 0 !important; /* No padding at top of gradient */
+  }
+  
+  /* Content section inside gradient - this creates the gap between gradient start and text */
+  .white-gradient-section .content-section {
+    padding-top: 3rem !important; /* ADJUST THIS: gap between gradient start and first text */
+  }
 
   .iphone-video-container video {
     max-width: 100%;
@@ -797,9 +813,14 @@
      ADJUST: margin-top to change space between model and button */
   #ar-button {
     order: 2 !important;
-    margin-top: 1rem !important; /* ADJUST THIS: space above "In AR ansehen" button */
+    margin-top: 0.5rem !important; /* ADJUST THIS: space above "In AR ansehen" button (0.5rem = slight gap) */
     position: relative !important;
     bottom: auto !important;
+    left: auto !important;
+    transform: none !important;
+    display: block !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
   }
 }
 
