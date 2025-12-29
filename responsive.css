@@ -624,10 +624,10 @@
      On mobile: keep similar width-to-height ratio for proper proportions */
   .anfrage-button-container a.anfrage-button {
     width: min(85%, 550px) !important; /* ADJUST THIS: button width (wider for better proportions) */
-    height: clamp(3rem, 6vw, 4rem) !important; /* ADJUST THIS: button height (shorter for mobile) */
-    font-size: clamp(1rem, 3vw, 1.5rem) !important; /* ADJUST THIS: button text size */
-    line-height: clamp(3rem, 6vw, 4rem) !important; /* Should match height */
-    border-radius: 1rem !important; /* ADJUST THIS: button corner rounding */
+    height: clamp(2.1rem, 4.2vw, 2.8rem) !important; /* ADJUST THIS: button height (30% smaller than before) */
+    font-size: clamp(0.875rem, 2.5vw, 1.25rem) !important; /* ADJUST THIS: button text size */
+    line-height: clamp(2.1rem, 4.2vw, 2.8rem) !important; /* Should match height */
+    border-radius: 0.75rem !important; /* ADJUST THIS: button corner rounding */
   }
 
   #ar-button {
