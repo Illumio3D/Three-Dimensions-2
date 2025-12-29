@@ -956,7 +956,10 @@
     padding: clamp(1.5rem, 4vw, 2.5rem) !important; /* ADJUST THIS: form padding */
   }
 
-  .form-email-wrapper {
+  /* Use body prefix for higher specificity to override HTML inline styles */
+  body .form-email-wrapper,
+  .text-section .form-email-wrapper,
+  .content-section .form-email-wrapper {
     display: flex !important;
     flex-direction: column !important;
     gap: 0 !important;
@@ -965,11 +968,13 @@
   }
   
   /* Email text - stack label and email address vertically, closely spaced */
-  .form-email {
+  body .form-email,
+  .text-section .form-email,
+  .form-email-wrapper .form-email {
     line-height: 1.2em !important; /* ADJUST THIS: controls spacing within the email text (reduced for tighter spacing) */
     display: block !important;
     text-align: left !important;
-    margin: 0 !important;
+    margin: 0 0 0 0 !important;
     padding-left: 0 !important;
   }
   
@@ -978,10 +983,11 @@
     display: none !important;
   }
   
-  /* Social media section - appears below email with double spacing */
-  .form-social-icons {
-    margin: 0 !important;
-    margin-top: 3rem !important; /* ADJUST THIS: double space between email section and "Social Media" text */
+  /* Social media section container - appears below email with double spacing */
+  body .form-social-icons,
+  .text-section .form-social-icons,
+  .form-email-wrapper .form-social-icons {
+    margin: 3rem 0 0 0 !important; /* ADJUST THIS: double space between email section and "Social Media" text */
     padding-left: 0 !important;
     text-align: left !important;
     display: flex !important;
@@ -991,18 +997,20 @@
   }
   
   /* "Social Media" text - left aligned */
-  .form-social-media {
-    margin: 0 !important;
+  body .form-social-media,
+  .text-section .form-social-media,
+  .form-social-icons .form-social-media {
+    margin: 0 0 0 0 !important;
     padding: 0 !important;
     text-align: left !important; /* ADJUST THIS: left-align "Social Media" text */
     display: block !important;
   }
   
   /* Social icons - left aligned below the "Social Media" text with normal spacing */
-  .form-social-icons-container {
-    margin: 0 !important;
-    margin-top: 1rem !important; /* ADJUST THIS: normal space between "Social Media" text and icons */
-    margin-left: 0 !important;
+  body .form-social-icons-container,
+  .text-section .form-social-icons-container,
+  .form-social-icons .form-social-icons-container {
+    margin: 1rem 0 0 0 !important; /* ADJUST THIS: normal space between "Social Media" text and icons */
     padding-left: 0 !important;
     justify-content: flex-start !important; /* Left-align social icons */
     width: auto !important;
