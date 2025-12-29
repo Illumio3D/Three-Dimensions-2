@@ -849,13 +849,13 @@
 /* 3D-RENDERINGS-FUER-SHOPS.HTML - Background section styling for mobile */
 @media (max-width: 768px) {
   /* LINE 849-860: Background section with lipstick image
-     ADJUST: background-size to zoom in/out the image
-     background-size: 250% = zoomed in more than cover */
+     ADJUST: background-size controls zoom level while maintaining coverage
+     Using large percentage to zoom in while covering the full section */
   .background-section {
     background-attachment: scroll !important;
-    background-size: 250% !important; /* ADJUST THIS: higher % = more zoomed in (250% = very zoomed), 'cover' = fills section, '100%' = actual size */
-    background-position: center top !important; /* ADJUST THIS: position of the background image */
-    min-height: auto !important; /* Let content determine height */
+    background-size: 350% auto !important; /* ADJUST THIS: higher % = more zoomed in (350% creates zoom effect while covering height) */
+    background-position: center center !important; /* ADJUST THIS: position of the background image */
+    min-height: 100vh !important; /* ADJUST THIS: ensures background covers full viewport height */
     padding-top: 3rem !important; /* ADJUST THIS: space at top of background section */
     padding-bottom: 3rem !important; /* ADJUST THIS: space at bottom before footer */
   }
@@ -959,22 +959,28 @@
   .form-email-wrapper {
     display: flex !important;
     flex-direction: column !important;
-    gap: 0.5rem !important; /* ADJUST THIS: gap between email text and social media section */
+    gap: 1rem !important; /* ADJUST THIS: gap between email section and social media section */
+    align-items: flex-start !important; /* Left align all content */
   }
   
-  /* Email text - reduce gap between label and email address */
+  /* Email text - stack label and email address vertically, closely spaced */
   .form-email {
-    line-height: 1.4em !important; /* ADJUST THIS: spacing between "E-Mail-Adresse" and the email */
+    line-height: 1.5em !important; /* ADJUST THIS: controls spacing within the email text */
+    display: block !important;
+    text-align: left !important;
   }
   
   .form-social-icons {
     margin-left: 0 !important;
     text-align: left !important; /* Left align social media section */
+    display: block !important;
+    width: 100% !important;
   }
   
   .form-social-media {
     margin-left: 0 !important;
     text-align: left !important; /* ADJUST THIS: left-align "Social Media" text */
+    display: block !important;
   }
   
   .form-social-icons-container {
