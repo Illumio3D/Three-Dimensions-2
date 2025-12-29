@@ -650,44 +650,63 @@
    Responsive Details-durch-3D Page - Mobile Only
    
    DETAILS-DURCH-3D.HTML - Image containers and text layout
+   ORDER ON MOBILE: Container (image) → Title → Normal text
    ========================================================================== */
 @media (max-width: 900px) {
-  /* LINE 611-614: Main wrapper layout - stacks content vertically on mobile */
+  /* Main wrapper layout - stacks content vertically on mobile
+     ORDER: Image container first, then text (title + description) */
   .image-text-wrapper {
     flex-direction: column !important;
     align-items: center !important;
+    margin-top: 2rem !important; /* ADJUST THIS: gap above each image section */
   }
   
-  /* LINE 616-619: Right-aligned wrapper (for alternating layout) */
+  /* Right-aligned wrapper (for alternating layout on desktop) - same on mobile */
   .image-text-wrapper.right-aligned {
     flex-direction: column !important;
     justify-content: center !important;
+    margin-top: 2rem !important; /* ADJUST THIS: gap above 2nd image section */
+  }
+  
+  /* Third container margin adjustment */
+  .image-text-wrapper.third-container {
+    margin-top: 2rem !important; /* ADJUST THIS: gap above 3rd image section */
   }
   
   .image-text-wrapper.right-aligned .image-container img {
     transform: none !important;
   }
   
-  .image-text-wrapper .container-text {
-    text-align: center !important;
-    width: 100%;
+  /* Use flexbox order to ensure: Image container (1) → Title+Description (2) */
+  .image-text-wrapper .image-container {
+    order: 1 !important; /* Image comes first */
   }
   
-  /* LINE 630-634: Image container dimensions
-     ADJUST: width, min-height to change container size */
+  .image-text-wrapper .container-text {
+    order: 2 !important; /* Text comes after image */
+    text-align: center !important;
+    width: 100%;
+    margin-top: 1rem !important; /* ADJUST THIS: gap between image and title */
+  }
+  
+  /* Image container dimensions */
   .image-container {
     width: min(90vw, 45rem) !important; /* ADJUST THIS: container width */
     height: auto !important;
     min-height: clamp(15rem, 40vw, 25rem); /* ADJUST THIS: minimum height */
   }
   
-  /* LINE 636-641: Third image container (larger one)
-     ADJUST: width, min-height for the third container specifically */
+  /* Third image container (larger one) */
   .image-container.third {
     width: min(90vw, 37.5rem) !important; /* ADJUST THIS: 3rd container width */
     height: auto !important;
     min-height: clamp(20rem, 50vw, 39rem); /* ADJUST THIS: 3rd container min-height */
     aspect-ratio: auto;
+  }
+  
+  /* Reduce section title margin on mobile */
+  .gradient-section .section-title {
+    margin-top: 2rem !important; /* ADJUST THIS: space above section title */
   }
 }
 
@@ -695,10 +714,10 @@
    Responsive Gallery (Details-durch-3D) - Mobile Only
    
    DETAILS-DURCH-3D.HTML - Gallery carousel at bottom of page
+   ON MOBILE: Shows one photo at a time (no adjacent photos visible)
    ========================================================================== */
 @media (max-width: 768px) {
-  /* LINE 648-654: Gallery container width and spacing
-     ADJUST: margin-top to change space above gallery */
+  /* Gallery container width and spacing */
   .gallery-container {
     width: 100% !important;
     max-width: 100vw !important;
@@ -707,23 +726,91 @@
     overflow: hidden !important;
   }
   
-  /* LINE 656-659: Gallery item dimensions
-     ADJUST: height, max-width to change gallery image size */
-  .gallery-item {
-    height: var(--gallery-item-height-mobile) !important; /* ADJUST in :root: --gallery-item-height-mobile */
-    max-width: 90vw !important; /* ADJUST THIS: max width of gallery items */
+  /* Gallery wrapper - fills full width */
+  .gallery-wrapper {
+    gap: 0 !important; /* No gap between items on mobile */
   }
   
-  /* LINE 661-666: Gallery item image styling */
+  /* Gallery item dimensions - single photo view */
+  .gallery-item {
+    height: var(--gallery-item-height-mobile) !important;
+    width: 100% !important; /* Full width for single photo view */
+    max-width: 100vw !important;
+    flex-shrink: 0 !important;
+  }
+  
+  /* Gallery item image styling */
   .gallery-item img {
     width: 100% !important;
-    max-width: 90vw !important;
+    max-width: 100vw !important;
     height: var(--gallery-item-height-mobile) !important;
-    object-fit: cover !important;
+    object-fit: contain !important;
   }
   
-  /* LINE 668-676: Gallery navigation buttons
-     ADJUST: width, height to change button size */
+  /* MOBILE GALLERY: Single photo view - hide adjacent photos completely
+     Override all desktop gallery states to show only the active image */
+  
+  /* State 0: Only first image visible */
+  .gallery-container.state-0 .gallery-item:nth-child(1) {
+    width: 100% !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+  }
+  .gallery-container.state-0 .gallery-item:nth-child(2),
+  .gallery-container.state-0 .gallery-item:nth-child(3),
+  .gallery-container.state-0 .gallery-item:nth-child(4) {
+    width: 0 !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+    overflow: hidden !important;
+  }
+  
+  /* State 1: Only second image visible */
+  .gallery-container.state-1 .gallery-item:nth-child(2) {
+    width: 100% !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+  }
+  .gallery-container.state-1 .gallery-item:nth-child(1),
+  .gallery-container.state-1 .gallery-item:nth-child(3),
+  .gallery-container.state-1 .gallery-item:nth-child(4) {
+    width: 0 !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+    overflow: hidden !important;
+  }
+  
+  /* State 2: Only third image visible */
+  .gallery-container.state-2 .gallery-item:nth-child(3) {
+    width: 100% !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+  }
+  .gallery-container.state-2 .gallery-item:nth-child(1),
+  .gallery-container.state-2 .gallery-item:nth-child(2),
+  .gallery-container.state-2 .gallery-item:nth-child(4) {
+    width: 0 !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+    overflow: hidden !important;
+  }
+  
+  /* State 3: Only fourth image visible */
+  .gallery-container.state-3 .gallery-item:nth-child(4) {
+    width: 100% !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+  }
+  .gallery-container.state-3 .gallery-item:nth-child(1),
+  .gallery-container.state-3 .gallery-item:nth-child(2),
+  .gallery-container.state-3 .gallery-item:nth-child(3) {
+    width: 0 !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+    overflow: hidden !important;
+  }
+  
+  /* Gallery navigation buttons */
   .gallery-nav-button {
     width: 2.5rem !important; /* ADJUST THIS: nav button width */
     height: 2.5rem !important; /* ADJUST THIS: nav button height */
