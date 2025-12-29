@@ -959,7 +959,7 @@
   .form-email-wrapper {
     display: flex !important;
     flex-direction: column !important;
-    gap: 0 !important; /* ADJUST THIS: gap between email section and social media section */
+    gap: 0 !important;
     align-items: flex-start !important; /* Left align all content */
     width: 100% !important;
   }
@@ -970,6 +970,7 @@
     display: block !important;
     text-align: left !important;
     margin: 0 !important;
+    padding-left: 0 !important;
   }
   
   /* Move the email address closer to the label by reducing the <br><br> gap */
@@ -977,25 +978,34 @@
     display: none !important;
   }
   
+  /* Social media section - appears below email with double spacing */
   .form-social-icons {
-    margin-left: 0 !important;
-    margin-top: 1.5rem !important; /* ADJUST THIS: space above social media section */
-    text-align: left !important; /* Left align social media section */
-    display: block !important;
+    margin: 0 !important;
+    margin-top: 3rem !important; /* ADJUST THIS: double space between email section and "Social Media" text */
+    padding-left: 0 !important;
+    text-align: left !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: flex-start !important;
     width: 100% !important;
   }
   
+  /* "Social Media" text - left aligned */
   .form-social-media {
-    margin-left: 0 !important;
     margin: 0 !important;
+    padding: 0 !important;
     text-align: left !important; /* ADJUST THIS: left-align "Social Media" text */
     display: block !important;
   }
   
+  /* Social icons - left aligned below the "Social Media" text with normal spacing */
   .form-social-icons-container {
+    margin: 0 !important;
+    margin-top: 1rem !important; /* ADJUST THIS: normal space between "Social Media" text and icons */
     margin-left: 0 !important;
-    justify-content: flex-start !important; /* ADJUST THIS: left-align social icons */
-    margin-top: 0.5rem !important; /* ADJUST THIS: space between "Social Media" text and icons */
+    padding-left: 0 !important;
+    justify-content: flex-start !important; /* Left-align social icons */
+    width: auto !important;
   }
 }
 
