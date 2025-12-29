@@ -310,40 +310,52 @@
    Responsive AR Containers (index.html) - Mobile Only
    ========================================================================== */
 @media (max-width: 768px) {
-  /* Reduce gaps between text sections and containers significantly */
+  /* Reduce gaps between text sections and containers - halved again */
   .cta-text {
-    margin-bottom: 1rem !important;
+    margin-bottom: 0.5rem !important;
   }
   
   .description-text-2 {
-    margin-bottom: 1.5rem !important;
+    margin-bottom: 0.75rem !important;
   }
   
   .ar-text {
-    margin-top: 1.5rem !important;
+    margin-top: 0.75rem !important;
+    margin-bottom: 0.5rem !important;
   }
   
   .ar-description {
-    margin-bottom: 1.5rem !important;
+    margin-bottom: 0.75rem !important;
   }
   
-  /* Reduce margins between container wrappers by more than half */
+  /* Reduce margins between container wrappers - halved again */
   .ar-container-2-wrapper {
-    margin-top: 2rem !important; /* Significantly reduced */
+    margin-top: 1rem !important;
   }
   
   .ar-container-3-wrapper {
-    margin-top: 2rem !important; /* Significantly reduced */
+    margin-top: 1rem !important;
   }
   
   /* Reduce gap between first container and second text wrapper */
   .ar-container {
-    margin-bottom: 2rem !important;
+    margin-bottom: 1rem !important;
   }
   
   /* Reduce gap between second container and third text */
   .ar-container-2-text-wrapper {
-    margin-bottom: 1.5rem !important;
+    margin-bottom: 0.75rem !important;
+  }
+  
+  /* Reduce gap between text and next container */
+  .ar-container-2-text,
+  .ar-container-3-text {
+    margin-bottom: 0.25rem !important;
+  }
+  
+  .ar-container-2-description,
+  .ar-container-3-description {
+    margin-bottom: 0.5rem !important;
   }
 
   /* First AR container */
@@ -353,32 +365,35 @@
     min-height: clamp(16rem, 40vw, 32rem);
   }
 
-  /* Second AR container - move image 25% to the left */
+  /* Second AR container - move image 25% to the left with stronger specificity */
   .ar-container-2 {
     width: min(90vw, 36rem) !important;
     height: auto !important;
     min-height: clamp(16rem, 35vw, 32rem);
   }
   
+  .white-gradient-section .ar-container-2 img,
   .ar-container-2 img {
     object-position: 25% center !important; /* 25% from left (moved left) */
-    transform: none !important;
+    transform: translateX(-10%) !important; /* Additional shift left */
   }
 
-  /* Third AR container - reduce height by 40%, move image 10% right */
+  /* Third AR container - reduce height by 10% only, move image 10% right */
   .ar-container-3 {
     width: min(90vw, 32rem) !important;
-    height: clamp(10rem, 20vw, 18rem) !important; /* 40% reduction from original */
+    height: 28.8rem !important; /* 10% reduction from original 32rem */
     min-height: unset !important;
   }
   
+  .white-gradient-section .ar-container-3 img,
   .ar-container-3 img {
     object-position: 60% center !important; /* 10% right from center */
     transform: none !important;
   }
   
   .ar-container-3-button {
-    height: clamp(2rem, 5vw, 3.5rem) !important; /* Reduced button height */
+    height: 28.8rem !important; /* Match container height - 10% reduction */
+    width: min(90vw, 32rem) !important;
   }
 
   /* Text wrapper for AR containers - text below each container */
