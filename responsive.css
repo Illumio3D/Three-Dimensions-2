@@ -621,13 +621,13 @@
 @media (max-width: 768px) {
   /* Jetzt Projekt umsetzen button - proportional scaling from desktop
      Desktop: width ~45%, height 6rem, font-size 2.2rem
-     On mobile: keep similar width-to-height ratio for proper proportions */
+     On mobile: reduced height by ~30% (6rem → 4.2rem), width stays proportional */
   .anfrage-button-container a.anfrage-button {
-    width: min(85%, 550px) !important; /* ADJUST THIS: button width (wider for better proportions) */
-    height: clamp(2.1rem, 4.2vw, 2.8rem) !important; /* ADJUST THIS: button height (30% smaller than before) */
-    font-size: clamp(0.875rem, 2.5vw, 1.25rem) !important; /* ADJUST THIS: button text size */
-    line-height: clamp(2.1rem, 4.2vw, 2.8rem) !important; /* Should match height */
-    border-radius: 0.75rem !important; /* ADJUST THIS: button corner rounding */
+    width: min(85%, 550px) !important; /* ADJUST THIS: button width */
+    height: 3rem !important; /* ADJUST THIS: button height (reduced from 6rem desktop) */
+    font-size: 1rem !important; /* ADJUST THIS: button text size */
+    line-height: 3rem !important; /* Should match height */
+    border-radius: 0.5rem !important; /* ADJUST THIS: button corner rounding */
   }
 
   #ar-button {
