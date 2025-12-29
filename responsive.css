@@ -850,11 +850,11 @@
 @media (max-width: 768px) {
   /* LINE 849-860: Background section with lipstick image
      ADJUST: background-size to zoom in/out the image
-     background-size: cover ensures image fills the entire section from video to footer */
+     background-size: 250% = zoomed in more than cover */
   .background-section {
     background-attachment: scroll !important;
-    background-size: cover !important; /* ADJUST THIS: 'cover' = fills entire section, '180%' = zoomed in, '100%' = actual size */
-    background-position: center center !important; /* ADJUST THIS: position of the background image */
+    background-size: 250% !important; /* ADJUST THIS: higher % = more zoomed in (250% = very zoomed), 'cover' = fills section, '100%' = actual size */
+    background-position: center top !important; /* ADJUST THIS: position of the background image */
     min-height: auto !important; /* Let content determine height */
     padding-top: 3rem !important; /* ADJUST THIS: space at top of background section */
     padding-bottom: 3rem !important; /* ADJUST THIS: space at bottom before footer */
@@ -959,20 +959,27 @@
   .form-email-wrapper {
     display: flex !important;
     flex-direction: column !important;
-    gap: var(--space-sm);
+    gap: 0.5rem !important; /* ADJUST THIS: gap between email text and social media section */
+  }
+  
+  /* Email text - reduce gap between label and email address */
+  .form-email {
+    line-height: 1.4em !important; /* ADJUST THIS: spacing between "E-Mail-Adresse" and the email */
   }
   
   .form-social-icons {
     margin-left: 0 !important;
+    text-align: left !important; /* Left align social media section */
   }
   
   .form-social-media {
     margin-left: 0 !important;
+    text-align: left !important; /* ADJUST THIS: left-align "Social Media" text */
   }
   
   .form-social-icons-container {
     margin-left: 0 !important;
-    justify-content: flex-start !important;
+    justify-content: flex-start !important; /* ADJUST THIS: left-align social icons */
   }
 }
 
@@ -993,6 +1000,14 @@
   .impressum-content,
   .datenschutz-content {
     font-size: clamp(1rem, 1.5vw + 0.25rem, 1.2rem) !important;
+  }
+  
+  /* IMPRESSUM PAGE: Make gradient section fit content + padding (same as Datenschutz) */
+  /* The gradient-section should have min-height: auto so it stops after text ends */
+  .gradient-section {
+    min-height: auto !important; /* ADJUST THIS: auto = stops after content, 100vh = full viewport height */
+    height: auto !important;
+    padding-bottom: 4rem !important; /* ADJUST THIS: space at bottom before footer (same as Datenschutz) */
   }
 }
 
