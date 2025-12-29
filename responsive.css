@@ -846,10 +846,18 @@
   }
 }
 
-/* Only modify background-attachment for mobile performance */
+/* 3D-RENDERINGS-FUER-SHOPS.HTML - Background section styling for mobile */
 @media (max-width: 768px) {
+  /* LINE 849-860: Background section with lipstick image
+     ADJUST: background-size to zoom in/out the image
+     background-size: cover ensures image fills the entire section from video to footer */
   .background-section {
     background-attachment: scroll !important;
+    background-size: cover !important; /* ADJUST THIS: 'cover' = fills entire section, '180%' = zoomed in, '100%' = actual size */
+    background-position: center center !important; /* ADJUST THIS: position of the background image */
+    min-height: auto !important; /* Let content determine height */
+    padding-top: 3rem !important; /* ADJUST THIS: space at top of background section */
+    padding-bottom: 3rem !important; /* ADJUST THIS: space at bottom before footer */
   }
 }
 
