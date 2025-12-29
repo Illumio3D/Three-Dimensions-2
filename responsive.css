@@ -310,10 +310,40 @@
    Responsive AR Containers (index.html) - Mobile Only
    ========================================================================== */
 @media (max-width: 768px) {
-  /* Reduce margins between content sections by half */
-  .ar-container-2-wrapper,
+  /* Reduce gaps between text sections and containers significantly */
+  .cta-text {
+    margin-bottom: 1rem !important;
+  }
+  
+  .description-text-2 {
+    margin-bottom: 1.5rem !important;
+  }
+  
+  .ar-text {
+    margin-top: 1.5rem !important;
+  }
+  
+  .ar-description {
+    margin-bottom: 1.5rem !important;
+  }
+  
+  /* Reduce margins between container wrappers by more than half */
+  .ar-container-2-wrapper {
+    margin-top: 2rem !important; /* Significantly reduced */
+  }
+  
   .ar-container-3-wrapper {
-    margin-top: 4.5rem !important; /* Half of original 9rem */
+    margin-top: 2rem !important; /* Significantly reduced */
+  }
+  
+  /* Reduce gap between first container and second text wrapper */
+  .ar-container {
+    margin-bottom: 2rem !important;
+  }
+  
+  /* Reduce gap between second container and third text */
+  .ar-container-2-text-wrapper {
+    margin-bottom: 1.5rem !important;
   }
 
   /* First AR container */
@@ -323,7 +353,7 @@
     min-height: clamp(16rem, 40vw, 32rem);
   }
 
-  /* Second AR container - center the image in container */
+  /* Second AR container - move image 25% to the left */
   .ar-container-2 {
     width: min(90vw, 36rem) !important;
     height: auto !important;
@@ -331,24 +361,24 @@
   }
   
   .ar-container-2 img {
-    object-position: center center !important;
+    object-position: 25% center !important; /* 25% from left (moved left) */
     transform: none !important;
   }
 
-  /* Third AR container - half height, move image 20% right */
+  /* Third AR container - reduce height by 40%, move image 10% right */
   .ar-container-3 {
     width: min(90vw, 32rem) !important;
-    height: auto !important;
-    min-height: calc(clamp(16rem, 35vw, 32rem) * 0.5) !important; /* 50% height reduction */
+    height: clamp(10rem, 20vw, 18rem) !important; /* 40% reduction from original */
+    min-height: unset !important;
   }
   
   .ar-container-3 img {
-    object-position: 60% center !important; /* 20% right from center (50% + 10%) */
+    object-position: 60% center !important; /* 10% right from center */
     transform: none !important;
   }
   
   .ar-container-3-button {
-    height: 50% !important; /* Also reduce button height */
+    height: clamp(2rem, 5vw, 3.5rem) !important; /* Reduced button height */
   }
 
   /* Text wrapper for AR containers - text below each container */
