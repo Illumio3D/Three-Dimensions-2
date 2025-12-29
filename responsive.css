@@ -24,6 +24,12 @@
   /* Base scale factor - adjusts globally */
   --scale-factor: 1;
   
+  /* Height reduction factor for mobile (40% reduction = 0.6 multiplier) */
+  --height-reduction-factor: 0.6;
+  
+  /* Gallery item height for mobile */
+  --gallery-item-height-mobile: clamp(12rem, 50vw, 22.5rem);
+  
   /* Gallery scale calculation - simplified for maintainability */
   /* On mobile (320px): 0.8, on desktop (1200px): 1.4 */
   --gallery-scale-mobile: 0.8;
@@ -322,7 +328,7 @@
   .ar-container-3 {
     width: min(90vw, 32rem) !important;
     height: auto !important;
-    min-height: calc(clamp(16rem, 35vw, 32rem) * 0.6) !important; /* 40% reduction */
+    min-height: calc(clamp(16rem, 35vw, 32rem) * var(--height-reduction-factor)) !important; /* 40% reduction */
   }
   
   .ar-container-3 img {
@@ -451,9 +457,9 @@
   /* Jetzt Projekt umsetzen button - 40% shorter height */
   .anfrage-button-container a.anfrage-button {
     width: min(90%, 650px) !important;
-    height: calc(clamp(3.5rem, 8vw, 6rem) * 0.6) !important; /* 40% reduction */
+    height: calc(clamp(3.5rem, 8vw, 6rem) * var(--height-reduction-factor)) !important; /* 40% reduction */
     font-size: var(--font-button) !important;
-    line-height: calc(clamp(3.5rem, 8vw, 6rem) * 0.6) !important;
+    line-height: calc(clamp(3.5rem, 8vw, 6rem) * var(--height-reduction-factor)) !important;
   }
 
   #ar-button {
@@ -513,14 +519,14 @@
   }
   
   .gallery-item {
-    height: clamp(12rem, 50vw, 22.5rem) !important;
+    height: var(--gallery-item-height-mobile) !important;
     max-width: 90vw !important;
   }
   
   .gallery-item img {
     width: 100% !important;
     max-width: 90vw !important;
-    height: clamp(12rem, 50vw, 22.5rem) !important;
+    height: var(--gallery-item-height-mobile) !important;
     object-fit: cover !important;
   }
   
