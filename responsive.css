@@ -198,17 +198,19 @@
 /* ==========================================================================
    Responsive Hero Section & Videos - Mobile Only
    ========================================================================== */
-/* Video container is always full width - this is fine for desktop too */
-.video-container {
-  width: 100% !important;
-  position: relative;
-}
+/* Only apply video container changes on mobile */
+@media (max-width: 768px) {
+  .video-container {
+    width: 100% !important;
+    position: relative;
+  }
 
-.video-container video {
-  width: 100% !important;
-  height: auto !important;
-  display: block;
-  object-fit: cover;
+  .video-container video {
+    width: 100% !important;
+    height: auto !important;
+    display: block;
+    object-fit: cover;
+  }
 }
 
 /* Only apply hero typography changes on mobile */
@@ -296,32 +298,46 @@
 /* ==========================================================================
    Responsive AR Containers (index.html) - Mobile Only
    ========================================================================== */
-@media (max-width: 900px) {
+@media (max-width: 768px) {
+  /* First AR container - text should appear above image */
   .ar-container {
     width: min(90vw, 64rem) !important;
     height: auto !important;
     min-height: clamp(16rem, 40vw, 32rem);
   }
 
+  /* Second AR container - center the image in container */
   .ar-container-2 {
     width: min(90vw, 36rem) !important;
     height: auto !important;
     min-height: clamp(16rem, 35vw, 32rem);
   }
+  
+  .ar-container-2 img {
+    object-position: center center !important;
+    transform: none !important;
+  }
 
+  /* Third AR container - move image left in container, reduce height by 40% */
   .ar-container-3 {
     width: min(90vw, 32rem) !important;
     height: auto !important;
-    min-height: clamp(16rem, 35vw, 32rem);
+    min-height: calc(clamp(16rem, 35vw, 32rem) * 0.6) !important; /* 40% reduction */
+  }
+  
+  .ar-container-3 img {
+    object-position: left center !important;
+    transform: none !important;
   }
 
+  /* Text wrapper for AR containers - text below each container */
   .ar-container-2-wrapper {
-    flex-direction: column !important;
+    flex-direction: column-reverse !important; /* Image first, then text */
     align-items: center !important;
   }
   
   .ar-container-3-wrapper {
-    flex-direction: column-reverse !important;
+    flex-direction: column-reverse !important; /* Image first, then text */
     align-items: center !important;
   }
   
@@ -329,6 +345,7 @@
   .ar-container-3-text-wrapper {
     text-align: center !important;
     width: 100%;
+    order: 2; /* Text below image */
   }
   
   .ar-container-2-text,
@@ -349,8 +366,23 @@
     gap: var(--space-sm) !important;
   }
   
-  .section-title,
-  .bullet-points,
+  /* Ensure section title is larger than bullet points */
+  .section-title {
+    font-size: 1.75rem !important;
+    text-align: center !important;
+  }
+  
+  .bullet-points {
+    font-size: 1rem !important; /* Smaller than section title */
+    padding-left: 1rem;
+    padding-right: 1rem;
+    text-align: center !important;
+  }
+  
+  .bullet-points li {
+    font-size: 1rem !important;
+  }
+  
   .cta-text,
   .description-text-2,
   .ar-text,
@@ -358,9 +390,9 @@
     text-align: center !important;
   }
   
-  .bullet-points {
-    padding-left: 1rem;
-    padding-right: 1rem;
+  /* Add more space at bottom of gradient section */
+  .white-gradient-section {
+    padding-bottom: var(--space-xl) !important;
   }
 }
 
@@ -368,8 +400,11 @@
    Responsive Image Container (description text overlay)
    ========================================================================== */
 @media (max-width: 768px) {
+  /* Make image container a flex column to put text above image */
   .image-container {
     position: relative;
+    display: flex !important;
+    flex-direction: column-reverse !important; /* Text above image */
   }
   
   .description-text {
@@ -377,6 +412,11 @@
     transform: none !important;
     padding: var(--space-sm) !important;
     text-align: center !important;
+    order: 1; /* Text appears first (above) */
+  }
+  
+  .content-image {
+    order: 2; /* Image appears after text */
   }
 }
 
@@ -408,11 +448,12 @@
    Responsive Buttons - Mobile Only
    ========================================================================== */
 @media (max-width: 768px) {
+  /* Jetzt Projekt umsetzen button - 40% shorter height */
   .anfrage-button-container a.anfrage-button {
     width: min(90%, 650px) !important;
-    height: clamp(3.5rem, 8vw, 6rem) !important;
+    height: calc(clamp(3.5rem, 8vw, 6rem) * 0.6) !important; /* 40% reduction */
     font-size: var(--font-button) !important;
-    line-height: clamp(3.5rem, 8vw, 6rem) !important;
+    line-height: calc(clamp(3.5rem, 8vw, 6rem) * 0.6) !important;
   }
 
   #ar-button {
@@ -464,18 +505,23 @@
    ========================================================================== */
 @media (max-width: 768px) {
   .gallery-container {
-    width: min(95vw, 57rem) !important;
-    transform: scale(var(--gallery-scale-mobile)) !important;
+    width: 100% !important;
+    max-width: 100vw !important;
+    transform: none !important; /* Remove scaling to prevent overflow */
     margin-top: var(--space-md) !important;
+    overflow: hidden !important;
   }
   
   .gallery-item {
-    height: clamp(12rem, 30vw, 22.5rem) !important;
+    height: clamp(12rem, 50vw, 22.5rem) !important;
+    max-width: 90vw !important;
   }
   
   .gallery-item img {
-    width: min(90vw, 40rem) !important;
-    height: clamp(12rem, 30vw, 22.5rem) !important;
+    width: 100% !important;
+    max-width: 90vw !important;
+    height: clamp(12rem, 50vw, 22.5rem) !important;
+    object-fit: cover !important;
   }
   
   .gallery-nav-button {
@@ -537,6 +583,21 @@
   #ar-viewer-wrapper {
     width: min(95vw, 900px) !important;
     height: clamp(300px, 60vw, 600px) !important;
+  }
+  
+  /* AR model container - make button appear below model */
+  .ar-model-container {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+  }
+  
+  /* In AR ansehen button should be below the model viewer */
+  #ar-button {
+    order: 2 !important;
+    margin-top: 1rem !important;
+    position: relative !important;
+    bottom: auto !important;
   }
 }
 
@@ -611,11 +672,13 @@
 }
 
 /* ==========================================================================
-   WeChat Modal - Already Responsive
+   WeChat Modal - Mobile Only
    ========================================================================== */
-.wechat-qr-content {
-  width: min(90vw, 400px) !important;
-  padding: clamp(1rem, 3vw, 2rem) !important;
+@media (max-width: 768px) {
+  .wechat-qr-content {
+    width: min(90vw, 400px) !important;
+    padding: clamp(1rem, 3vw, 2rem) !important;
+  }
 }
 
 /* ==========================================================================
