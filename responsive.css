@@ -650,43 +650,49 @@
    Responsive Details-durch-3D Page - Mobile Only
    
    DETAILS-DURCH-3D.HTML - Image containers and text layout
-   ORDER ON MOBILE: Container (image) → Title → Normal text
+   ORDER ON MOBILE: Title → Normal text → Container (image)
    ========================================================================== */
 @media (max-width: 900px) {
   /* Main wrapper layout - stacks content vertically on mobile
-     ORDER: Image container first, then text (title + description) */
+     ORDER: Text (title + description) first, then image container
+     Uses column-reverse because HTML has image first in DOM for some wrappers */
   .image-text-wrapper {
-    flex-direction: column !important;
+    display: flex !important;
+    flex-direction: column-reverse !important; /* Reverse to put text above image */
     align-items: center !important;
-    margin-top: 2rem !important; /* ADJUST THIS: gap above each image section */
+    margin-top: 1rem !important; /* ADJUST THIS: gap above each image section */
   }
   
-  /* Right-aligned wrapper (for alternating layout on desktop) - same on mobile */
+  /* Right-aligned wrapper already has text first in HTML, so use normal column */
   .image-text-wrapper.right-aligned {
-    flex-direction: column !important;
+    display: flex !important;
+    flex-direction: column !important; /* Normal order since HTML has text first */
     justify-content: center !important;
-    margin-top: 2rem !important; /* ADJUST THIS: gap above 2nd image section */
+    margin-top: 1rem !important; /* ADJUST THIS: gap above 2nd image section */
   }
   
-  /* Third container margin adjustment */
+  /* Third container has image first in HTML, so use column-reverse */
   .image-text-wrapper.third-container {
-    margin-top: 2rem !important; /* ADJUST THIS: gap above 3rd image section */
+    flex-direction: column-reverse !important;
+    margin-top: 1rem !important; /* ADJUST THIS: gap above 3rd image section */
   }
   
   .image-text-wrapper.right-aligned .image-container img {
     transform: none !important;
   }
   
-  /* Use flexbox order to ensure: Image container (1) → Title+Description (2) */
-  .image-text-wrapper .image-container {
-    order: 1 !important; /* Image comes first */
-  }
-  
+  /* Text styling for mobile */
   .image-text-wrapper .container-text {
-    order: 2 !important; /* Text comes after image */
     text-align: center !important;
     width: 100%;
-    margin-top: 1rem !important; /* ADJUST THIS: gap between image and title */
+    margin-bottom: 1rem !important; /* ADJUST THIS: gap between text and image */
+  }
+  
+  /* Section title: "Welche Perspektive möchtest du zuerst zeigen?" 
+     Add space above and more space below before first image section */
+  .gradient-section .section-title:first-of-type {
+    margin-top: 2rem !important; /* ADJUST THIS: space above "Welche Perspektive..." */
+    margin-bottom: 3rem !important; /* ADJUST THIS: gap before first "Birds Eye" title */
   }
   
   /* Image container dimensions */
@@ -702,11 +708,6 @@
     height: auto !important;
     min-height: clamp(20rem, 50vw, 39rem); /* ADJUST THIS: 3rd container min-height */
     aspect-ratio: auto;
-  }
-  
-  /* Reduce section title margin on mobile */
-  .gradient-section .section-title {
-    margin-top: 2rem !important; /* ADJUST THIS: space above section title */
   }
 }
 
