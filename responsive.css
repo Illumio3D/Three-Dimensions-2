@@ -617,22 +617,32 @@
 
 /* ==========================================================================
    Responsive Buttons - Mobile Only
+   
+   NOTE: The inline styles in HTML files use !important, so we need to use
+   more specific selectors or repeat !important to override them.
    ========================================================================== */
 @media (max-width: 768px) {
   /* Jetzt Projekt umsetzen button - proportional scaling from desktop
      Desktop: width ~45%, height 6rem, font-size 2.2rem
-     On mobile: reduced height significantly for mobile proportions */
-  .anfrage-button-container a.anfrage-button {
+     On mobile: reduced height significantly for mobile proportions
+     Uses multiple selectors for higher specificity to override inline !important */
+  .white-background-section .anfrage-button-container a.anfrage-button,
+  .background-section .anfrage-button-container a.anfrage-button,
+  .content-section-2 .anfrage-button-container a.anfrage-button,
+  body .anfrage-button-container a.anfrage-button {
     width: min(85%, 550px) !important; /* ADJUST THIS: button width */
-    height: 2rem !important; /* ADJUST THIS: button height (further reduced) */
+    height: 2.5rem !important; /* ADJUST THIS: button height */
+    min-height: 2.5rem !important;
+    max-height: 2.5rem !important;
     font-size: 0.875rem !important; /* ADJUST THIS: button text size */
-    line-height: 2rem !important; /* Should match height */
-    border-radius: 0.375rem !important; /* ADJUST THIS: button corner rounding */
+    line-height: 2.5rem !important; /* Should match height */
+    border-radius: 0.5rem !important; /* ADJUST THIS: button corner rounding */
   }
 
   #ar-button {
     padding: clamp(0.75rem, 2vw, 1.5rem) clamp(1.5rem, 4vw, 3rem) !important;
     font-size: clamp(0.875rem, 2vw, 1.5rem) !important;
+    z-index: 1 !important; /* Keep below header (header has z-index > 100) */
   }
 }
 
@@ -810,7 +820,8 @@
   }
   
   /* LINE 754-759: "In AR ansehen" button position and spacing
-     ADJUST: margin-top to change space between model and button */
+     ADJUST: margin-top to change space between model and button
+     z-index: 1 ensures button stays behind header when scrolling */
   #ar-button {
     order: 2 !important;
     margin-top: 0.5rem !important; /* ADJUST THIS: space above "In AR ansehen" button (0.5rem = slight gap) */
@@ -821,6 +832,7 @@
     display: block !important;
     margin-left: auto !important;
     margin-right: auto !important;
+    z-index: 1 !important; /* Keep below header (header z-index is higher) */
   }
 }
 
