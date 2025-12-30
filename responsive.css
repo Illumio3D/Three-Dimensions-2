@@ -355,20 +355,20 @@
   /* LINE 314-316: Gap below "Überzeuge dich selbst." title
      ADJUST: margin-bottom to increase/decrease space after CTA title */
   .cta-text {
-    margin-bottom: 0.5rem !important; /* ADJUST THIS: space below "Überzeuge dich selbst." */
+    margin-bottom: 0.25rem !important; /* ADJUST THIS: space below "Überzeuge dich selbst." */
   }
   
   /* LINE 318-320: Gap below "Auf unseren 3 Beispielseiten..." text
      ADJUST: margin-bottom to change space before "AR erweckt dein Produkt" */
   .description-text-2 {
-    margin-bottom: 0.75rem !important; /* ADJUST THIS: space below description, before AR text */
+    margin-bottom: 0.5rem !important; /* ADJUST THIS: space below description, before AR text */
   }
   
   /* LINE 322-325: "AR erweckt dein Produkt zum Leben" text spacing
      ADJUST: margin-top = space above, margin-bottom = space below title */
   .ar-text {
-    margin-top: 0.75rem !important; /* ADJUST THIS: space above "AR erweckt dein Produkt" */
-    margin-bottom: 0.5rem !important; /* ADJUST THIS: space below "AR erweckt dein Produkt" */
+    /*margin-top: 0.5rem !important;  ADJUST THIS: space above "AR erweckt dein Produkt" */
+    margin-bottom: 0.25rem !important; /* ADJUST THIS: space below "AR erweckt dein Produkt" */
   }
   
   /* LINE 327-329: "Sieh dir an wie Augmented Reality..." description spacing
@@ -384,25 +384,25 @@
   /* LINE 332-334: Gap above 2nd container section ("Zeig was in deinem Produkt")
      ADJUST: margin-top to change space after 1st container */
   .ar-container-2-wrapper {
-    margin-top: 1rem !important; /* ADJUST THIS: space above 2nd container section */
+    margin-top: 0.5rem !important; /* ADJUST THIS: space above 2nd container section */
   }
   
   /* LINE 336-338: Gap above 3rd container section ("Der Klassiker, ein Musthave")
      ADJUST: margin-top to change space after 2nd container */
   .ar-container-3-wrapper {
-    margin-top: 1rem !important; /* ADJUST THIS: space above 3rd container section */
+    margin-top: 0.5rem !important; /* ADJUST THIS: space above 3rd container section */
   }
   
   /* LINE 341-343: Gap below 1st container (table image)
      ADJUST: margin-bottom to change space before "Zeig was in deinem Produkt" text */
   .ar-container {
-    margin-bottom: 1rem !important; /* ADJUST THIS: space below 1st container (table) */
+    margin-bottom: 0.5rem !important; /* ADJUST THIS: space below 1st container (table) */
   }
   
   /* LINE 346-348: Gap below 2nd text wrapper
      ADJUST: margin-bottom to change space after 2nd text section */
   .ar-container-2-text-wrapper {
-    margin-bottom: 0.75rem !important; /* ADJUST THIS: space below 2nd text section */
+    margin-bottom: 0.5rem !important; /* ADJUST THIS: space below 2nd text section */
   }
   
   /* LINE 351-354: Gap below container titles ("Zeig was..." and "Der Klassiker...")
@@ -448,8 +448,8 @@
      ADJUST: translateX to shift image (negative=left, positive=right) */
   .white-gradient-section .ar-container-2 img,
   .ar-container-2 img {
-    object-position: 25% center !important; /* ADJUST THIS: 0-100%, lower=more left */
-    transform: translateX(-10%) !important; /* ADJUST THIS: negative=left, positive=right */
+    object-position:50% !important; /* ADJUST THIS: 0-100%, lower=more left */
+    transform: translateX(-17%) !important; /* ADJUST THIS: negative=left, positive=right */
   }
 
   /* -------------------------------------------------------------------
@@ -460,7 +460,7 @@
      ADJUST: height to change container size (original: 32rem, current: 28.8rem = 10% smaller) */
   .ar-container-3 {
     width: min(90vw, 32rem) !important; /* ADJUST THIS: container width */
-    height: 28.8rem !important; /* ADJUST THIS: container height (32rem=original, 28.8rem=10% smaller) */
+    height: 28rem !important; /* ADJUST THIS: container height (32rem=original, 28.8rem=10% smaller) */
     min-height: unset !important;
   }
   
@@ -468,14 +468,14 @@
      ADJUST: object-position (0%=left, 50%=center, 100%=right) */
   .white-gradient-section .ar-container-3 img,
   .ar-container-3 img {
-    object-position: 60% center !important; /* ADJUST THIS: 0-100%, higher=more right */
-    transform: none !important;
+    object-position: 50% !important; /* ADJUST THIS: 0-100%, higher=more right */
+    transform: translateX(10%) !important;
   }
   
   /* LINE 394-397: 3rd container button size
      ADJUST: height and width to match container changes */
   .ar-container-3-button {
-    height: 28.8rem !important; /* ADJUST THIS: should match .ar-container-3 height */
+    height: 28rem !important; /* ADJUST THIS: should match .ar-container-3 height */
     width: min(90vw, 32rem) !important; /* ADJUST THIS: should match .ar-container-3 width */
   }
 
@@ -557,7 +557,7 @@
   /* LINE 520-522: Space above "Überzeuge dich selbst" section
      ADJUST: margin-top to change gap before CTA section */
   .cta-text {
-    margin-top: 3rem !important; /* ADJUST THIS: space above "Überzeuge dich selbst" */
+    margin-top: 2rem !important; /* ADJUST THIS: space above "Überzeuge dich selbst" */
   }
   
   /* LINE 525-527: Bottom padding of gradient section
@@ -691,8 +691,8 @@
   /* Section title: "Welche Perspektive möchtest du zuerst zeigen?" 
      Add space above and more space below before first image section */
   .gradient-section .section-title:first-of-type {
-    margin-top: 2rem !important; /* ADJUST THIS: space above "Welche Perspektive..." */
-    margin-bottom: 3rem !important; /* ADJUST THIS: gap before first "Birds Eye" title */
+    margin-top: 0rem !important; /* ADJUST THIS: space above "Welche Perspektive..." */
+    margin-bottom: 6rem !important; /* ADJUST THIS: gap before first "Birds Eye" title */
   }
   
   /* Image container dimensions */

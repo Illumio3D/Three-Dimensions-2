@@ -87,3 +87,4 @@ Based on your HTML files, these images need WebP versions:
 - WebP typically reduces file size by 25-35% with the same visual quality
 
 
+
