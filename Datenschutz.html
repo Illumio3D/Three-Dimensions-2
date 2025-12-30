@@ -10,6 +10,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="responsive.css">
   <style>
     @font-face {
       font-family: 'Mandioca';
@@ -308,7 +309,12 @@
     <h2 class="brand">
       <a href="index.html">Three Dimensions</a>
     </h2>
-    <nav class="nav-links">
+    <button class="mobile-menu-toggle" id="mobileMenuToggle" aria-label="Menü öffnen">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+    <nav class="nav-links" id="navLinks">
       <a href="index.html">Home</a>
       <a href="Three-Dimensions-Anfrageformular.html">Kontakt</a>
       <a href="Ueber-Mich.html">Über Mich</a>
@@ -321,6 +327,7 @@
         </div>
       </div>
     </nav>
+    <div class="mobile-menu-overlay" id="mobileMenuOverlay"></div>
   </header>
   <div class="gradient-section">
     <div class="content-section">
@@ -405,6 +412,47 @@
     </div>
   </div>
   <script>
+    // Mobile menu functionality
+    (function() {
+      const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+      const navLinks = document.getElementById('navLinks');
+      const mobileMenuOverlay = document.getElementById('mobileMenuOverlay');
+      
+      function toggleMobileMenu() {
+        mobileMenuToggle.classList.toggle('active');
+        navLinks.classList.toggle('active');
+        mobileMenuOverlay.classList.toggle('active');
+        document.body.style.overflow = navLinks.classList.contains('active') ? 'hidden' : '';
+      }
+      
+      function closeMobileMenu() {
+        mobileMenuToggle.classList.remove('active');
+        navLinks.classList.remove('active');
+        mobileMenuOverlay.classList.remove('active');
+        document.body.style.overflow = '';
+      }
+      
+      if (mobileMenuToggle) {
+        mobileMenuToggle.addEventListener('click', toggleMobileMenu);
+      }
+      
+      if (mobileMenuOverlay) {
+        mobileMenuOverlay.addEventListener('click', closeMobileMenu);
+      }
+      
+      if (navLinks) {
+        navLinks.querySelectorAll('a').forEach(link => {
+          link.addEventListener('click', closeMobileMenu);
+        });
+      }
+      
+      window.addEventListener('resize', function() {
+        if (window.innerWidth > 768) {
+          closeMobileMenu();
+        }
+      });
+    })();
+
     // Services dropdown functionality
     function toggleServicesDropdown(event) {
       event.stopPropagation();
