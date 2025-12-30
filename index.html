@@ -684,6 +684,65 @@
       opacity: 0.7;
     }
 
+    /* ==========================================================================
+       MOBILE-SPECIFIC OVERRIDES - These rules ensure spacing changes work on mobile
+       Added at the end of inline styles to have higher specificity than responsive.css
+       ========================================================================== */
+    @media (max-width: 768px) {
+      /* INDEX.HTML - Text spacing in "Überzeuge dich selbst" section */
+      
+      /* Space below "Überzeuge dich selbst." title */
+      .cta-text {
+        margin: 2rem 0 0.25rem 0 !important;
+      }
+      
+      /* Space below "Auf unseren 3 Beispielseiten..." description */
+      .description-text-2 {
+        margin: 2rem 0 0.5rem 0 !important;
+      }
+      
+      /* Space around "AR erweckt dein Produkt zum Leben" title */
+      .ar-text {
+        margin: 0.5rem 0 0.25rem 0 !important;
+      }
+      
+      /* Space below "Sieh dir an wie Augmented Reality..." description */
+      .ar-description {
+        margin: 1rem 0 0.75rem 0 !important;
+      }
+      
+      /* Space below 1st container (table image) */
+      .ar-container {
+        margin: 2rem 0 0.5rem 0 !important;
+      }
+      
+      /* Space above 2nd container section ("Zeig was in deinem Produkt") */
+      .ar-container-2-wrapper {
+        margin: 0.5rem 0 0 0 !important;
+      }
+      
+      /* Space above 3rd container section ("Der Klassiker, ein Musthave") */
+      .ar-container-3-wrapper {
+        margin: 0.5rem 0 0 0 !important;
+      }
+      
+      /* Space below 2nd text wrapper */
+      .ar-container-2-text-wrapper {
+        margin-bottom: 0.5rem !important;
+      }
+      
+      /* Space below section titles */
+      .ar-container-2-text,
+      .ar-container-3-text {
+        margin: 0 0 0.25rem 0 !important;
+      }
+      
+      /* Space below section descriptions */
+      .ar-container-2-description,
+      .ar-container-3-description {
+        margin: 1rem 0 0.5rem 0 !important;
+      }
+    }
 
   </style>
 </head>
