@@ -384,13 +384,13 @@
   /* LINE 332-334: Gap above 2nd container section ("Zeig was in deinem Produkt")
      ADJUST: margin-top to change space after 1st container */
   .ar-container-2-wrapper {
-    margin-top: 3rem !important; /* Space above 2nd container section (align with background padding) */
+    margin-top: 1.5rem !important; /* Space above 2nd container section (align with details layout) */
   }
   
   /* LINE 336-338: Gap above 3rd container section ("Der Klassiker, ein Musthave")
      ADJUST: margin-top to change space after 2nd container */
   .ar-container-3-wrapper {
-    margin-top: 3rem !important; /* Space above 3rd container section (align with background padding) */
+    margin-top: 1.5rem !important; /* Space above 3rd container section (align with details layout) */
   }
   
   /* LINE 341-343: Gap below 1st container (table image)
@@ -402,7 +402,7 @@
   /* LINE 346-348: Gap below 2nd text wrapper
      ADJUST: margin-bottom to change space after 2nd text section */
   .ar-container-2-text-wrapper {
-    margin-bottom: 5rem !important; /* ADJUST THIS: space below 2nd text section */
+    margin-bottom: 1.5rem !important; /* ADJUST THIS: space below 2nd text section */
   }
   
   /* LINE 351-354: Gap below container titles ("Zeig was..." and "Der Klassiker...")
@@ -429,7 +429,8 @@
     width: min(90vw, 64rem) !important; /* ADJUST THIS: container width */
     height: auto !important;
     min-height: clamp(16rem, 40vw, 32rem); /* ADJUST THIS: minimum height */
-    margin-top: 1rem !important; /* Reduce gap above first AR container */
+    margin-top: 0 !important; /* Reduce gap above first AR container */
+    margin-bottom: 1.5rem !important;
   }
 
   /* -------------------------------------------------------------------
@@ -442,7 +443,7 @@
     width: min(90vw, 36rem) !important; /* ADJUST THIS: container width */
     height: auto !important;
     min-height: clamp(16rem, 35vw, 32rem); /* ADJUST THIS: minimum height */
-    margin-bottom: 5rem !important;
+    margin-bottom: 1.5rem !important;
   }
   
   /* LINE 375-379: 2nd container image position
@@ -464,7 +465,7 @@
     width: min(90vw, 32rem) !important; /* ADJUST THIS: container width */
     height: 28rem !important; /* ADJUST THIS: container height (32rem=original, 28.8rem=10% smaller) */
     min-height: unset !important;
-    margin-bottom: 5rem !important;
+    margin-bottom: 1.5rem !important;
   }
   
   /* LINE 388-392: 3rd container image position
@@ -541,6 +542,8 @@
     padding-left: 1rem; /* ADJUST THIS: left padding */
     padding-right: 1rem; /* ADJUST THIS: right padding */
     text-align: center !important;
+    margin-top: 0 !important;
+    margin-bottom: 1rem !important;
   }
   
   /* LINE 507-510: Individual bullet point spacing
@@ -607,7 +610,7 @@
     margin-bottom: 1rem !important;
   }
 
-  /* Image → next text spacing on mobile */
+  /* Image → next text spacing on mobile (align with Details layout) */
   .ar-container,
   .ar-container-2,
   .ar-container-3,
@@ -616,7 +619,7 @@
   .image-text-wrapper.third-container,
   #ar-viewer-wrapper,
   .iphone-video-container {
-    margin-bottom: 5rem !important;
+    margin-bottom: 1.5rem !important;
   }
 
   /* Normalize section titles inside gradients (overrides inline styles) */
