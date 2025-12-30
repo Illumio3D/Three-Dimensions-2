@@ -689,13 +689,18 @@
        Added at the end of inline styles to have higher specificity than responsive.css
        ========================================================================== */
     @media (max-width: 768px) {
-      /* GRADIENT BACKGROUNDS - 1.5rem top and bottom padding (reduced from 2.5rem) */
+      /* GRADIENT BACKGROUNDS - 1.5rem top and bottom padding */
       .gradient-section {
         padding: 1.5rem 0 !important;
       }
       
       .white-gradient-section {
         padding: 1.5rem 0 !important;
+      }
+      
+      /* TEXT SECTION - remove desktop top margin that pushes content down */
+      .text-section {
+        margin-top: 0 !important;
       }
       
       /* BIGGER TITLES - "Warum Alle auf 3D setzen?" - 0.75rem space to bullet points */
@@ -713,7 +718,7 @@
         margin: 0 0 0.75rem 0 !important;
       }
       
-      /* Description below CTA - 5rem distance to "AR erweckt dein Produkt..." (increased from 4rem) */
+      /* Description below CTA - 5rem distance to "AR erweckt dein Produkt..." */
       .description-text-2 {
         margin: 0 0 5rem 0 !important;
       }
@@ -723,14 +728,14 @@
         margin: 0 0 0.5rem 0 !important;
       }
       
-      /* Description - 1.5rem distance to container below (reversed from 3rem) */
+      /* Description - 1.5rem distance to container below (small gap - text describes container) */
       .ar-description {
         margin: 0 0 1.5rem 0 !important;
       }
       
-      /* Container - 3rem top margin (from text above), 1.5rem bottom margin (to text below) - reversed */
+      /* Container - 1.5rem top margin (from text above), 3rem bottom margin (to text below) - CORRECTED */
       .ar-container {
-        margin: 3rem 0 1.5rem 0 !important;
+        margin: 1.5rem 0 3rem 0 !important;
       }
       
       /* SMALL TITLES - "Zeig was in deinem Produkt steckt" - 0.5rem to description */
@@ -738,14 +743,14 @@
         margin: 0 0 0.5rem 0 !important;
       }
       
-      /* Description - 1.5rem distance to container below (reversed from 3rem) */
+      /* Description - 1.5rem distance to container below (small gap - text describes container) */
       .ar-container-2-description {
         margin: 0 0 1.5rem 0 !important;
       }
       
-      /* Second container - 3rem top margin (from text above), 1.5rem bottom margin (to text below) - reversed */
+      /* Second container - 1.5rem top margin (from text above), 3rem bottom margin (to text below) - CORRECTED */
       .ar-container-2 {
-        margin: 3rem 0 1.5rem 0 !important;
+        margin: 1.5rem 0 3rem 0 !important;
       }
       
       /* SMALL TITLES - "Der Klassiker, ein Musthave" - 0.5rem to description */
@@ -753,14 +758,14 @@
         margin: 0 0 0.5rem 0 !important;
       }
       
-      /* Description - 1.5rem distance to container below (reversed from 3rem) */
+      /* Description - 1.5rem distance to container below (small gap - text describes container) */
       .ar-container-3-description {
         margin: 0 0 1.5rem 0 !important;
       }
       
-      /* Third container - 3rem top margin (from text above) */
+      /* Third container - 1.5rem top margin (from text above) - CORRECTED */
       .ar-container-3 {
-        margin: 3rem 0 0 0 !important;
+        margin: 1.5rem 0 0 0 !important;
       }
       
       /* Container wrappers - remove extra margins */
