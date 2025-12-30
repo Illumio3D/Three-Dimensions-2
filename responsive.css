@@ -521,7 +521,7 @@
   .text-section {
     grid-template-columns: 1fr !important;
     gap: var(--space-sm) !important;
-    margin-top: 3rem !important; /* ADJUST THIS: space above "Warum Alle auf 3D setzen?" */
+    margin-top: 4.5rem !important; /* ADJUST THIS: space above "Warum Alle auf 3D setzen?" */
   }
   
   /* LINE 495-498: Section title font size ("Warum Alle auf 3D setzen?")
@@ -564,6 +564,38 @@
      ADJUST: padding-bottom to change space at bottom of white gradient area */
   .white-gradient-section {
     padding-bottom: var(--space-lg) !important; /* ADJUST THIS: space at bottom of gradient section */
+  }
+}
+
+/* ==========================================================================
+   Mobile Title Spacing + Background Padding Consistency
+   ========================================================================== */
+@media (max-width: 768px) {
+  /* Big titles: larger gap to following text */
+  .hero-title,
+  .main-headline,
+  .section-title,
+  .form-title,
+  .ar-title-text,
+  .ar-section-title {
+    margin-bottom: 1.5rem !important;
+  }
+
+  /* Smaller titles/subtitles: slightly tighter gap */
+  .container-title,
+  .cta-text,
+  .ar-text,
+  .ar-container-2-text,
+  .ar-container-3-text {
+    margin-bottom: 1rem !important;
+  }
+
+  /* Consistent padding around background sections across pages */
+  .gradient-section,
+  .white-gradient-section,
+  .background-section {
+    padding-top: 3rem !important;
+    padding-bottom: 3rem !important;
   }
 }
 
