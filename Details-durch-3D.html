@@ -640,6 +640,46 @@
       opacity: 0.7;
     }
 
+    /* ==========================================================================
+       MOBILE-SPECIFIC OVERRIDES - These rules ensure spacing changes work on mobile
+       Added at the end of inline styles to have higher specificity than responsive.css
+       ========================================================================== */
+    @media (max-width: 768px) {
+      /* GRADIENT BACKGROUNDS - 2.5rem top and bottom margin */
+      .gradient-section {
+        padding: 2.5rem 0 !important;
+      }
+      
+      .gradient-section.second {
+        padding: 2.5rem 0 !important;
+      }
+      
+      /* BIGGER TITLES - "Welche Perspektive möchtest du zuerst zeigen?" - 0.75rem to text */
+      .section-title {
+        margin: 0 0 0.75rem 0 !important;
+      }
+      
+      /* Override responsive.css for first section title */
+      .gradient-section .section-title:first-of-type {
+        margin: 0 0 0.75rem 0 !important;
+      }
+      
+      /* SMALL TITLES - container titles like "Birds Eye", "3/4 Angle", "Exploded View" - 0.5rem to description */
+      .container-title {
+        margin: 0 0 0.5rem 0 !important;
+      }
+      
+      /* Description - 1.5rem distance to container below */
+      .container-description {
+        margin: 0 0 1.5rem 0 !important;
+      }
+      
+      /* Image containers - 3rem distance to text below */
+      .image-container {
+        margin: 0 0 3rem 0 !important;
+      }
+    }
+
   </style>
 </head>
 <body>

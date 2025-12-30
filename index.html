@@ -689,58 +689,89 @@
        Added at the end of inline styles to have higher specificity than responsive.css
        ========================================================================== */
     @media (max-width: 768px) {
-      /* INDEX.HTML - Text spacing in "Überzeuge dich selbst" section */
+      /* GRADIENT BACKGROUNDS - 2.5rem top and bottom margin */
+      .gradient-section {
+        padding: 2.5rem 0 !important;
+      }
       
-      /* Space below "Überzeuge dich selbst." title */
+      .white-gradient-section {
+        padding: 2.5rem 0 !important;
+      }
+      
+      /* BIGGER TITLES - "Warum Alle auf 3D setzen?" - 0.75rem space to bullet points */
+      .section-title {
+        margin: 0 0 0.75rem 0 !important;
+      }
+      
+      /* Override responsive.css for Details page section title */
+      .gradient-section .section-title:first-of-type {
+        margin: 0 0 0.75rem 0 !important;
+      }
+      
+      /* CTA TEXT - bigger title "Überzeuge dich selbst." - 0.75rem to description */
       .cta-text {
-        margin: 2rem 0 0.25rem 0 !important;
+        margin: 0 0 0.75rem 0 !important;
       }
       
-      /* Space below "Auf unseren 3 Beispielseiten..." description */
+      /* Description below CTA - 3rem distance to "AR erweckt dein Produkt..." */
       .description-text-2 {
-        margin: 2rem 0 0.5rem 0 !important;
+        margin: 0 0 3rem 0 !important;
       }
       
-      /* Space around "AR erweckt dein Produkt zum Leben" title */
+      /* SMALL TITLES - "AR erweckt dein Produkt zum Leben" - 0.5rem to description */
       .ar-text {
-        margin: 0.5rem 0 0.25rem 0 !important;
+        margin: 0 0 0.5rem 0 !important;
       }
       
-      /* Space below "Sieh dir an wie Augmented Reality..." description */
+      /* Description - 1.5rem distance to container below */
       .ar-description {
-        margin: 1rem 0 0.75rem 0 !important;
+        margin: 0 0 1.5rem 0 !important;
       }
       
-      /* Space below 1st container (table image) */
+      /* Container - 3rem distance to text below */
       .ar-container {
-        margin: 2rem 0 0.5rem 0 !important;
+        margin: 0 0 3rem 0 !important;
       }
       
-      /* Space above 2nd container section ("Zeig was in deinem Produkt") */
-      .ar-container-2-wrapper {
-        margin: 0.5rem 0 0 0 !important;
+      /* SMALL TITLES - "Zeig was in deinem Produkt steckt" - 0.5rem to description */
+      .ar-container-2-text {
+        margin: 0 0 0.5rem 0 !important;
       }
       
-      /* Space above 3rd container section ("Der Klassiker, ein Musthave") */
-      .ar-container-3-wrapper {
-        margin: 0.5rem 0 0 0 !important;
+      /* Description - 1.5rem distance to container below */
+      .ar-container-2-description {
+        margin: 0 0 1.5rem 0 !important;
       }
       
-      /* Space below 2nd text wrapper */
-      .ar-container-2-text-wrapper {
-        margin-bottom: 0.5rem !important;
+      /* Second container - 3rem distance to text below */
+      .ar-container-2 {
+        margin: 0 0 3rem 0 !important;
       }
       
-      /* Space below section titles */
-      .ar-container-2-text,
+      /* SMALL TITLES - "Der Klassiker, ein Musthave" - 0.5rem to description */
       .ar-container-3-text {
-        margin: 0 0 0.25rem 0 !important;
+        margin: 0 0 0.5rem 0 !important;
       }
       
-      /* Space below section descriptions */
-      .ar-container-2-description,
+      /* Description - 1.5rem distance to container below */
       .ar-container-3-description {
-        margin: 1rem 0 0.5rem 0 !important;
+        margin: 0 0 1.5rem 0 !important;
+      }
+      
+      /* Third container - proper spacing */
+      .ar-container-3 {
+        margin: 0 !important;
+      }
+      
+      /* Container wrappers - remove extra margins */
+      .ar-container-2-wrapper,
+      .ar-container-3-wrapper {
+        margin: 0 !important;
+      }
+      
+      .ar-container-2-text-wrapper,
+      .ar-container-3-text-wrapper {
+        margin: 0 !important;
       }
     }
 
