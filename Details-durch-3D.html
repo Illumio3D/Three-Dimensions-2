@@ -640,6 +640,88 @@
       opacity: 0.7;
     }
 
+    /* ==========================================================================
+       MOBILE-SPECIFIC OVERRIDES - These rules ensure spacing changes work on mobile
+       Added at the end of inline styles to have higher specificity than responsive.css
+       ========================================================================== */
+    @media (max-width: 768px) {
+      /* GRADIENT BACKGROUNDS - 1.5rem top and bottom padding */
+      .gradient-section {
+        padding: 1.5rem 0 !important;
+      }
+      
+      .gradient-section.second {
+        padding: 1.5rem 0 !important;
+      }
+      
+      /* BIGGER TITLES - "Welche Perspektive möchtest du zuerst zeigen?" - 0.75rem to text */
+      .section-title {
+        margin: 0 0 0.75rem 0 !important;
+      }
+      
+      /* Override responsive.css for first section title */
+      .gradient-section .section-title:first-of-type {
+        margin: 0 0 0.75rem 0 !important;
+      }
+      
+      /* Override inline style for "Welche Perspektive du auch..." section title */
+      .gradient-section.second .section-title {
+        margin: 0 0 0.75rem 0 !important;
+      }
+      
+      /* TEXT SECTION - no top margin/padding on mobile to keep titles close to gradient start */
+      .text-section {
+        margin-top: 0 !important;
+        padding-top: 0 !important;
+      }
+      
+      /* SMALL TITLES - container titles like "Birds Eye", "3/4 Angle", "Exploded View" - 0.75rem to description */
+      .container-title {
+        margin: 0 0 0.75rem 0 !important;
+      }
+      
+      /* Description - 0.5rem distance to container below */
+      .container-description {
+        margin: 0 0 0.5rem 0 !important;
+      }
+      
+      /* Image containers - no top margin (spacing comes from description above), 3rem bottom margin for 3:1 ratio */
+      .image-container {
+        margin: 0 0 3rem 0 !important;
+      }
+      
+      /* Image-text wrappers - set top margins to create 3rem spacing from previous container */
+      .image-text-wrapper {
+        margin-top: 3rem !important;
+      }
+      
+      /* First image-text-wrapper - increase gap after "Welche Perspektive möchtest du..." title */
+      .image-text-wrapper:first-of-type {
+        margin-top: 5rem !important;
+      }
+      
+      .image-text-wrapper.right-aligned {
+        margin-top: 3rem !important;
+      }
+      
+      .image-text-wrapper.third-container {
+        margin-top: 3rem !important;
+      }
+      
+      /* Gallery section text - "Zeige jetzt was dein Produkt kann" - 0.75rem to button */
+      .ar-text {
+        margin: 0 0 0.75rem 0 !important;
+      }
+      
+      /* MOBILE TEXT FORMATTING - Remove line breaks, let text flow naturally */
+      .section-title br,
+      .container-title br,
+      .container-description br,
+      .ar-text br {
+        display: none;
+      }
+    }
+
   </style>
 </head>
 <body>
@@ -712,7 +794,7 @@
   <div class="gradient-section second">
     <div class="content-section">
       <div class="text-section">
-        <h2 class="section-title" style="margin-top: 6rem !important;">Welche Perspektive du auch wählst,<br>wir setzen sie perfekt in Szene.</h2>
+        <h2 class="section-title">Welche Perspektive du auch wählst,<br>wir setzen sie perfekt in Szene.</h2>
         <div class="gallery-container state-0" id="gallery">
           <div class="gallery-wrapper">
             <div class="gallery-item">

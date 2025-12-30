@@ -684,6 +684,130 @@
       opacity: 0.7;
     }
 
+    /* ==========================================================================
+       MOBILE-SPECIFIC OVERRIDES - These rules ensure spacing changes work on mobile
+       Added at the end of inline styles to have higher specificity than responsive.css
+       ========================================================================== */
+    @media (max-width: 768px) {
+      /* GRADIENT BACKGROUNDS - 1.5rem top and bottom padding */
+      .gradient-section {
+        padding: 1.5rem 0 !important;
+      }
+      
+      .white-gradient-section {
+        padding: 1.5rem 0 !important;
+      }
+      
+      /* TEXT SECTION - remove desktop top margin that pushes content down */
+      .text-section {
+        margin-top: 0 !important;
+      }
+      
+      /* MAIN HEADLINE - "Hochwertige 3D-Modelle..." - 0.75rem to description text */
+      .main-headline {
+        margin: 0 0 0.75rem 0 !important;
+      }
+      
+      /* DESCRIPTION TEXT - "Wir machen 3D und AR zugänglich..." - 0.5rem to image below */
+      .description-text {
+        margin: 0 0 0.5rem 0 !important;
+      }
+      
+      /* IMAGE CONTAINER - reduce top margin to move closer to text */
+      .image-container {
+        margin-top: 0 !important;
+      }
+      
+      /* BIGGER TITLES - "Warum Alle auf 3D setzen?" - 0.75rem space to bullet points */
+      .section-title {
+        margin: 0 0 0.75rem 0 !important;
+      }
+      
+      /* Override responsive.css for Details page section title */
+      .gradient-section .section-title:first-of-type {
+        margin: 0 0 0.75rem 0 !important;
+      }
+      
+      /* CTA TEXT - bigger title "Überzeuge dich selbst." - 0.75rem to description, no top margin */
+      .cta-text {
+        margin: 0 0 0.75rem 0 !important;
+      }
+      
+      /* Description below CTA - 5rem distance to "AR erweckt dein Produkt..." */
+      .description-text-2 {
+        margin: 0 0 5rem 0 !important;
+      }
+      
+      /* SMALL TITLES - "AR erweckt dein Produkt zum Leben" - 0.75rem to description */
+      .ar-text {
+        margin: 0 0 0.75rem 0 !important;
+      }
+      
+      /* Description - 0.5rem distance to container below */
+      .ar-description {
+        margin: 0 0 0.5rem 0 !important;
+      }
+      
+      /* Container - no top margin (spacing comes from description above), 3rem bottom margin for 3:1 ratio */
+      .ar-container {
+        margin: 0 0 3rem 0 !important;
+      }
+      
+      /* SMALL TITLES - "Zeig was in deinem Produkt steckt" - 0.75rem to description */
+      .ar-container-2-text {
+        margin: 0 0 0.75rem 0 !important;
+      }
+      
+      /* Description - 0.5rem distance to container below */
+      .ar-container-2-description {
+        margin: 0 0 0.5rem 0 !important;
+      }
+      
+      /* Second container - no top margin (spacing comes from description above), 3rem bottom margin for 3:1 ratio */
+      .ar-container-2 {
+        margin: 0 0 3rem 0 !important;
+      }
+      
+      /* SMALL TITLES - "Der Klassiker, ein Musthave" - 0.75rem to description */
+      .ar-container-3-text {
+        margin: 0 0 0.75rem 0 !important;
+      }
+      
+      /* Description - 0.5rem distance to container below */
+      .ar-container-3-description {
+        margin: 0 0 0.5rem 0 !important;
+      }
+      
+      /* Third container - no top margin (spacing comes from description above) */
+      .ar-container-3 {
+        margin: 0 !important;
+      }
+      
+      /* Container wrappers - set top margins to create 3rem spacing from previous container */
+      .ar-container-2-wrapper {
+        margin: 3rem 0 0 0 !important;
+      }
+      
+      .ar-container-3-wrapper {
+        margin: 3rem 0 0 0 !important;
+      }
+      
+      .ar-container-2-text-wrapper,
+      .ar-container-3-text-wrapper {
+        margin: 0 !important;
+      }
+      
+      /* MOBILE TEXT FORMATTING - Remove line breaks, let text flow naturally */
+      .ar-text br,
+      .ar-description br,
+      .ar-container-2-text br,
+      .ar-container-2-description br,
+      .ar-container-3-description br,
+      .description-text br,
+      .description-text-2 br {
+        display: none;
+      }
+    }
 
   </style>
 </head>
