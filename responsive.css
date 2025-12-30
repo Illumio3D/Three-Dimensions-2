@@ -361,20 +361,20 @@
   /* LINE 318-320: Gap below "Auf unseren 3 Beispielseiten..." text
      ADJUST: margin-bottom to change space before "AR erweckt dein Produkt" */
   .description-text-2 {
-    margin-bottom: 0.5rem !important; /* ADJUST THIS: space below description, before AR text */
+    margin-bottom: 6rem !important; /* ADJUST THIS: space below description, before AR text */
   }
   
   /* LINE 322-325: "AR erweckt dein Produkt zum Leben" text spacing
      ADJUST: margin-top = space above, margin-bottom = space below title */
   .ar-text {
     /*margin-top: 0.5rem !important;  ADJUST THIS: space above "AR erweckt dein Produkt" */
-    margin-bottom: 0.25rem !important; /* ADJUST THIS: space below "AR erweckt dein Produkt" */
+    margin-bottom: 1rem !important; /* ADJUST THIS: space below "AR erweckt dein Produkt" */
   }
   
   /* LINE 327-329: "Sieh dir an wie Augmented Reality..." description spacing
      ADJUST: margin-bottom to change gap before first container (table image) */
   .ar-description {
-    margin-bottom: 0.75rem !important; /* ADJUST THIS: space below AR description, before 1st container */
+    margin-bottom: 1rem !important; /* ADJUST THIS: space below AR description, before 1st container */
   }
   
   /* -------------------------------------------------------------------
@@ -384,39 +384,39 @@
   /* LINE 332-334: Gap above 2nd container section ("Zeig was in deinem Produkt")
      ADJUST: margin-top to change space after 1st container */
   .ar-container-2-wrapper {
-    margin-top: 0.5rem !important; /* ADJUST THIS: space above 2nd container section */
+    margin-top: 3rem !important; /* Space above 2nd container section (align with background padding) */
   }
   
   /* LINE 336-338: Gap above 3rd container section ("Der Klassiker, ein Musthave")
      ADJUST: margin-top to change space after 2nd container */
   .ar-container-3-wrapper {
-    margin-top: 0.5rem !important; /* ADJUST THIS: space above 3rd container section */
+    margin-top: 3rem !important; /* Space above 3rd container section (align with background padding) */
   }
   
   /* LINE 341-343: Gap below 1st container (table image)
      ADJUST: margin-bottom to change space before "Zeig was in deinem Produkt" text */
   .ar-container {
-    margin-bottom: 0.5rem !important; /* ADJUST THIS: space below 1st container (table) */
+    margin-bottom: 5rem !important; /* ADJUST THIS: space below 1st container (table) */
   }
   
   /* LINE 346-348: Gap below 2nd text wrapper
      ADJUST: margin-bottom to change space after 2nd text section */
   .ar-container-2-text-wrapper {
-    margin-bottom: 0.5rem !important; /* ADJUST THIS: space below 2nd text section */
+    margin-bottom: 5rem !important; /* ADJUST THIS: space below 2nd text section */
   }
   
   /* LINE 351-354: Gap below container titles ("Zeig was..." and "Der Klassiker...")
      ADJUST: margin-bottom to change space between title and description */
   .ar-container-2-text,
   .ar-container-3-text {
-    margin-bottom: 0.25rem !important; /* ADJUST THIS: space below section titles */
+    margin-bottom: 1rem !important; /* ADJUST THIS: space below section titles */
   }
   
   /* LINE 356-359: Gap below container descriptions
      ADJUST: margin-bottom to change space after descriptions */
   .ar-container-2-description,
   .ar-container-3-description {
-    margin-bottom: 0.5rem !important; /* ADJUST THIS: space below section descriptions */
+    margin-bottom: 1rem !important; /* ADJUST THIS: space below section descriptions */
   }
 
   /* -------------------------------------------------------------------
@@ -441,6 +441,7 @@
     width: min(90vw, 36rem) !important; /* ADJUST THIS: container width */
     height: auto !important;
     min-height: clamp(16rem, 35vw, 32rem); /* ADJUST THIS: minimum height */
+    margin-bottom: 5rem !important;
   }
   
   /* LINE 375-379: 2nd container image position
@@ -462,6 +463,7 @@
     width: min(90vw, 32rem) !important; /* ADJUST THIS: container width */
     height: 28rem !important; /* ADJUST THIS: container height (32rem=original, 28.8rem=10% smaller) */
     min-height: unset !important;
+    margin-bottom: 5rem !important;
   }
   
   /* LINE 388-392: 3rd container image position
@@ -596,6 +598,29 @@
   .background-section {
     padding-top: 3rem !important;
     padding-bottom: 3rem !important;
+  }
+
+  /* Bullet points should follow small-title spacing */
+  .bullet-points {
+    margin-top: 1rem !important;
+    margin-bottom: 1rem !important;
+  }
+
+  /* Image → next text spacing on mobile */
+  .ar-container,
+  .ar-container-2,
+  .ar-container-3,
+  .image-text-wrapper,
+  .image-text-wrapper.right-aligned,
+  .image-text-wrapper.third-container,
+  #ar-viewer-wrapper,
+  .iphone-video-container {
+    margin-bottom: 5rem !important;
+  }
+
+  /* Normalize section titles inside gradients (overrides inline styles) */
+  .gradient-section .section-title {
+    margin-top: 0 !important;
   }
 }
 
