@@ -429,6 +429,7 @@
     width: min(90vw, 64rem) !important; /* ADJUST THIS: container width */
     height: auto !important;
     min-height: clamp(16rem, 40vw, 32rem); /* ADJUST THIS: minimum height */
+    margin-top: 1rem !important; /* Reduce gap above first AR container */
   }
 
   /* -------------------------------------------------------------------
@@ -621,6 +622,11 @@
   /* Normalize section titles inside gradients (overrides inline styles) */
   .gradient-section .section-title {
     margin-top: 0 !important;
+  }
+
+  /* Details page: pull first gradient title closer */
+  .gradient-section:first-of-type {
+    padding-top: 1.5rem !important;
   }
 }
 
