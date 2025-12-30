@@ -669,9 +669,9 @@
         margin: 0 0 0.75rem 0 !important;
       }
       
-      /* SMALL TITLES - container titles like "Birds Eye", "3/4 Angle", "Exploded View" - 0.5rem to description */
+      /* SMALL TITLES - container titles like "Birds Eye", "3/4 Angle", "Exploded View" - 0.75rem to description (increased from 0.5rem) */
       .container-title {
-        margin: 0 0 0.5rem 0 !important;
+        margin: 0 0 0.75rem 0 !important;
       }
       
       /* Description - 0.75rem distance to container below (halved from 1.5rem) */
@@ -687,6 +687,14 @@
       /* Gallery section text - "Zeige jetzt was dein Produkt kann" - 0.75rem to button */
       .ar-text {
         margin: 0 0 0.75rem 0 !important;
+      }
+      
+      /* MOBILE TEXT FORMATTING - Remove line breaks, let text flow naturally */
+      .section-title br,
+      .container-title br,
+      .container-description br,
+      .ar-text br {
+        display: none;
       }
     }
 
