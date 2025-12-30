@@ -645,13 +645,13 @@
        Added at the end of inline styles to have higher specificity than responsive.css
        ========================================================================== */
     @media (max-width: 768px) {
-      /* GRADIENT BACKGROUNDS - 2.5rem top and bottom margin */
+      /* GRADIENT BACKGROUNDS - 1.5rem top and bottom padding (reduced from 2.5rem) */
       .gradient-section {
-        padding: 2.5rem 0 !important;
+        padding: 1.5rem 0 !important;
       }
       
       .gradient-section.second {
-        padding: 2.5rem 0 !important;
+        padding: 1.5rem 0 !important;
       }
       
       /* BIGGER TITLES - "Welche Perspektive möchtest du zuerst zeigen?" - 0.75rem to text */
@@ -664,19 +664,29 @@
         margin: 0 0 0.75rem 0 !important;
       }
       
+      /* Override inline style for "Welche Perspektive du auch..." section title */
+      .gradient-section.second .section-title {
+        margin: 0 0 0.75rem 0 !important;
+      }
+      
       /* SMALL TITLES - container titles like "Birds Eye", "3/4 Angle", "Exploded View" - 0.5rem to description */
       .container-title {
         margin: 0 0 0.5rem 0 !important;
       }
       
-      /* Description - 3rem distance to container below (changed from 1.5rem) */
+      /* Description - 1.5rem distance to container below (reversed from 3rem) */
       .container-description {
-        margin: 0 0 3rem 0 !important;
+        margin: 0 0 1.5rem 0 !important;
       }
       
-      /* Image containers - 1.5rem top margin (from text above), 3rem bottom margin (to text below) */
+      /* Image containers - 3rem top margin (from text above), 1.5rem bottom margin (to text below) - reversed */
       .image-container {
-        margin: 1.5rem 0 3rem 0 !important;
+        margin: 3rem 0 1.5rem 0 !important;
+      }
+      
+      /* Gallery section text - "Zeige jetzt was dein Produkt kann" - 0.75rem to button (halved from 1.5rem) */
+      .ar-text {
+        margin: 0 0 0.75rem 0 !important;
       }
     }
 
@@ -752,7 +762,7 @@
   <div class="gradient-section second">
     <div class="content-section">
       <div class="text-section">
-        <h2 class="section-title" style="margin-top: 6rem !important;">Welche Perspektive du auch wählst,<br>wir setzen sie perfekt in Szene.</h2>
+        <h2 class="section-title">Welche Perspektive du auch wählst,<br>wir setzen sie perfekt in Szene.</h2>
         <div class="gallery-container state-0" id="gallery">
           <div class="gallery-wrapper">
             <div class="gallery-item">
