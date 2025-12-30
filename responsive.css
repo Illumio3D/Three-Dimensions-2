@@ -521,7 +521,7 @@
   .text-section {
     grid-template-columns: 1fr !important;
     gap: var(--space-sm) !important;
-    margin-top: 4.5rem !important; /* ADJUST THIS: space above "Warum Alle auf 3D setzen?" */
+    margin-top: 3rem !important; /* ADJUST THIS: space above "Warum Alle auf 3D setzen?" */
   }
   
   /* LINE 495-498: Section title font size ("Warum Alle auf 3D setzen?")
@@ -557,13 +557,13 @@
   /* LINE 520-522: Space above "Überzeuge dich selbst" section
      ADJUST: margin-top to change gap before CTA section */
   .cta-text {
-    margin-top: 2rem !important; /* ADJUST THIS: space above "Überzeuge dich selbst" */
+    margin-top: 1.25rem !important; /* ADJUST THIS: space above "Überzeuge dich selbst" */
   }
   
   /* LINE 525-527: Bottom padding of gradient section
      ADJUST: padding-bottom to change space at bottom of white gradient area */
   .white-gradient-section {
-    padding-bottom: var(--space-xl) !important; /* ADJUST THIS: space at bottom of gradient section */
+    padding-bottom: var(--space-lg) !important; /* ADJUST THIS: space at bottom of gradient section */
   }
 }
 
