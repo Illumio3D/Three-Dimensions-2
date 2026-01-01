@@ -5,6 +5,7 @@
 
 const express = require('express');
 const router = express.Router();
+const crypto = require('crypto');
 const validator = require('validator');
 const dataManagement = require('../services/dataManagement');
 const emailService = require('../services/emailService');
@@ -193,7 +194,6 @@ router.post('/', async (req, res) => {
  * We only store a hash, not the actual IP
  */
 function hashIP(ip) {
-  const crypto = require('crypto');
   const salt = process.env.IP_HASH_SALT || 'three-dimensions-default-salt';
   return crypto.createHmac('sha256', salt).update(ip).digest('hex').substring(0, 16);
 }

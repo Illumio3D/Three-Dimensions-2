@@ -25,6 +25,9 @@ const ALGORITHM = 'aes-256-gcm';
 function getEncryptionKey() {
   const key = process.env.ENCRYPTION_KEY;
   if (!key || key.length < 32) {
+    if (process.env.NODE_ENV === 'production') {
+      throw new Error('ENCRYPTION_KEY must be set to a secure value (minimum 32 characters) in production!');
+    }
     console.warn('WARNING: ENCRYPTION_KEY not set or too short. Using default key for development only!');
     // Default key for development only - MUST be changed in production
     return crypto.createHash('sha256').update('three-dimensions-dev-key-change-in-production').digest();
@@ -269,7 +272,7 @@ async function exportByEmail(email) {
     budget: s.budget,
     deadline: s.deadline,
     message: s.message,
-    submittedAt: s.submittedAt
+    submittedAt: s.createdAt
   }));
 }
 

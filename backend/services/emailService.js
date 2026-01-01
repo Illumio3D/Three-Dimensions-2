@@ -137,7 +137,7 @@ Wir haben Ihre Nachricht erhalten und werden uns in Kürze bei Ihnen melden.
 Ihre Anfrage im Überblick:
 --------------------------
 Unternehmen: ${data.company}
-Interessen: ${data.interests.join(', ')}
+Interessen: ${formatInterests(data.interests, data.interestOther)}
 Budget: ${formatBudget(data.budget)}
 Gewünschter Fertigstellungstermin: ${data.deadline || 'Nicht angegeben'}
 
