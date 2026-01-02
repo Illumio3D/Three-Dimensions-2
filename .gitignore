@@ -2,3 +2,10 @@ node_modules/
 .DS_Store/
 .env
 test-video-scroll.html
+
+# Backend data files (sensitive)
+backend/data/
+backend/.env
+
+# Logs
+*.log
