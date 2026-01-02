@@ -980,29 +980,6 @@
       }
     });
 
-    // Fix cached image src (browser cache issue) - run immediately
-    (function() {
-      function fixImage() {
-        const explodedImg = document.querySelector('.ar-container-2 img');
-        if (explodedImg) {
-          if (explodedImg.src.includes('ExplodetView') || explodedImg.getAttribute('src') === 'ExplodetView.png') {
-            explodedImg.src = 'ExplodedView.png?v=' + Date.now();
-          }
-        } else {
-          // If image not found yet, try again after a short delay
-          setTimeout(fixImage, 100);
-        }
-      }
-      // Try immediately and also on DOMContentLoaded
-      if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', fixImage);
-      } else {
-        fixImage();
-      }
-      // Also try after a delay to catch any late-loading issues
-      setTimeout(fixImage, 500);
-    })();
-
     // WeChat QR Code Modal
     function handleWeChatClick(event) {
       event.preventDefault();

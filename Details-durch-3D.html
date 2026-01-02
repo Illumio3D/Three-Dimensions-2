@@ -3,23 +3,20 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
-  <meta http-equiv="Pragma" content="no-cache">
-  <meta http-equiv="Expires" content="0">
   <title>Details durch 3D - Three Dimensions</title>
   <meta name="description" content="Zeigen Sie die Details Ihres Produkts mit 3D-Exploded Views. Der Hero-Shot der Ihr Produkt verkauft - detaillierte Produktvisualisierung durch 3D-Animationen.">
   <meta name="keywords" content="3D Exploded View, Produktdetails, 3D Animation, Hero-Shot, Produktvisualisierung, 3D-Darstellung">
-  <link rel="canonical" href="https://yourdomain.com/Details-durch-3D.html">
+  <link rel="canonical" href="https://three-dimensions.de/Details-durch-3D.html">
   
   <!-- Open Graph / Facebook -->
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://yourdomain.com/Details-durch-3D.html">
+  <meta property="og:url" content="https://three-dimensions.de/Details-durch-3D.html">
   <meta property="og:title" content="Details durch 3D - Three Dimensions">
   <meta property="og:description" content="Der Hero-Shot der Ihr Produkt verkauft - detaillierte Produktvisualisierung durch 3D-Animationen.">
   
   <!-- Twitter -->
   <meta property="twitter:card" content="summary_large_image">
-  <meta property="twitter:url" content="https://yourdomain.com/Details-durch-3D.html">
+  <meta property="twitter:url" content="https://three-dimensions.de/Details-durch-3D.html">
   <meta property="twitter:title" content="Details durch 3D - Three Dimensions">
   <meta property="twitter:description" content="Der Hero-Shot der Ihr Produkt verkauft - detaillierte Produktvisualisierung durch 3D-Animationen.">
   
@@ -884,29 +881,6 @@
         dropdown.classList.remove('active');
       }
     });
-
-    // Fix cached image src (browser cache issue) - run immediately
-    (function() {
-      function fixImage() {
-        const explodedImg = document.querySelector('.image-container.third img');
-        if (explodedImg) {
-          if (explodedImg.src.includes('ExplodetView') || explodedImg.getAttribute('src') === 'ExplodetView.png') {
-            explodedImg.src = 'ExplodedView.png?v=' + Date.now();
-          }
-        } else {
-          // If image not found yet, try again after a short delay
-          setTimeout(fixImage, 100);
-        }
-      }
-      // Try immediately and also on DOMContentLoaded
-      if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', fixImage);
-      } else {
-        fixImage();
-      }
-      // Also try after a delay to catch any late-loading issues
-      setTimeout(fixImage, 500);
-    })();
 
     const video = document.getElementById('explode-video');
     const heroText = document.getElementById('hero-text');
