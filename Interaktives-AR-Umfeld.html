@@ -344,7 +344,12 @@
   const qrImage = document.getElementById('qr-image');
   const qrClose = document.getElementById('qr-close');
 
-  const mobileARUrl = "https://illumio3d.github.io/AR-Viewer-Machine/";
+  // Dynamic URL for QR code - works on any deployment (localhost, GitHub Pages, production server)
+  // Remove .html extension if present, to support clean URLs
+  let mobileARUrl = window.location.href;
+  if (mobileARUrl.endsWith('.html')) {
+    mobileARUrl = mobileARUrl.slice(0, -5);
+  }
 
   /* QR-Code generieren */
   qrImage.src =

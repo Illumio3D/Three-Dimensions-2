@@ -1,12 +1,17 @@
 /**
  * Contact Form Routes
  * Handles submission of contact form inquiries
+ * 
+ * CONFIGURATION:
+ * Server settings are centralized in config.js
+ * @see config.js for configuration options
  */
 
 const express = require('express');
 const router = express.Router();
 const crypto = require('crypto');
 const validator = require('validator');
+const config = require('../config');
 const dataManagement = require('../services/dataManagement');
 const emailService = require('../services/emailService');
 
@@ -171,7 +176,8 @@ router.post('/', async (req, res) => {
     }
 
     // Send auto-response to customer (optional)
-    if (process.env.SEND_AUTO_RESPONSE === 'true') {
+    // Controlled by SEND_AUTO_RESPONSE in config.js/.env
+    if (config.emailFeatures.sendAutoResponse) {
       try {
         await emailService.sendAutoResponse(sanitizedData);
       } catch (autoResponseError) {
@@ -197,9 +203,10 @@ router.post('/', async (req, res) => {
 /**
  * Hash IP address for privacy (GDPR compliance)
  * We only store a hash, not the actual IP
+ * Uses salt from config.js for security
  */
 function hashIP(ip) {
-  const salt = process.env.IP_HASH_SALT || 'three-dimensions-default-salt';
+  const salt = config.security.ipHashSalt;
   return crypto.createHmac('sha256', salt).update(ip).digest('hex').substring(0, 16);
 }
 

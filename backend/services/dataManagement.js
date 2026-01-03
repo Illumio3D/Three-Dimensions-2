@@ -5,27 +5,33 @@
  * - Encrypted storage using AES-256-GCM
  * - Automatic deletion after 6 months (GDPR/DSGVO compliance)
  * - Audit logging for data access
+ * 
+ * CONFIGURATION:
+ * Storage settings are centralized in config.js
+ * @see config.js for data storage configuration options
  */
 
 const fs = require('fs').promises;
 const path = require('path');
 const crypto = require('crypto');
 const { v4: uuidv4 } = require('uuid');
+const config = require('../config');
 
-// Configuration
-const DATA_DIR = process.env.DATA_DIR || path.join(__dirname, '..', 'data');
+// Configuration from config.js
+const DATA_DIR = path.resolve(__dirname, '..', config.dataStorage.dataDir);
 const SUBMISSIONS_FILE = path.join(DATA_DIR, 'submissions.enc');
 const AUDIT_LOG_FILE = path.join(DATA_DIR, 'audit.log');
-const RETENTION_DAYS = parseInt(process.env.RETENTION_DAYS, 10) || 180; // 6 months
-const ALGORITHM = 'aes-256-gcm';
+const RETENTION_DAYS = config.dataStorage.retentionDays;
+const ALGORITHM = config.dataStorage.encryptionAlgorithm;
 
 /**
- * Get encryption key from environment or generate warning
+ * Get encryption key from config or environment
+ * Uses security settings from config.js
  */
 function getEncryptionKey() {
-  const key = process.env.ENCRYPTION_KEY;
+  const key = config.security.encryptionKey;
   if (!key || key.length < 32) {
-    if (process.env.NODE_ENV === 'production') {
+    if (config.server.nodeEnv === 'production') {
       throw new Error('ENCRYPTION_KEY must be set to a secure value (minimum 32 characters) in production!');
     }
     console.warn('WARNING: ENCRYPTION_KEY not set or too short. Using default key for development only!');
@@ -276,11 +282,21 @@ async function exportByEmail(email) {
   }));
 }
 
+/**
+ * Log admin access for security audit
+ * @param {string} action - The admin action performed
+ * @param {Object} details - Additional details about the action
+ */
+async function logAdminAccess(action, details) {
+  await logAudit(`ADMIN_${action}`, details);
+}
+
 module.exports = {
   saveSubmission,
   cleanupExpiredData,
   getAllSubmissions,
   deleteSubmission,
   deleteByEmail,
-  exportByEmail
+  exportByEmail,
+  logAdminAccess
 };

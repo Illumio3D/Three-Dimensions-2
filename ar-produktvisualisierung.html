@@ -730,7 +730,13 @@
     if (arViewer && arButton) {
       arButton.style.display = 'block';
 
-      const mobileARUrl = window.location.href;
+      // Dynamic URL for QR code - works on any deployment (localhost, GitHub Pages, production server)
+      // Remove .html extension if present, to support clean URLs
+      let mobileARUrl = window.location.href;
+      // Remove .html extension for clean URL support
+      if (mobileARUrl.endsWith('.html')) {
+        mobileARUrl = mobileARUrl.slice(0, -5);
+      }
 
       /* QR-Code generieren */
       if (qrImage) {
