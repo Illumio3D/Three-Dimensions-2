@@ -196,18 +196,32 @@ const admin = {
  * Content Security Policy Configuration
  * -------------------------------------
  * Controls which resources can be loaded by browsers
+ * 
+ * NOTE: The HTML pages use inline event handlers (onclick) and external resources,
+ * so we need permissive settings for:
+ * - 'unsafe-inline' for scripts (inline event handlers)
+ * - External image sources for QR code generation
+ * - External script sources for model-viewer library
+ * - External connect sources for API calls
+ * 
+ * IMPORTANT: upgradeInsecureRequests is DISABLED for localhost development.
+ * For production with HTTPS, you can enable it by changing null to []
  */
 const csp = {
   directives: {
     defaultSrc: ["'self'"],
-    scriptSrc: ["'self'", "'unsafe-inline'"],
+    scriptSrc: ["'self'", "'unsafe-inline'", "https://unpkg.com", "https://cdn.jsdelivr.net", "blob:"],
+    scriptSrcAttr: ["'unsafe-inline'"], // Allow inline event handlers (onclick, etc.)
     styleSrc: ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com"],
-    fontSrc: ["'self'", "https://fonts.gstatic.com"],
-    imgSrc: ["'self'", "data:"],
+    fontSrc: ["'self'", "https://fonts.gstatic.com", "data:"],
+    imgSrc: ["'self'", "data:", "blob:", "https://api.qrserver.com"],
+    connectSrc: ["'self'", "https://unpkg.com", "https://cdn.jsdelivr.net", "blob:", "data:"],
+    mediaSrc: ["'self'", "blob:", "data:"],
+    workerSrc: ["'self'", "blob:"],
     formAction: ["'self'"],
     frameAncestors: ["'self'"],
     objectSrc: ["'none'"],
-    upgradeInsecureRequests: []
+    upgradeInsecureRequests: null // DISABLED for localhost - set to [] for production HTTPS
   }
 };
 
