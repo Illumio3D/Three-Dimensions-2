@@ -344,8 +344,12 @@
   const qrImage = document.getElementById('qr-image');
   const qrClose = document.getElementById('qr-close');
 
-  // Use production URL for QR code so mobile users are directed to the actual site
-  const mobileARUrl = "https://three-dimensions.de/Interaktives-AR-Umfeld.html";
+  // Dynamic URL for QR code - works on any deployment (localhost, GitHub Pages, production server)
+  // Remove .html extension if present, to support clean URLs
+  let mobileARUrl = window.location.href;
+  if (mobileARUrl.endsWith('.html')) {
+    mobileARUrl = mobileARUrl.slice(0, -5);
+  }
 
   /* QR-Code generieren */
   qrImage.src =
