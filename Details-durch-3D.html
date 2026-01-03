@@ -3,23 +3,20 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
-  <meta http-equiv="Pragma" content="no-cache">
-  <meta http-equiv="Expires" content="0">
   <title>Details durch 3D - Three Dimensions</title>
   <meta name="description" content="Zeigen Sie die Details Ihres Produkts mit 3D-Exploded Views. Der Hero-Shot der Ihr Produkt verkauft - detaillierte Produktvisualisierung durch 3D-Animationen.">
   <meta name="keywords" content="3D Exploded View, Produktdetails, 3D Animation, Hero-Shot, Produktvisualisierung, 3D-Darstellung">
-  <link rel="canonical" href="https://yourdomain.com/Details-durch-3D.html">
+  <link rel="canonical" href="https://three-dimensions.de/Details-durch-3D.html">
   
   <!-- Open Graph / Facebook -->
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://yourdomain.com/Details-durch-3D.html">
+  <meta property="og:url" content="https://three-dimensions.de/Details-durch-3D.html">
   <meta property="og:title" content="Details durch 3D - Three Dimensions">
   <meta property="og:description" content="Der Hero-Shot der Ihr Produkt verkauft - detaillierte Produktvisualisierung durch 3D-Animationen.">
   
   <!-- Twitter -->
   <meta property="twitter:card" content="summary_large_image">
-  <meta property="twitter:url" content="https://yourdomain.com/Details-durch-3D.html">
+  <meta property="twitter:url" content="https://three-dimensions.de/Details-durch-3D.html">
   <meta property="twitter:title" content="Details durch 3D - Three Dimensions">
   <meta property="twitter:description" content="Der Hero-Shot der Ihr Produkt verkauft - detaillierte Produktvisualisierung durch 3D-Animationen.">
   
@@ -760,20 +757,20 @@
   <div class="gradient-section">
     <div class="content-section">
       <div class="text-section">
-        <h2 class="section-title">Welche Perspektive möchtest du<br> zuerst zeigen?</h2>
+        <h2 class="section-title">Welche Perspektive möchtest du <br>zuerst zeigen?</h2>
         <div class="image-text-wrapper">
           <div class="image-container">
             <img src="Top Plate transparent.png" alt="Top plate transparent view">
           </div>
           <div class="container-text">
             <h3 class="container-title">Birds Eye</h3>
-            <p class="container-description">3D gibt dir die Freiheit, dein<br>Produkt aus jedem Winkel zu<br>zeigen - ohne Fotostudio, ohne<br>Kompromisse. Einmal modelliert,<br>unendlich oft inszeniert.</p>
+            <p class="container-description">3D gibt dir die Freiheit, dein <br>Produkt aus jedem Winkel zu <br>zeigen - ohne Fotostudio, ohne <br>Kompromisse. Einmal modelliert, <br>unendlich oft inszeniert.</p>
           </div>
         </div>
         <div class="image-text-wrapper right-aligned">
           <div class="container-text">
             <h3 class="container-title">3/4 Angle</h3>
-            <p class="container-description">Ob Draufsicht, Seitenansicht oder<br>extreme Nahaufnahme: Mit 3D<br>entscheidest du, was dein Kunde<br>sieht. Jede Perspektive, jederzeit<br>verfügbar.</p>
+            <p class="container-description">Ob Draufsicht, Seitenansicht oder <br>extreme Nahaufnahme: Mit 3D <br>entscheidest du, was dein Kunde <br>sieht. Jede Perspektive, jederzeit <br>verfügbar.</p>
           </div>
           <div class="image-container second">
             <img src="Lüfter view transparent.png" alt="Lüfter view transparent">
@@ -784,8 +781,8 @@
             <img src="ExplodedView.png?v=2" alt="Exploded View - 3D-Animation zeigt Produktkomponenten im Detail">
           </div>
           <div class="container-text">
-            <h3 class="container-title">Exploded<br>View</h3>
-            <p class="container-description">Exploded Views zeigen, was sonst<br>verborgen bleibt - jede Komponente,<br>jedes Detail wird auf<br>einen Blick verständlich.<br><br>Technik als Verkaufsargument:<br>Dein Kunde sieht nicht nur das<br>Produkt sondern versteht, warum<br>es sein Geld wert ist. Perfekt für<br>Landingpages, Produktlaunches<br>und technische Dokumentationen.</p>
+            <h3 class="container-title">Exploded <br>View</h3>
+            <p class="container-description">Exploded Views zeigen, was sonst <br>verborgen bleibt - jede Komponente, <br>jedes Detail wird auf <br>einen Blick verständlich.<br><br>Technik als Verkaufsargument: <br>Dein Kunde sieht nicht nur das <br>Produkt sondern versteht, warum <br>es sein Geld wert ist. Perfekt für <br>Landingpages, Produktlaunches <br>und technische Dokumentationen.</p>
           </div>
         </div>
       </div>
@@ -794,7 +791,7 @@
   <div class="gradient-section second">
     <div class="content-section">
       <div class="text-section">
-        <h2 class="section-title">Welche Perspektive du auch wählst,<br>wir setzen sie perfekt in Szene.</h2>
+        <h2 class="section-title">Welche Perspektive du auch wählst, <br>wir setzen sie perfekt in Szene.</h2>
         <div class="gallery-container state-0" id="gallery">
           <div class="gallery-wrapper">
             <div class="gallery-item">
@@ -884,29 +881,6 @@
         dropdown.classList.remove('active');
       }
     });
-
-    // Fix cached image src (browser cache issue) - run immediately
-    (function() {
-      function fixImage() {
-        const explodedImg = document.querySelector('.image-container.third img');
-        if (explodedImg) {
-          if (explodedImg.src.includes('ExplodetView') || explodedImg.getAttribute('src') === 'ExplodetView.png') {
-            explodedImg.src = 'ExplodedView.png?v=' + Date.now();
-          }
-        } else {
-          // If image not found yet, try again after a short delay
-          setTimeout(fixImage, 100);
-        }
-      }
-      // Try immediately and also on DOMContentLoaded
-      if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', fixImage);
-      } else {
-        fixImage();
-      }
-      // Also try after a delay to catch any late-loading issues
-      setTimeout(fixImage, 500);
-    })();
 
     const video = document.getElementById('explode-video');
     const heroText = document.getElementById('hero-text');

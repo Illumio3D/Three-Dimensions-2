@@ -22,6 +22,9 @@ const ALLOWED_INTERESTS = [
 // Allowed budget values
 const ALLOWED_BUDGETS = ['<500', '500-1000', '>1000', ''];
 
+// Maximum message length (characters)
+const MAX_MESSAGE_LENGTH = 5000;
+
 /**
  * Sanitize a string value to prevent XSS
  * @param {string} value - The value to sanitize
@@ -110,6 +113,8 @@ router.post('/', async (req, res) => {
 
     if (!message || message.trim() === '') {
       errors.push('Projektbeschreibung ist erforderlich');
+    } else if (message.length > MAX_MESSAGE_LENGTH) {
+      errors.push(`Projektbeschreibung darf maximal ${MAX_MESSAGE_LENGTH} Zeichen enthalten`);
     }
 
     if (consent !== true) {
