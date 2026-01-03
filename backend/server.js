@@ -20,7 +20,25 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 // Security middleware
-app.use(helmet());
+// Configure helmet with CSP that allows inline scripts for the static HTML pages.
+// Note: 'unsafe-inline' for scripts is a security trade-off required for inline
+// event handlers and scripts in the static HTML files. For improved security,
+// consider migrating to external scripts and using CSP nonces in future iterations.
+app.use(helmet({
+  contentSecurityPolicy: {
+    directives: {
+      defaultSrc: ["'self'"],
+      scriptSrc: ["'self'", "'unsafe-inline'"],
+      styleSrc: ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com"],
+      fontSrc: ["'self'", "https://fonts.gstatic.com"],
+      imgSrc: ["'self'", "data:"],
+      formAction: ["'self'"],
+      frameAncestors: ["'self'"],
+      objectSrc: ["'none'"],
+      upgradeInsecureRequests: []
+    }
+  }
+}));
 
 // Parse JSON bodies
 app.use(express.json({ limit: '10kb' })); // Limit body size for security

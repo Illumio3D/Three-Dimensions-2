@@ -947,6 +947,11 @@
               body: JSON.stringify(data)
             });
 
+            const responseData = await response.json().catch((parseError) => {
+              console.error('Failed to parse server response:', parseError);
+              return {};
+            });
+
             if (response.ok) {
               // Success
               formStatus.textContent = 'Vielen Dank für Ihre Anfrage! Wir melden uns bald bei Ihnen.';
@@ -956,9 +961,10 @@
                 interestOtherText.style.display = 'none';
               }
             } else {
-              // Server error
-              const errorData = await response.json().catch(() => ({}));
-              throw new Error(errorData.message || 'Es ist ein Fehler aufgetreten. Bitte versuchen Sie es später erneut.');
+              // Server validation error - display the backend error message inline
+              formStatus.textContent = responseData.message || 'Es ist ein Fehler aufgetreten. Bitte versuchen Sie es später erneut.';
+              formStatus.className = 'form-status error';
+              formStatus.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
             }
           } catch (error) {
             // Network or other error - show email fallback
