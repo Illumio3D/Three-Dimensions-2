@@ -29,7 +29,7 @@ app.use(express.json({ limit: '10kb' })); // Limit body size for security
 app.use((req, res, next) => {
   const allowedOrigins = process.env.ALLOWED_ORIGINS 
     ? process.env.ALLOWED_ORIGINS.split(',') 
-    : ['http://localhost:8080', 'http://127.0.0.1:8080'];
+    : ['http://localhost:3000', 'http://127.0.0.1:3000']; // TEMPORARY DEV MILO
   
   const origin = req.headers.origin;
   if (allowedOrigins.includes(origin)) {
