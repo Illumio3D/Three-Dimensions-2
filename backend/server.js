@@ -78,6 +78,34 @@ app.get('/api/health', (req, res) => {
   res.json({ status: 'ok', timestamp: new Date().toISOString() });
 });
 
+// Clean URL routing - serves HTML pages without .html extension
+// Maps friendly names to actual HTML files
+const urlMappings = {
+  '/home': '/index.html',
+  '/kontakt': '/Three-Dimensions-Anfrageformular.html',
+  '/ueber-mich': '/Ueber-Mich.html',
+  '/datenschutz': '/Datenschutz.html',
+  '/impressum': '/Impressum.html',
+  '/admin': '/admin.html',
+  '/ar-produktvisualisierung': '/ar-produktvisualisierung.html',
+  '/details-durch-3d': '/Details-durch-3D.html',
+  '/3d-renderings-fuer-shops': '/3D-Renderings-fuer-Shops.html',
+  '/interaktives-ar-umfeld': '/Interaktives-AR-Umfeld.html'
+};
+
+// Handle clean URLs - redirect to actual HTML files
+app.use((req, res, next) => {
+  const cleanPath = req.path.toLowerCase();
+  
+  // Check if this is a clean URL that needs mapping
+  if (urlMappings[cleanPath]) {
+    return res.sendFile(path.join(__dirname, '..', urlMappings[cleanPath]));
+  }
+  
+  // Also handle URLs without leading slash variations
+  next();
+});
+
 // Serve static files from parent directory (the website)
 app.use(express.static(path.join(__dirname, '..')));
 

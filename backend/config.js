@@ -181,7 +181,8 @@ const dataStorage = {
 const admin = {
   // Admin password - SET THIS IN .env FILE!
   // ADMIN_PASSWORD=your-secure-admin-password
-  password: process.env.ADMIN_PASSWORD || 'changeme',
+  // TEMPORARY TEST PASSWORD: ThreeD2026! (change this in production!)
+  password: process.env.ADMIN_PASSWORD || 'ThreeD2026!',
   
   // Session timeout in milliseconds (1 hour)
   sessionTimeout: 60 * 60 * 1000,
