@@ -50,8 +50,8 @@ const cors = {
     ? process.env.ALLOWED_ORIGINS.split(',').map(origin => origin.trim())
     : ['http://localhost:3000', 'http://127.0.0.1:3000'],
   
-  // Allowed HTTP methods
-  allowedMethods: 'POST, GET, OPTIONS',
+  // Allowed HTTP methods (includes DELETE for admin panel)
+  allowedMethods: 'POST, GET, DELETE, OPTIONS',
   
   // Allowed request headers
   allowedHeaders: 'Content-Type, Authorization'

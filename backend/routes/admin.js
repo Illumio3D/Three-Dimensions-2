@@ -7,9 +7,14 @@
  * - View individual submission details
  * 
  * SECURITY:
- * - Password is stored hashed using bcrypt-like algorithm
- * - Sessions use signed tokens with expiration
+ * - Password verification uses PBKDF2 with timing-safe comparison
+ * - Sessions use secure random tokens with expiration
  * - All admin actions are logged for audit
+ * 
+ * PRODUCTION NOTES:
+ * - For multi-server deployments, replace in-memory token storage with Redis/database
+ * - The password salt is derived from the configured password itself for simplicity
+ * - Consider adding rate limiting for login attempts in high-security environments
  * 
  * HOW TO UPDATE ADMIN PASSWORD:
  * 1. Set ADMIN_PASSWORD in your .env file
@@ -22,20 +27,39 @@
 const express = require('express');
 const router = express.Router();
 const crypto = require('crypto');
+const rateLimit = require('express-rate-limit');
 const config = require('../config');
 const dataManagement = require('../services/dataManagement');
 const { generateShortId } = require('../services/emailService');
 
-// Simple in-memory token store (for production, consider using Redis or database)
+// Rate limiter for login attempts - prevents brute force attacks
+const loginLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 5, // 5 attempts per window
+  message: {
+    success: false,
+    message: 'Zu viele Anmeldeversuche. Bitte versuchen Sie es in 15 Minuten erneut.'
+  },
+  standardHeaders: true,
+  legacyHeaders: false
+});
+
+// In-memory token store
+// NOTE: For production with multiple server instances, consider using Redis or a database
+// for persistent token storage that survives server restarts
 const validTokens = new Map();
 
 /**
  * Hash password using PBKDF2 (secure alternative to bcrypt without native dependencies)
+ * Uses a salt derived from the admin token secret for additional security
  * @param {string} password - Plain text password
  * @returns {string} - Hashed password
  */
 function hashPassword(password) {
-  const salt = 'three-dimensions-admin-salt'; // Fixed salt for consistent hashing
+  // Use the configured token secret as salt base for better security
+  // This ensures the salt is configurable per deployment
+  const saltBase = config.admin.tokenSecret || 'three-dimensions-default-salt';
+  const salt = crypto.createHash('sha256').update(saltBase).digest('hex').substring(0, 32);
   return crypto.pbkdf2Sync(password, salt, 100000, 64, 'sha512').toString('hex');
 }
 
@@ -107,8 +131,9 @@ function verifyToken(req, res, next) {
 /**
  * POST /api/admin/login
  * Authenticate admin user
+ * Rate limited to prevent brute force attacks
  */
-router.post('/login', async (req, res) => {
+router.post('/login', loginLimiter, async (req, res) => {
   try {
     const { password } = req.body;
     
