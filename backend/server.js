@@ -6,18 +6,25 @@
  * - Email notifications for new inquiries
  * - GDPR/DSGVO compliance
  * - Rate limiting to prevent spam
+ * - Admin panel for viewing submissions
+ * 
+ * CONFIGURATION:
+ * All server settings are centralized in config.js
+ * Sensitive data should be set via .env file
+ * @see config.js for all available configuration options
  */
 
-require('dotenv').config();
 const express = require('express');
 const helmet = require('helmet');
 const rateLimit = require('express-rate-limit');
 const path = require('path');
+const config = require('./config');
 const contactRoutes = require('./routes/contact');
+const adminRoutes = require('./routes/admin');
 const dataManagement = require('./services/dataManagement');
 
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = config.server.port;
 
 // Security middleware
 // Configure helmet with CSP that allows inline scripts for the static HTML pages.
@@ -26,35 +33,22 @@ const PORT = process.env.PORT || 3000;
 // consider migrating to external scripts and using CSP nonces in future iterations.
 app.use(helmet({
   contentSecurityPolicy: {
-    directives: {
-      defaultSrc: ["'self'"],
-      scriptSrc: ["'self'", "'unsafe-inline'"],
-      styleSrc: ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com"],
-      fontSrc: ["'self'", "https://fonts.gstatic.com"],
-      imgSrc: ["'self'", "data:"],
-      formAction: ["'self'"],
-      frameAncestors: ["'self'"],
-      objectSrc: ["'none'"],
-      upgradeInsecureRequests: []
-    }
+    directives: config.csp.directives
   }
 }));
 
 // Parse JSON bodies
-app.use(express.json({ limit: '10kb' })); // Limit body size for security
+app.use(express.json({ limit: config.server.bodyLimit }));
 
-// CORS configuration
+// CORS configuration - uses settings from config.js
+// To add/modify allowed domains, update ALLOWED_ORIGINS in .env file
 app.use((req, res, next) => {
-  const allowedOrigins = process.env.ALLOWED_ORIGINS 
-    ? process.env.ALLOWED_ORIGINS.split(',') 
-    : ['http://localhost:3000', 'http://127.0.0.1:3000']; // TEMPORARY DEV MILO
-  
   const origin = req.headers.origin;
-  if (allowedOrigins.includes(origin)) {
+  if (config.cors.allowedOrigins.includes(origin)) {
     res.header('Access-Control-Allow-Origin', origin);
   }
-  res.header('Access-Control-Allow-Methods', 'POST, OPTIONS');
-  res.header('Access-Control-Allow-Headers', 'Content-Type');
+  res.header('Access-Control-Allow-Methods', config.cors.allowedMethods);
+  res.header('Access-Control-Allow-Headers', config.cors.allowedHeaders);
   
   if (req.method === 'OPTIONS') {
     return res.sendStatus(200);
@@ -62,14 +56,12 @@ app.use((req, res, next) => {
   next();
 });
 
-// Rate limiting - 5 submissions per hour per IP (GDPR-friendly)
+// Rate limiting - uses settings from config.js
+// Prevents spam by limiting requests per IP
 const contactLimiter = rateLimit({
-  windowMs: 60 * 60 * 1000, // 1 hour
-  max: 5,
-  message: {
-    success: false,
-    message: 'Zu viele Anfragen. Bitte versuchen Sie es in einer Stunde erneut.'
-  },
+  windowMs: config.rateLimit.windowMs,
+  max: config.rateLimit.maxRequests,
+  message: config.rateLimit.message,
   standardHeaders: true,
   legacyHeaders: false
 });
@@ -79,6 +71,7 @@ app.use('/api/contact', contactLimiter);
 
 // Routes
 app.use('/api/contact', contactRoutes);
+app.use('/api/admin', adminRoutes);
 
 // Health check endpoint
 app.get('/api/health', (req, res) => {
@@ -105,7 +98,7 @@ app.use((err, req, res, next) => {
 // Start server
 app.listen(PORT, () => {
   console.log(`Three Dimensions Backend running on port ${PORT}`);
-  console.log(`Environment: ${process.env.NODE_ENV || 'development'}`);
+  console.log(`Environment: ${config.server.nodeEnv}`);
   
   // Run data cleanup on startup
   dataManagement.cleanupExpiredData();

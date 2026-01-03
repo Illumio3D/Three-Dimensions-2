@@ -2,31 +2,51 @@
  * Email Service
  * 
  * Handles email notifications for new contact form submissions
- * - Sends notification to business owner
+ * - Sends simplified notification to business owner (Anfrage ID + date only)
  * - Optionally sends auto-response to customer
+ * 
+ * CONFIGURATION:
+ * SMTP settings are centralized in config.js
+ * Set credentials via .env file for security
+ * @see config.js for SMTP configuration options
  */
 
 const nodemailer = require('nodemailer');
+const config = require('../config');
 
 /**
  * Get email transporter configuration
+ * Uses SMTP settings from config.js
  */
 function getTransporter() {
-  // Check if email is configured
-  if (!process.env.SMTP_HOST || !process.env.SMTP_USER || !process.env.SMTP_PASS) {
-    console.warn('Email service not configured. Set SMTP_HOST, SMTP_USER, and SMTP_PASS environment variables.');
+  // Check if email is configured using config
+  if (!config.smtp.isConfigured()) {
+    console.warn('Email service not configured. Set SMTP_HOST, SMTP_USER, and SMTP_PASS in .env file.');
     return null;
   }
 
   return nodemailer.createTransport({
-    host: process.env.SMTP_HOST,
-    port: parseInt(process.env.SMTP_PORT, 10) || 587,
-    secure: process.env.SMTP_SECURE === 'true',
-    auth: {
-      user: process.env.SMTP_USER,
-      pass: process.env.SMTP_PASS
-    }
+    host: config.smtp.host,
+    port: config.smtp.port,
+    secure: config.smtp.secure,
+    auth: config.smtp.auth
   });
+}
+
+/**
+ * Generate a shortened 5-digit numeric ID from UUID
+ * Uses the UUID to generate a deterministic numeric code
+ * @param {string} uuid - The full UUID
+ * @returns {string} - 5-digit numeric ID
+ */
+function generateShortId(uuid) {
+  // Remove hyphens and convert to a number using base conversion
+  const cleanUuid = uuid.replace(/-/g, '');
+  // Use first 10 characters and convert from hex to decimal, then take last 5 digits
+  const numericValue = parseInt(cleanUuid.substring(0, 10), 16);
+  // Ensure it's always 5 digits (10000-99999 range)
+  const shortId = (numericValue % 90000) + 10000;
+  return shortId.toString();
 }
 
 /**
@@ -63,7 +83,8 @@ function formatBudget(budget) {
 }
 
 /**
- * Send notification email to business owner
+ * Send simplified notification email to business owner
+ * Contains only Anfrage ID and date - full details viewable in admin panel
  */
 async function sendNotification(data, submissionId) {
   const transporter = getTransporter();
@@ -72,47 +93,41 @@ async function sendNotification(data, submissionId) {
     return;
   }
 
-  const recipientEmail = process.env.NOTIFICATION_EMAIL || 'kontakt@three-dimensions.de';
-  const senderEmail = process.env.SMTP_FROM || process.env.SMTP_USER;
+  const shortId = generateShortId(submissionId);
+  const dateStr = new Date().toLocaleString('de-DE', { 
+    timeZone: 'Europe/Berlin',
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+    hour: '2-digit',
+    minute: '2-digit'
+  });
 
+  // Simplified email content - only ID and date
+  // Full details are available in the admin panel at /admin
   const emailContent = `
-Neue Projektanfrage von Three Dimensions Website
-================================================
+Neue Projektanfrage bei Three Dimensions
+========================================
 
-Anfrage-ID: ${submissionId}
-Eingegangen am: ${new Date().toLocaleString('de-DE', { timeZone: 'Europe/Berlin' })}
-
-KONTAKTDATEN
-------------
-Name: ${data.name || 'Nicht angegeben'}
-Unternehmen: ${data.company}
-E-Mail: ${data.email}
-Website: ${data.website || 'Nicht angegeben'}
-
-PROJEKTDETAILS
---------------
-Interessen: ${formatInterests(data.interests, data.interestOther)}
-Budget: ${formatBudget(data.budget)}
-Deadline: ${data.deadline || 'Nicht angegeben'}
-
-PROJEKTBESCHREIBUNG
--------------------
-${data.message}
+Anfrage-ID: ${shortId}
+Eingegangen am: ${dateStr}
 
 ---
-Datenschutzeinwilligung: Erteilt am ${data.consentTimestamp}
-Diese Anfrage wird gemäß DSGVO für maximal 6 Monate gespeichert.
+Vollständige Details zu dieser Anfrage können im Admin-Panel eingesehen werden.
+Admin-Panel: https://three-dimensions.de/admin.html
+
+Diese E-Mail wurde automatisch generiert.
 `;
 
   await transporter.sendMail({
-    from: `"Three Dimensions Website" <${senderEmail}>`,
-    to: recipientEmail,
+    from: `"Three Dimensions Website" <${config.smtp.fromAddress}>`,
+    to: config.smtp.notificationEmail,
     replyTo: data.email,
-    subject: `Neue Projektanfrage: ${data.company}`,
+    subject: `Neue Projektanfrage - ID: ${shortId}`,
     text: emailContent
   });
 
-  console.log(`Notification email sent to ${recipientEmail}`);
+  console.log(`Notification email sent to ${config.smtp.notificationEmail} (ID: ${shortId})`);
 }
 
 /**
@@ -124,8 +139,6 @@ async function sendAutoResponse(data) {
     console.log('Auto-response email skipped (not configured)');
     return;
   }
-
-  const senderEmail = process.env.SMTP_FROM || process.env.SMTP_USER;
 
   const emailContent = `
 Hallo ${data.name || 'Interessent/in'},
@@ -155,7 +168,7 @@ und nach spätestens 6 Monaten gelöscht.
 `;
 
   await transporter.sendMail({
-    from: `"Three Dimensions" <${senderEmail}>`,
+    from: `"Three Dimensions" <${config.smtp.fromAddress}>`,
     to: data.email,
     subject: 'Ihre Anfrage bei Three Dimensions wurde empfangen',
     text: emailContent
@@ -166,5 +179,6 @@ und nach spätestens 6 Monaten gelöscht.
 
 module.exports = {
   sendNotification,
-  sendAutoResponse
+  sendAutoResponse,
+  generateShortId
 };

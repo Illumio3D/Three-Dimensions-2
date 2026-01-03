@@ -1084,6 +1084,46 @@
 }
 
 /* ==========================================================================
+   Desktop: "Etwas anderes" (Other) Text Field Fix
+   
+   THREE-DIMENSIONS-ANFRAGEFORMULAR.HTML - Fix positioning and sizing of the
+   "Etwas anderes" text input field in the "Interessen" section on desktop.
+   This ensures the field is left-aligned and matches other text fields.
+   ========================================================================== */
+@media (min-width: 769px) {
+  /* Fix "Etwas anderes" textarea positioning on desktop */
+  .interest-other-text {
+    width: 100%;
+    margin-top: 1rem;
+  }
+
+  /* Match the textarea styling to other form inputs */
+  .interest-other-text textarea {
+    width: 100%;
+    min-height: 100px;
+    padding: 0.85rem 1rem;
+    border-radius: 0.75rem;
+    border: 1px solid rgba(13, 44, 87, 0.2);
+    font-family: "Quicksand", "Helvetica", "Arial", sans-serif;
+    font-size: 1rem;
+    color: var(--blue-dark);
+    background: #ffffff;
+    resize: vertical;
+    box-sizing: border-box;
+  }
+
+  /* Match label styling */
+  .interest-other-text label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-family: "Helvetica", "Arial", sans-serif;
+    font-size: 1rem;
+    font-weight: 400;
+    color: var(--blue-dark);
+  }
+}
+
+/* ==========================================================================
    Responsive Legal Pages (Impressum, Datenschutz) - Mobile Only
    ========================================================================== */
 @media (max-width: 768px) {
