@@ -730,7 +730,10 @@
     if (arViewer && arButton) {
       arButton.style.display = 'block';
 
-      const mobileARUrl = window.location.href;
+      // Use production URL for QR code so mobile users are directed to the actual site
+      const productionBaseUrl = 'https://three-dimensions.de';
+      const currentPage = window.location.pathname.split('/').pop() || 'ar-produktvisualisierung.html';
+      const mobileARUrl = productionBaseUrl + '/' + currentPage;
 
       /* QR-Code generieren */
       if (qrImage) {
