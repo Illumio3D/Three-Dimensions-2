@@ -20,7 +20,10 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 // Security middleware
-// Configure helmet with CSP that allows inline scripts for the static HTML pages
+// Configure helmet with CSP that allows inline scripts for the static HTML pages.
+// Note: 'unsafe-inline' for scripts is a security trade-off required for inline
+// event handlers and scripts in the static HTML files. For improved security,
+// consider migrating to external scripts and using CSP nonces in future iterations.
 app.use(helmet({
   contentSecurityPolicy: {
     directives: {
