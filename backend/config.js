@@ -207,11 +207,11 @@ const admin = {
 const csp = {
   directives: {
     defaultSrc: ["'self'"],
-    scriptSrc: ["'self'", "'unsafe-inline'", "'unsafe-eval'", "https://unpkg.com", "https://cdn.jsdelivr.net", "blob:"],
+    scriptSrc: ["'self'", "'unsafe-inline'", "https://unpkg.com", "https://cdn.jsdelivr.net", "blob:"],
     scriptSrcAttr: ["'unsafe-inline'"], // Allow inline event handlers (onclick, etc.)
     styleSrc: ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com"],
     fontSrc: ["'self'", "https://fonts.gstatic.com", "data:"],
-    imgSrc: ["'self'", "data:", "blob:", "https://api.qrserver.com", "https:"],
+    imgSrc: ["'self'", "data:", "blob:", "https://api.qrserver.com"],
     connectSrc: ["'self'", "https://unpkg.com", "https://cdn.jsdelivr.net", "blob:", "data:"],
     mediaSrc: ["'self'", "blob:", "data:"],
     workerSrc: ["'self'", "blob:"],
