@@ -203,6 +203,9 @@ const admin = {
  * - External image sources for QR code generation
  * - External script sources for model-viewer library
  * - External connect sources for API calls
+ * 
+ * IMPORTANT: upgradeInsecureRequests is DISABLED for localhost development.
+ * For production with HTTPS, you can enable it by changing null to []
  */
 const csp = {
   directives: {
@@ -218,7 +221,7 @@ const csp = {
     formAction: ["'self'"],
     frameAncestors: ["'self'"],
     objectSrc: ["'none'"],
-    upgradeInsecureRequests: []
+    upgradeInsecureRequests: null // DISABLED for localhost - set to [] for production HTTPS
   }
 };
 
