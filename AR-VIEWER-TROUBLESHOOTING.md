@@ -274,6 +274,7 @@ This starts a Python HTTP server on port 8000. Note: This won't include backend 
 
 | Error Message | Meaning | Solution |
 |--------------|---------|----------|
+| "Refused to connect to https://www.gstatic.com" | CSP blocking Draco decoder | Fixed in latest update - restart server |
 | "model-viewer library failed to load from CDN" | unpkg.com is blocked | Disable ad blocker |
 | "Das 3D-Modell konnte nicht geladen werden" | Model file or library failed | Check console for details |
 | "Failed to load resource: 404" | File not found | Verify file exists and path is correct |
@@ -309,6 +310,14 @@ curl -H "Origin: http://192.168.1.100:3000" -I http://localhost:3000/Maschine.gl
 - Verify correct IP and port
 
 ## Recent Fixes
+
+### January 4, 2026 - CSP Fix for Draco Decoder (CRITICAL)
+- ✅ **Fixed CSP blocking Draco decoder** - Added `https://www.gstatic.com` to CSP directives
+- ✅ The model-viewer library uses Google's Draco decoder to decompress GLB files
+- ✅ Without this fix, Safari shows CSP errors: "Refused to connect to https://www.gstatic.com"
+- ✅ This was causing instant model loading failures in Safari
+- ✅ Added to both `scriptSrc` (for WASM wrapper) and `connectSrc` (for decoder files)
+- ✅ Updated documentation to explain why gstatic.com is required
 
 ### January 4, 2026 - Pinned model-viewer Version Fix
 - ✅ **Fixed AR viewer loadfailure issue** - Pinned model-viewer to stable version 3.5.0
