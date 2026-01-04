@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AR Test - Minimal</title>
+  
+  <!-- Load model-viewer from CDN -->
+  <script type="module" src="https://cdn.jsdelivr.net/npm/@google/model-viewer@3.5.0/dist/model-viewer.min.js"></script>
+  
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+      background: #f5f5f5;
+      padding: 20px;
+      line-height: 1.6;
+    }
+    
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+      background: white;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+    
+    h1 {
+      color: #0d2c57;
+      margin-bottom: 10px;
+    }
+    
+    .intro {
+      background: #e3f2fd;
+      padding: 15px;
+      border-radius: 5px;
+      margin-bottom: 20px;
+      color: #1976d2;
+    }
+    
+    .viewer-container {
+      width: 100%;
+      height: 500px;
+      position: relative;
+      background: #fafafa;
+      border: 2px solid #ddd;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    
+    model-viewer {
+      width: 100%;
+      height: 100%;
+    }
+    
+    .ar-button {
+      display: block;
+      margin: 20px auto 0;
+      padding: 15px 30px;
+      background: #0d2c57;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 18px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    
+    .ar-button:hover {
+      background: #1a4a8a;
+    }
+    
+    .status {
+      margin-top: 20px;
+      padding: 15px;
+      border-radius: 5px;
+      display: none;
+    }
+    
+    .status.show {
+      display: block;
+    }
+    
+    .status.loading {
+      background: #fff3cd;
+      color: #856404;
+      border: 1px solid #ffeaa7;
+    }
+    
+    .status.success {
+      background: #d4edda;
+      color: #155724;
+      border: 1px solid #c3e6cb;
+    }
+    
+    .status.error {
+      background: #f8d7da;
+      color: #721c24;
+      border: 1px solid #f5c6cb;
+    }
+    
+    .info {
+      margin-top: 20px;
+      padding: 15px;
+      background: #f8f9fa;
+      border-radius: 5px;
+      font-size: 14px;
+      color: #495057;
+    }
+    
+    .info strong {
+      color: #212529;
+    }
+    
+    @media (max-width: 768px) {
+      body {
+        padding: 10px;
+      }
+      
+      .container {
+        padding: 20px;
+      }
+      
+      .viewer-container {
+        height: 400px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>🧪 AR Minimal Test</h1>
+    
+    <div class="intro">
+      <strong>Zweck dieser Seite:</strong> Minimale Testseite um zu prüfen, ob das 3D-Modell und der AR-Viewer grundsätzlich funktionieren.
+      Keine zusätzlichen Features, nur das Model-Viewer Element.
+    </div>
+    
+    <div class="viewer-container">
+      <model-viewer
+        id="ar-viewer"
+        src="Maschine-Kopie.glb"
+        ios-src="Maschine-Kopie.usdz"
+        ar
+        ar-modes="webxr scene-viewer quick-look"
+        camera-controls
+        shadow-intensity="1"
+        alt="3D Modell Kaffeemaschine">
+      </model-viewer>
+    </div>
+    
+    <button class="ar-button" id="ar-button">📱 In AR ansehen</button>
+    
+    <div class="status loading" id="status">
+      🔄 Lade 3D-Modell...
+    </div>
+    
+    <div class="info">
+      <strong>Status-Informationen:</strong>
+      <ul style="margin-top: 10px;">
+        <li><strong>Model-Viewer geladen:</strong> <span id="library-status">Prüfe...</span></li>
+        <li><strong>Modell-Datei:</strong> Maschine-Kopie.glb (~50MB)</li>
+        <li><strong>iOS-Datei:</strong> Maschine-Kopie.usdz</li>
+        <li><strong>URL:</strong> <span id="page-url"></span></li>
+      </ul>
+    </div>
+  </div>
+
+  <script>
+    // Fill in page URL
+    document.getElementById('page-url').textContent = window.location.href;
+    
+    const viewer = document.getElementById('ar-viewer');
+    const statusDiv = document.getElementById('status');
+    const arButton = document.getElementById('ar-button');
+    const libraryStatus = document.getElementById('library-status');
+    
+    // Check if model-viewer library loaded
+    function checkLibrary() {
+      if (window.customElements.get('model-viewer')) {
+        libraryStatus.textContent = '✅ Ja';
+        libraryStatus.style.color = 'green';
+        return true;
+      } else {
+        libraryStatus.textContent = '❌ Nein - CDN möglicherweise blockiert';
+        libraryStatus.style.color = 'red';
+        statusDiv.className = 'status error show';
+        statusDiv.innerHTML = '❌ <strong>Model-Viewer Bibliothek konnte nicht geladen werden.</strong><br>' +
+          'Mögliche Ursachen:<br>' +
+          '• Ad-Blocker blockiert CDN (unpkg.com, jsdelivr.net)<br>' +
+          '• Netzwerk-/Firewall-Einschränkungen<br><br>' +
+          'Lösung: Ad-Blocker deaktivieren oder Netzwerkeinstellungen prüfen.';
+        return false;
+      }
+    }
+    
+    // Check library after delay
+    setTimeout(checkLibrary, 1000);
+    setTimeout(checkLibrary, 3000);
+    
+    // Model load event
+    viewer.addEventListener('load', () => {
+      console.log('✅ Model loaded successfully');
+      statusDiv.className = 'status success show';
+      statusDiv.innerHTML = '✅ <strong>3D-Modell erfolgreich geladen!</strong><br>' +
+        'Sie können jetzt mit der Maus rotieren oder auf "In AR ansehen" klicken.';
+    });
+    
+    // Model visibility event
+    viewer.addEventListener('model-visibility', () => {
+      console.log('✅ Model is now visible');
+    });
+    
+    // Progress event
+    viewer.addEventListener('progress', (event) => {
+      const progress = Math.round(event.detail.totalProgress * 100);
+      statusDiv.className = 'status loading show';
+      statusDiv.textContent = `🔄 Lade 3D-Modell... ${progress}%`;
+    });
+    
+    // Error event
+    viewer.addEventListener('error', (event) => {
+      console.error('❌ Model viewer error:', event);
+      console.error('Error details:', event.detail);
+      
+      statusDiv.className = 'status error show';
+      
+      // Check for WebGL issues (empty sourceError)
+      const hasEmptySourceError = event.detail && 
+        typeof event.detail === 'object' && 
+        Object.keys(event.detail.sourceError || {}).length === 0;
+      
+      if (hasEmptySourceError) {
+        statusDiv.innerHTML = '❌ <strong>WebGL-Problem erkannt</strong><br><br>' +
+          'Dies ist oft ein Browser-Problem.<br><br>' +
+          'Lösungsversuche:<br>' +
+          '• Seite neu laden (Strg+R oder Cmd+R)<br>' +
+          '• Browser-Cache leeren<br>' +
+          '• Browser neu starten<br>' +
+          '• Anderen Browser versuchen (Chrome empfohlen)';
+      } else {
+        statusDiv.innerHTML = '❌ <strong>Modell konnte nicht geladen werden</strong><br><br>' +
+          'Mögliche Ursachen:<br>' +
+          '• Modell-Datei nicht gefunden (404)<br>' +
+          '• Server läuft nicht (cd backend, node server.js)<br>' +
+          '• Datei-Pfad falsch<br><br>' +
+          'Fehlerdetails in der Browser-Konsole (F12).';
+      }
+    });
+    
+    // AR button click handler
+    arButton.addEventListener('click', () => {
+      const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+      
+      if (viewer.canActivateAR) {
+        viewer.activateAR();
+      } else {
+        alert('AR wird auf diesem Gerät nicht unterstützt.\n\nAR funktioniert auf:\n• iOS Safari (iPhone/iPad)\n• Android Chrome\n\nBitte verwenden Sie ein mobiles Gerät.');
+      }
+    });
+    
+    // Log to console for debugging
+    console.log('AR Test Page loaded');
+    console.log('Page URL:', window.location.href);
+    console.log('Model src:', viewer.getAttribute('src'));
+    console.log('iOS src:', viewer.getAttribute('ios-src'));
+  </script>
+</body>
+</html>
