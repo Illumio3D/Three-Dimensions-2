@@ -140,5 +140,5 @@ If you see:
 
 ---
 
-**Created**: January 4, 2026
+**Created**: January 4, 2025
 **Purpose**: Isolate and diagnose AR viewer issues
