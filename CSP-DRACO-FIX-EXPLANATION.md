@@ -4,9 +4,11 @@
 
 The AR viewer on the Three Dimensions website was failing to load 3D models in Safari (and potentially other browsers), showing the error message "Das Modell konnte nicht geladen werden" (The model could not be loaded) almost instantly after page load.
 
+**Update (January 2026):** After the initial fix, the model was loading to 88% but then getting stuck. This was caused by a missing `'wasm-unsafe-eval'` directive needed for WebAssembly execution.
+
 ## Root Cause Analysis
 
-### Safari Error Messages (from Dev Console)
+### Original Issue: Safari Error Messages (from Dev Console)
 
 ```
 [Error] Refused to connect to https://www.gstatic.com/draco/versioned/decoders/1.5.6/draco_wasm_wrapper.js 
@@ -19,12 +21,26 @@ because it does not appear in the connect-src directive of the Content Security 
 [Error] model-viewer error event: {type: "loadfailure", sourceError: TypeError: undefined is not an object (evaluating 'this[Xg].scene')}
 ```
 
+### Follow-up Issue: Model Loading at 88% Then Stopping
+
+After the initial fix, the Draco decoder files could be loaded, but the model got stuck at 88% with these errors:
+
+```
+[Warning] failed to asynchronously prepare wasm: CompileError: Refused to create a WebAssembly object because 
+'unsafe-eval' or 'wasm-unsafe-eval' is not an allowed source of script in the following Content Security 
+Policy directive: "script-src 'self' 'unsafe-inline' https://unpkg.com https://cdn.jsdelivr.net 
+https://ajax.googleapis.com https://www.gstatic.com blob:".
+
+[Error] Unhandled Promise Rejection: RuntimeError: Aborted(CompileError: ...)
+```
+
 ### What is Draco?
 
 Draco is a compression library developed by Google that significantly reduces the size of 3D models. The `@google/model-viewer` library uses Draco to decompress GLB files that have been compressed with Draco encoding.
 
 ### Why the Model Failed to Load
 
+**Original Issue:**
 1. The Maschine.glb file (~50MB) is likely compressed with Draco encoding
 2. Model-viewer attempts to load the Draco decoder from Google's CDN at `https://www.gstatic.com`
 3. The Content Security Policy (CSP) configured in `backend/config.js` did **not** include `https://www.gstatic.com` in the allowed sources
@@ -32,18 +48,25 @@ Draco is a compression library developed by Google that significantly reduces th
 5. Without the decoder, model-viewer could not decompress the GLB file
 6. This resulted in an instant loading failure
 
+**Follow-up Issue (88% stuck):**
+1. After adding `https://www.gstatic.com`, the Draco decoder files could be downloaded
+2. However, the Draco decoder uses WebAssembly (WASM) to perform the actual decompression
+3. WebAssembly requires the `'wasm-unsafe-eval'` CSP directive to compile and execute WASM code
+4. Without this directive, the browser allowed the download but blocked the execution
+5. This caused the model to load partially (88%) before getting stuck
+
 ## The Fix
 
 ### Changed File: `backend/config.js`
 
-Added `https://www.gstatic.com` to two CSP directives:
+Added `https://www.gstatic.com` to two CSP directives and `'wasm-unsafe-eval'` for WebAssembly support:
 
 ```javascript
 const csp = {
   directives: {
     // ... other directives ...
-    scriptSrc: ["'self'", "'unsafe-inline'", "https://unpkg.com", "https://cdn.jsdelivr.net", 
-                "https://ajax.googleapis.com", "https://www.gstatic.com", "blob:"],  // ← Added gstatic.com
+    scriptSrc: ["'self'", "'unsafe-inline'", "'wasm-unsafe-eval'", "https://unpkg.com", "https://cdn.jsdelivr.net", 
+                "https://ajax.googleapis.com", "https://www.gstatic.com", "blob:"],  // ← Added gstatic.com and wasm-unsafe-eval
     connectSrc: ["'self'", "https://unpkg.com", "https://cdn.jsdelivr.net", 
                  "https://ajax.googleapis.com", "https://www.gstatic.com", "blob:", "data:"],  // ← Added gstatic.com
     // ... other directives ...
@@ -51,12 +74,13 @@ const csp = {
 };
 ```
 
-### Why Both Directives?
+### Why These Directives?
 
-- **`scriptSrc`**: Allows loading the Draco WASM wrapper JavaScript file (`draco_wasm_wrapper.js`)
-- **`connectSrc`**: Allows fetching the Draco decoder WASM binary (`draco_decoder.wasm`)
+- **`'wasm-unsafe-eval'` in scriptSrc**: Allows WebAssembly compilation for the Draco decoder. Without this, the browser blocks WASM execution even after the files are loaded.
+- **`https://www.gstatic.com` in scriptSrc**: Allows loading the Draco WASM wrapper JavaScript file (`draco_wasm_wrapper.js`)
+- **`https://www.gstatic.com` in connectSrc**: Allows fetching the Draco decoder WASM binary (`draco_decoder.wasm`)
 
-Both are required for the Draco decoder to function properly.
+All three are required for the Draco decoder to function properly.
 
 ## Verification
 
@@ -64,7 +88,7 @@ After the fix, the CSP header now includes:
 
 ```
 Content-Security-Policy: 
-  script-src 'self' 'unsafe-inline' https://unpkg.com https://cdn.jsdelivr.net 
+  script-src 'self' 'unsafe-inline' 'wasm-unsafe-eval' https://unpkg.com https://cdn.jsdelivr.net 
              https://ajax.googleapis.com https://www.gstatic.com blob:;
   connect-src 'self' https://unpkg.com https://cdn.jsdelivr.net 
               https://ajax.googleapis.com https://www.gstatic.com blob: data:;

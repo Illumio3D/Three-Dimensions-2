@@ -230,6 +230,7 @@ const admin = {
  * NOTE: The HTML pages use inline event handlers (onclick) and external resources,
  * so we need permissive settings for:
  * - 'unsafe-inline' for scripts (inline event handlers)
+ * - 'wasm-unsafe-eval' for WebAssembly compilation (required by model-viewer's Draco decoder)
  * - External image sources for QR code generation
  * - External script sources for model-viewer library
  * - External connect sources for API calls
@@ -241,7 +242,7 @@ const admin = {
 const csp = {
   directives: {
     defaultSrc: ["'self'"],
-    scriptSrc: ["'self'", "'unsafe-inline'", "https://unpkg.com", "https://cdn.jsdelivr.net", "https://ajax.googleapis.com", "https://www.gstatic.com", "blob:"],
+    scriptSrc: ["'self'", "'unsafe-inline'", "'wasm-unsafe-eval'", "https://unpkg.com", "https://cdn.jsdelivr.net", "https://ajax.googleapis.com", "https://www.gstatic.com", "blob:"],
     scriptSrcAttr: ["'unsafe-inline'"], // Allow inline event handlers (onclick, etc.)
     styleSrc: ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com"],
     fontSrc: ["'self'", "https://fonts.gstatic.com", "data:"],
