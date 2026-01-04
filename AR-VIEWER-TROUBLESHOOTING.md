@@ -87,7 +87,7 @@ npm start
 1. **Cross-Origin-Resource-Policy header misconfiguration** (FIXED as of Jan 4, 2026)
    - Helmet's default `same-origin` setting blocked model-viewer from loading files
    - Now configured as `cross-origin` in server.js
-2. Ad blockers are active and blocking unpkg.com
+2. Ad blockers are active and blocking unpkg.com or jsdelivr.net
 3. Network/firewall restrictions prevent CDN access
 4. The CDN is temporarily unavailable
 5. Model files cannot be loaded from the server
@@ -95,7 +95,7 @@ npm start
 **To resolve:**
 1. **If you just updated the code**: Restart the backend server to apply the fix
 2. Disable ad blocker extensions for this website
-3. Check browser console (F12) for specific error messages
+3. Check browser console (F12 or Cmd+Option+I on Mac) for specific error messages
 4. Verify network connectivity
 5. Try accessing https://unpkg.com directly to check if it's blocked
 6. Verify model files exist and are accessible:
@@ -105,6 +105,39 @@ npm start
    - Run: `curl -I http://localhost:3000/Maschine-Kopie.glb | grep Cross-Origin-Resource-Policy`
    - Should show: `Cross-Origin-Resource-Policy: cross-origin`
    - If it shows `same-origin`, update your code to the latest version
+
+### Issue 3a: Safari-Specific Issues on macOS
+
+Safari has stricter security policies that can cause model-viewer issues on localhost.
+
+**Symptoms:**
+- Works in Chrome/Firefox but not Safari
+- Error message appears after loading spinner
+- Console shows CORS-related errors
+
+**Solutions:**
+
+1. **Disable CORS for Development (Temporary)**
+   - Go to Safari > Settings > Advanced
+   - Enable "Show features for web developers"
+   - In the Develop menu, enable "Disable cross-origin restrictions"
+   - **Note:** Re-enable this after testing for security!
+
+2. **Use IP Address Instead of 'localhost'**
+   - Safari sometimes has issues with 'localhost'
+   - Try `http://127.0.0.1:3000` instead
+   - Or use your actual local IP: `http://192.168.x.x:3000`
+   - Find your IP with: `ifconfig | grep "inet " | grep -v 127.0.0.1`
+
+3. **Clear Safari Cache**
+   - Safari > Settings > Privacy > Manage Website Data
+   - Remove data for localhost
+   - Or try a Private Window (Cmd+Shift+N)
+
+4. **Ensure Using Node.js Server (Port 3000)**
+   - Make sure you're running: `cd backend && npm start`
+   - Access via `http://localhost:3000` (NOT port 8000)
+   - The Python server (port 8000) doesn't set required headers
 
 ### Issue 4: Videos Not Playing
 
