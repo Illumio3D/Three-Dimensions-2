@@ -42,10 +42,14 @@ const server = {
  * TO ADD NEW DOMAINS:
  * Set ALLOWED_ORIGINS in .env file as comma-separated list:
  * ALLOWED_ORIGINS=https://yourdomain.com,https://www.yourdomain.com
+ * 
+ * DEVELOPMENT MODE:
+ * In development, automatically allows localhost and local network IPs
+ * This enables mobile device testing (e.g., http://192.168.1.100:3000)
  */
 const cors = {
   // Allowed origins for CORS requests
-  // Default: localhost for development
+  // Default: localhost for development, plus any environment-specified origins
   allowedOrigins: process.env.ALLOWED_ORIGINS 
     ? process.env.ALLOWED_ORIGINS.split(',').map(origin => origin.trim())
     : ['http://localhost:3000', 'http://127.0.0.1:3000'],
@@ -54,7 +58,32 @@ const cors = {
   allowedMethods: 'POST, GET, DELETE, OPTIONS',
   
   // Allowed request headers
-  allowedHeaders: 'Content-Type, Authorization'
+  allowedHeaders: 'Content-Type, Authorization',
+  
+  // Function to check if origin should be allowed
+  // In development mode, allows all local network IPs
+  isOriginAllowed: function(origin) {
+    if (!origin) return true; // Allow requests with no origin (e.g., same-origin)
+    
+    // Check if origin is in the explicit allowed list
+    if (this.allowedOrigins.includes(origin)) {
+      return true;
+    }
+    
+    // In development mode, allow local network IPs
+    if (process.env.NODE_ENV === 'development') {
+      // Allow localhost variations
+      if (origin.match(/^https?:\/\/(localhost|127\.0\.0\.1)(:\d+)?$/)) {
+        return true;
+      }
+      // Allow local network IPs (192.168.x.x, 10.x.x.x, 172.16-31.x.x)
+      if (origin.match(/^https?:\/\/(192\.168\.\d{1,3}\.\d{1,3}|10\.\d{1,3}\.\d{1,3}\.\d{1,3}|172\.(1[6-9]|2\d|3[01])\.\d{1,3}\.\d{1,3})(:\d+)?$/)) {
+        return true;
+      }
+    }
+    
+    return false;
+  }
 };
 
 /**

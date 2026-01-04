@@ -42,11 +42,15 @@ app.use(express.json({ limit: config.server.bodyLimit }));
 
 // CORS configuration - uses settings from config.js
 // To add/modify allowed domains, update ALLOWED_ORIGINS in .env file
+// In development mode, automatically allows local network IPs for mobile testing
 app.use((req, res, next) => {
   const origin = req.headers.origin;
-  if (config.cors.allowedOrigins.includes(origin)) {
-    res.header('Access-Control-Allow-Origin', origin);
+  
+  // Check if origin is allowed using the isOriginAllowed function
+  if (config.cors.isOriginAllowed(origin)) {
+    res.header('Access-Control-Allow-Origin', origin || '*');
   }
+  
   res.header('Access-Control-Allow-Methods', config.cors.allowedMethods);
   res.header('Access-Control-Allow-Headers', config.cors.allowedHeaders);
   
@@ -124,9 +128,15 @@ app.use((err, req, res, next) => {
 });
 
 // Start server
-app.listen(PORT, () => {
+// Bind to 0.0.0.0 to allow access from other devices on the network
+// This enables mobile device testing via local IP (e.g., http://192.168.x.x:3000)
+app.listen(PORT, '0.0.0.0', () => {
   console.log(`Three Dimensions Backend running on port ${PORT}`);
   console.log(`Environment: ${config.server.nodeEnv}`);
+  console.log(`Server accessible at:`);
+  console.log(`  - Local: http://localhost:${PORT}`);
+  console.log(`  - Network: http://<your-local-ip>:${PORT}`);
+  console.log(`For mobile testing, use your computer's local IP address (e.g., http://192.168.1.100:${PORT})`);
   
   // Run data cleanup on startup
   dataManagement.cleanupExpiredData();
