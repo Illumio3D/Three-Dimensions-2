@@ -812,7 +812,11 @@
       });
 
       /* Fehler → Fallback anzeigen */
-      arViewer.addEventListener("error", () => {
+      arViewer.addEventListener("error", (event) => {
+        console.error('model-viewer error event:', event);
+        console.error('Error details:', event.detail);
+        console.error('Model src:', arViewer.src);
+        console.error('Check if model file exists at:', window.location.origin + '/' + arViewer.src);
         if (arOverlay) {
           arOverlay.style.display = "none";
         }

@@ -422,7 +422,11 @@
   });
 
   /* Fehler → Fallback anzeigen */
-  viewer.addEventListener("error", () => {
+  viewer.addEventListener("error", (event) => {
+    console.error('model-viewer error event:', event);
+    console.error('Error details:', event.detail);
+    console.error('Model src:', viewer.src);
+    console.error('Check if model file exists at:', window.location.origin + '/' + viewer.src);
     overlay.style.display = "none";
     fallback.style.display = "block";
   });
