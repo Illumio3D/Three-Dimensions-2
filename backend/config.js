@@ -233,6 +233,7 @@ const admin = {
  * - External image sources for QR code generation
  * - External script sources for model-viewer library
  * - External connect sources for API calls
+ * - https://www.gstatic.com for Draco decoder (model-viewer uses this to decompress GLB files)
  * 
  * IMPORTANT: upgradeInsecureRequests is DISABLED for localhost development.
  * For production with HTTPS, you can enable it by changing null to []
@@ -240,12 +241,12 @@ const admin = {
 const csp = {
   directives: {
     defaultSrc: ["'self'"],
-    scriptSrc: ["'self'", "'unsafe-inline'", "https://unpkg.com", "https://cdn.jsdelivr.net", "https://ajax.googleapis.com", "blob:"],
+    scriptSrc: ["'self'", "'unsafe-inline'", "https://unpkg.com", "https://cdn.jsdelivr.net", "https://ajax.googleapis.com", "https://www.gstatic.com", "blob:"],
     scriptSrcAttr: ["'unsafe-inline'"], // Allow inline event handlers (onclick, etc.)
     styleSrc: ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com"],
     fontSrc: ["'self'", "https://fonts.gstatic.com", "data:"],
     imgSrc: ["'self'", "data:", "blob:", "https://api.qrserver.com"],
-    connectSrc: ["'self'", "https://unpkg.com", "https://cdn.jsdelivr.net", "https://ajax.googleapis.com", "blob:", "data:"],
+    connectSrc: ["'self'", "https://unpkg.com", "https://cdn.jsdelivr.net", "https://ajax.googleapis.com", "https://www.gstatic.com", "blob:", "data:"],
     mediaSrc: ["'self'", "blob:", "data:"],
     workerSrc: ["'self'", "blob:"],
     formAction: ["'self'"],
