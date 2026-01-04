@@ -823,10 +823,7 @@
         console.error('Model src:', arViewer.src);
         console.error('Check if model file exists at:', window.location.origin + '/' + arViewer.src);
         
-        // Detect Safari
-        var isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
-        
-        // Check for empty sourceError which often indicates Safari WebGL context loss
+        // Check for empty sourceError which often indicates WebGL context issues
         var hasEmptySourceError = event.detail && 
           (typeof event.detail === 'object') && 
           (Object.keys(event.detail.sourceError || {}).length === 0);
@@ -835,22 +832,22 @@
           arOverlay.style.display = "none";
         }
         if (arFallback) {
-          // Provide Safari-specific guidance if detected
-          if (isSafari && hasEmptySourceError) {
+          // Provide specific guidance for empty sourceError (common WebGL issue)
+          if (hasEmptySourceError) {
             // Using innerHTML with static content only (no user input, no XSS risk)
             arFallback.innerHTML = '⚠️ Das 3D-Modell konnte nicht geladen werden.<br><br>' +
-              '<strong>Safari WebGL-Problem erkannt</strong><br><br>' +
+              '<strong>WebGL-Problem erkannt</strong><br><br>' +
               'Mögliche Lösungen:<br>' +
-              '• Seite neu laden (Cmd+R)<br>' +
+              '• Seite neu laden<br>' +
               '• Browser-Cache leeren<br>' +
-              '• Safari neu starten<br>' +
-              '• Chrome oder Firefox verwenden';
+              '• Browser neu starten<br>' +
+              '• Anderen Browser verwenden';
           }
           arFallback.style.display = "block";
         }
       });
 
-      /* WebGL Context Loss Detection for Safari */
+      /* WebGL Context Loss Detection */
       // Model-viewer uses WebGL internally; context loss causes load failures
       (function setupWebGLContextLossDetection() {
         var checkInterval = setInterval(function() {
@@ -861,13 +858,13 @@
                 clearInterval(checkInterval);
                 canvas.addEventListener('webglcontextlost', function(e) {
                   e.preventDefault();
-                  console.warn('WebGL context lost - this is a known Safari/WebKit issue');
+                  console.warn('WebGL context lost - this is a known browser issue');
                   if (arFallback) {
                     // Using innerHTML with static content only (no user input, no XSS risk)
                     arFallback.innerHTML = '⚠️ WebGL-Kontext verloren<br><br>' +
-                      'Dies ist ein bekanntes Safari-Problem.<br><br>' +
-                      'Bitte laden Sie die Seite neu (Cmd+R)<br>' +
-                      'oder starten Sie Safari neu.';
+                      'Dies ist ein bekanntes Browser-Problem.<br><br>' +
+                      'Bitte laden Sie die Seite neu<br>' +
+                      'oder starten Sie den Browser neu.';
                     arFallback.style.display = 'block';
                   }
                   if (arOverlay) {

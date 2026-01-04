@@ -194,19 +194,16 @@
     viewer.addEventListener('error', (event) => {
       modelStatus.className = 'status error';
       
-      // Detect Safari
-      var isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
-      
-      // Check for empty sourceError which often indicates Safari WebGL context loss
+      // Check for empty sourceError which often indicates WebGL context issues
       var hasEmptySourceError = event.detail && 
         (typeof event.detail === 'object') && 
         (Object.keys(event.detail.sourceError || {}).length === 0);
       
-      if (isSafari && hasEmptySourceError) {
-        modelStatus.textContent = '❌ Safari WebGL issue detected - see console log';
+      if (hasEmptySourceError) {
+        modelStatus.textContent = '❌ WebGL issue detected - see console log';
         log('Model "error" event fired!', 'error');
-        log('⚠️ SAFARI WEBGL ISSUE DETECTED: Empty sourceError typically indicates WebGL context loss', 'error');
-        log('This is a known Safari/WebKit bug. Try: reload page, clear cache, restart Safari, or use Chrome/Firefox', 'warn');
+        log('⚠️ WEBGL ISSUE DETECTED: Empty sourceError typically indicates WebGL context loss', 'error');
+        log('This is a known browser issue. Try: reload page, clear cache, restart browser', 'warn');
       } else {
         modelStatus.textContent = '❌ Model failed to load - see console log';
         log('Model "error" event fired!', 'error');
@@ -225,7 +222,7 @@
       }
     });
     
-    // WebGL context loss detection for Safari
+    // WebGL context loss detection
     (function setupWebGLContextLossDetection() {
       var checkInterval = setInterval(function() {
         try {
@@ -238,7 +235,7 @@
                 log('⚠️ WebGL CONTEXT LOST - This is a known Safari/WebKit bug', 'error');
                 log('Solution: Reload page, clear Safari cache, or restart Safari', 'warn');
                 modelStatus.className = 'status error';
-                modelStatus.textContent = '❌ WebGL context lost (Safari bug) - reload page';
+                modelStatus.textContent = '❌ WebGL context lost - reload page';
               });
               log('WebGL context loss detection enabled', 'info');
             }
