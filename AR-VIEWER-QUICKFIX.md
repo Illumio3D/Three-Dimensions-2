@@ -40,7 +40,7 @@ Server accessible at:
 ### Step 4: Verify the Fix
 Run this command to verify the fix is applied:
 ```bash
-curl -I http://localhost:3000/Maschine-Kopie.glb | grep Cross-Origin-Resource-Policy
+curl -I http://localhost:3000/Maschine.glb | grep Cross-Origin-Resource-Policy
 ```
 
 Expected output:
@@ -67,7 +67,7 @@ This one-line change allows the model-viewer web component to fetch and load the
 3. **Verify server is running**: Check that the backend server is running on port 3000
 4. **Check model files exist**: 
    ```bash
-   ls -lh Maschine-Kopie.glb Maschine-Kopie.usdz
+   ls -lh Maschine.glb Maschine.usdz
    ```
    Both files should exist in the root directory
 

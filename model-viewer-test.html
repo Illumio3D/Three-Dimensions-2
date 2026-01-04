@@ -83,13 +83,13 @@
   </div>
   
   <div class="test-section">
-    <h2>Test 2: Model Loading (Maschine-Kopie.glb)</h2>
+    <h2>Test 2: Model Loading (Maschine.glb)</h2>
     <div id="model-status" class="status loading">⏳ Loading model...</div>
     
     <model-viewer
       id="test-viewer"
-      src="Maschine-Kopie.glb"
-      ios-src="Maschine-Kopie.usdz"
+      src="Maschine.glb"
+      ios-src="Maschine.usdz"
       camera-controls
       auto-rotate
       shadow-intensity="1"
@@ -141,7 +141,7 @@
     
     // Fill in debug info
     document.getElementById('page-url').textContent = window.location.href;
-    document.getElementById('model-url').textContent = window.location.origin + '/Maschine-Kopie.glb';
+    document.getElementById('model-url').textContent = window.location.origin + '/Maschine.glb';
     document.getElementById('browser-info').textContent = navigator.userAgent.split(' ').slice(-2).join(' ');
     
     // Test 1: Check if model-viewer library loaded
@@ -257,7 +257,7 @@
       
       log('Testing direct model file access...', 'info');
       
-      fetch('Maschine-Kopie.glb', { method: 'HEAD' })
+      fetch('Maschine.glb', { method: 'HEAD' })
         .then(response => {
           if (response.ok) {
             resultDiv.className = 'status success';

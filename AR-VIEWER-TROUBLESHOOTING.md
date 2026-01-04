@@ -38,7 +38,7 @@ npm start
 
 2. **File Path Issues**
    - Model files must be accessible from the server root
-   - Files are currently at: `Maschine-Kopie.glb` and `Maschine-Kopie.usdz` (root directory)
+   - Files are currently at: `Maschine.glb` and `Maschine.usdz` (root directory)
    - The server serves static files from the parent directory
 
 3. **Model-Viewer Library Not Loading**
@@ -99,10 +99,10 @@ npm start
 4. Verify network connectivity
 5. Try accessing https://unpkg.com directly to check if it's blocked
 6. Verify model files exist and are accessible:
-   - Try accessing `http://localhost:3000/Maschine-Kopie.glb` directly
+   - Try accessing `http://localhost:3000/Maschine.glb` directly
    - Should show download dialog or binary content
 7. Check the `Cross-Origin-Resource-Policy` header:
-   - Run: `curl -I http://localhost:3000/Maschine-Kopie.glb | grep Cross-Origin-Resource-Policy`
+   - Run: `curl -I http://localhost:3000/Maschine.glb | grep Cross-Origin-Resource-Policy`
    - Should show: `Cross-Origin-Resource-Policy: cross-origin`
    - If it shows `same-origin`, update your code to the latest version
 
@@ -212,7 +212,7 @@ When testing AR viewer functionality:
 4. ✅ Navigate to AR viewer page: `http://localhost:3000/ar-produktvisualisierung`
 5. ✅ Check for error messages in console
 6. ✅ Verify model files are accessible:
-   - Try accessing `http://localhost:3000/Maschine-Kopie.glb` directly
+   - Try accessing `http://localhost:3000/Maschine.glb` directly
    - Should show download dialog or binary content
 7. ✅ Check network tab for failed requests
 8. ✅ Test with ad blockers disabled
@@ -292,15 +292,15 @@ cd backend && npm start
 ### 2. Test Static File Access
 ```bash
 # Should download the file
-curl -I http://localhost:3000/Maschine-Kopie.glb
+curl -I http://localhost:3000/Maschine.glb
 # or open in browser:
-# http://localhost:3000/Maschine-Kopie.glb
+# http://localhost:3000/Maschine.glb
 ```
 
 ### 3. Check CORS Headers
 ```bash
 # Should show Access-Control-Allow-Origin header
-curl -H "Origin: http://192.168.1.100:3000" -I http://localhost:3000/Maschine-Kopie.glb
+curl -H "Origin: http://192.168.1.100:3000" -I http://localhost:3000/Maschine.glb
 ```
 
 ### 4. Test from Mobile
