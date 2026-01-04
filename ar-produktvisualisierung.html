@@ -25,20 +25,45 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="responsive.css">
-  <!-- Model Viewer einbinden -->
-  <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
-  <script nomodule src="https://unpkg.com/@google/model-viewer/dist/model-viewer-legacy.js"></script>
-  
-  <!-- Error handling for model-viewer loading -->
+  <!-- Model Viewer with fallback CDN -->
   <script>
     // Configuration
-    var MODEL_VIEWER_LOAD_TIMEOUT = 3000; // milliseconds to wait before showing error
+    var MODEL_VIEWER_LOAD_TIMEOUT = 5000; // milliseconds to wait before showing error
+    var MODEL_VIEWER_FALLBACK_TIMEOUT = 2000; // milliseconds to wait before trying fallback
+    
+    // Primary CDN (unpkg)
+    var primaryCDN = 'https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js';
+    // Fallback CDN (jsdelivr)
+    var fallbackCDN = 'https://cdn.jsdelivr.net/npm/@google/model-viewer/dist/model-viewer.min.js';
+    
+    // Function to load script dynamically
+    function loadScript(src, onSuccess, onError) {
+      var script = document.createElement('script');
+      script.type = 'module';
+      script.src = src;
+      script.onload = onSuccess;
+      script.onerror = onError;
+      document.head.appendChild(script);
+    }
+    
+    // Try to load from primary CDN first
+    loadScript(primaryCDN, function() {
+      console.log('model-viewer loaded from primary CDN (unpkg)');
+    }, function() {
+      console.warn('Primary CDN (unpkg) failed, trying fallback CDN (jsdelivr)...');
+      // Try fallback CDN
+      loadScript(fallbackCDN, function() {
+        console.log('model-viewer loaded from fallback CDN (jsdelivr)');
+      }, function() {
+        console.error('Both CDNs failed to load model-viewer');
+      });
+    });
     
     // Check if model-viewer is loaded after a delay
     setTimeout(function() {
       if (!window.customElements.get('model-viewer')) {
         console.error('model-viewer library failed to load from CDN. This may be due to:');
-        console.error('1. Ad blocker or privacy extension blocking unpkg.com');
+        console.error('1. Ad blocker or privacy extension blocking CDN domains');
         console.error('2. Network/firewall restrictions');
         console.error('3. CDN unavailability');
         console.error('Please disable ad blockers or check network settings.');
