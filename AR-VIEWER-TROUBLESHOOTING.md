@@ -83,20 +83,28 @@ npm start
 
 ### Issue 3: Error Message "Das 3D-Modell konnte nicht geladen werden"
 
-**This is expected behavior when:**
-- Ad blockers are active and blocking unpkg.com
-- Network/firewall restrictions prevent CDN access
-- The CDN is temporarily unavailable
-- Model files cannot be loaded from the server
+**Common causes:**
+1. **Cross-Origin-Resource-Policy header misconfiguration** (FIXED as of Jan 4, 2026)
+   - Helmet's default `same-origin` setting blocked model-viewer from loading files
+   - Now configured as `cross-origin` in server.js
+2. Ad blockers are active and blocking unpkg.com
+3. Network/firewall restrictions prevent CDN access
+4. The CDN is temporarily unavailable
+5. Model files cannot be loaded from the server
 
 **To resolve:**
-1. Disable ad blocker extensions for this website
-2. Check browser console (F12) for specific error messages
-3. Verify network connectivity
-4. Try accessing https://unpkg.com directly to check if it's blocked
-5. Verify model files exist and are accessible:
+1. **If you just updated the code**: Restart the backend server to apply the fix
+2. Disable ad blocker extensions for this website
+3. Check browser console (F12) for specific error messages
+4. Verify network connectivity
+5. Try accessing https://unpkg.com directly to check if it's blocked
+6. Verify model files exist and are accessible:
    - Try accessing `http://localhost:3000/Maschine-Kopie.glb` directly
    - Should show download dialog or binary content
+7. Check the `Cross-Origin-Resource-Policy` header:
+   - Run: `curl -I http://localhost:3000/Maschine-Kopie.glb | grep Cross-Origin-Resource-Policy`
+   - Should show: `Cross-Origin-Resource-Policy: cross-origin`
+   - If it shows `same-origin`, update your code to the latest version
 
 ### Issue 4: Videos Not Playing
 
@@ -124,17 +132,24 @@ npm start
 
 ### What Changed:
 
-1. **Network Binding**
+1. **Cross-Origin-Resource-Policy Header (January 4, 2026 - CRITICAL FIX)**
+   - Changed from `same-origin` to `cross-origin` in Helmet configuration
+   - **Why this matters:** The model-viewer web component needs to fetch 3D model files (GLB/USDZ)
+   - Without this fix, browsers block the model files from loading
+   - **Symptom:** AR viewer shows "Das 3D-Modell konnte nicht geladen werden"
+   - **Technical details:** Helmet's default `same-origin` policy prevented the shadow DOM's fetch requests
+
+2. **Network Binding**
    - Server now binds to `0.0.0.0` instead of localhost only
    - Enables access from other devices on the local network
 
-2. **CORS Configuration**
+3. **CORS Configuration**
    - Development mode automatically allows:
      - `localhost` and `127.0.0.1`
      - Local network IPs (192.168.x.x, 10.x.x.x, 172.16-31.x.x)
    - Production mode requires explicit ALLOWED_ORIGINS in .env
 
-3. **Static File Serving**
+4. **Static File Serving**
    - Already configured correctly with `express.static`
    - Serves all files from root directory including 3D models
 
@@ -145,6 +160,7 @@ npm start
    - Automatically handles local network IPs in development
 
 2. **backend/server.js**
+   - **NEW:** Added `crossOriginResourcePolicy: { policy: 'cross-origin' }` to Helmet config
    - Updated to bind to `0.0.0.0`
    - Enhanced logging to show network URLs
    - Updated CORS middleware to use `isOriginAllowed()`
@@ -260,6 +276,12 @@ curl -H "Origin: http://192.168.1.100:3000" -I http://localhost:3000/Maschine-Ko
 - Verify correct IP and port
 
 ## Recent Fixes
+
+### January 4, 2026 - Cross-Origin-Resource-Policy Fix
+- ✅ **Fixed AR viewer loading issue** - Changed `Cross-Origin-Resource-Policy` header from `same-origin` to `cross-origin`
+- ✅ This allows the model-viewer web component to properly load GLB/USDZ files
+- ✅ Without this fix, the AR viewer shows "Das 3D-Modell konnte nicht geladen werden"
+- ✅ This was the root cause of the sudden AR viewer failure
 
 ### January 2026 - AR Viewer and Network Access
 - ✅ Server binds to 0.0.0.0 for network access
