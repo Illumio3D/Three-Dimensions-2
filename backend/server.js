@@ -31,10 +31,15 @@ const PORT = config.server.port;
 // Note: 'unsafe-inline' for scripts is a security trade-off required for inline
 // event handlers and scripts in the static HTML files. For improved security,
 // consider migrating to external scripts and using CSP nonces in future iterations.
+// 
+// IMPORTANT: Cross-Origin-Resource-Policy is set to 'cross-origin' to allow
+// the model-viewer web component to load 3D model files (GLB/USDZ). Without this,
+// the browser blocks the model files from loading in the AR viewer.
 app.use(helmet({
   contentSecurityPolicy: {
     directives: config.csp.directives
-  }
+  },
+  crossOriginResourcePolicy: { policy: 'cross-origin' }
 }));
 
 // Parse JSON bodies
