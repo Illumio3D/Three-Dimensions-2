@@ -5,8 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Model Viewer Test - Minimal</title>
   
-  <!-- Load model-viewer directly from unpkg -->
-  <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
+  <!-- Load model-viewer from jsdelivr CDN with pinned stable version -->
+  <!-- Using v3.5.0 for better browser compatibility -->
+  <script type="module" src="https://cdn.jsdelivr.net/npm/@google/model-viewer@3.5.0/dist/model-viewer.min.js"></script>
   
   <style>
     body {
@@ -192,8 +193,25 @@
     
     viewer.addEventListener('error', (event) => {
       modelStatus.className = 'status error';
-      modelStatus.textContent = '❌ Model failed to load - see console log';
-      log('Model "error" event fired!', 'error');
+      
+      // Detect Safari
+      var isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+      
+      // Check for empty sourceError which often indicates Safari WebGL context loss
+      var hasEmptySourceError = event.detail && 
+        (typeof event.detail === 'object') && 
+        (Object.keys(event.detail.sourceError || {}).length === 0);
+      
+      if (isSafari && hasEmptySourceError) {
+        modelStatus.textContent = '❌ Safari WebGL issue detected - see console log';
+        log('Model "error" event fired!', 'error');
+        log('⚠️ SAFARI WEBGL ISSUE DETECTED: Empty sourceError typically indicates WebGL context loss', 'error');
+        log('This is a known Safari/WebKit bug. Try: reload page, clear cache, restart Safari, or use Chrome/Firefox', 'warn');
+      } else {
+        modelStatus.textContent = '❌ Model failed to load - see console log';
+        log('Model "error" event fired!', 'error');
+      }
+      
       log('Error event: ' + JSON.stringify(event.detail || 'no details'), 'error');
       log('Model src: ' + viewer.src, 'error');
       log('Expected URL: ' + window.location.origin + '/' + viewer.src, 'error');
@@ -206,6 +224,32 @@
         log(`Model loading progress: ${progress}%`, 'info');
       }
     });
+    
+    // WebGL context loss detection for Safari
+    (function setupWebGLContextLossDetection() {
+      var checkInterval = setInterval(function() {
+        try {
+          if (viewer && viewer.shadowRoot) {
+            var canvas = viewer.shadowRoot.querySelector('canvas');
+            if (canvas) {
+              clearInterval(checkInterval);
+              canvas.addEventListener('webglcontextlost', function(e) {
+                e.preventDefault();
+                log('⚠️ WebGL CONTEXT LOST - This is a known Safari/WebKit bug', 'error');
+                log('Solution: Reload page, clear Safari cache, or restart Safari', 'warn');
+                modelStatus.className = 'status error';
+                modelStatus.textContent = '❌ WebGL context lost (Safari bug) - reload page';
+              });
+              log('WebGL context loss detection enabled', 'info');
+            }
+          }
+        } catch (e) {
+          // Ignore errors during setup
+        }
+      }, 500);
+      // Stop checking after 10 seconds
+      setTimeout(function() { clearInterval(checkInterval); }, 10000);
+    })();
     
     // Manual tests
     function testModelFile() {
