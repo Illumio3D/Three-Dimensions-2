@@ -10,6 +10,39 @@
 
   <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
   <script nomodule src="https://unpkg.com/@google/model-viewer/dist/model-viewer-legacy.js"></script>
+  
+  <!-- Error handling for model-viewer loading -->
+  <script>
+    // Configuration
+    var MODEL_VIEWER_LOAD_TIMEOUT = 3000; // milliseconds to wait before showing error
+    
+    // Check if model-viewer is loaded after a delay
+    setTimeout(function() {
+      if (!window.customElements.get('model-viewer')) {
+        console.error('model-viewer library failed to load from CDN. This may be due to:');
+        console.error('1. Ad blocker or privacy extension blocking unpkg.com');
+        console.error('2. Network/firewall restrictions');
+        console.error('3. CDN unavailability');
+        console.error('Please disable ad blockers or check network settings.');
+        
+        // Show user-friendly error message
+        var fallback = document.getElementById('fallback');
+        if (fallback) {
+          // Using innerHTML with static content only (no user input, no XSS risk)
+          fallback.innerHTML = '⚠️ Das 3D-Modell konnte nicht geladen werden.<br><br>' +
+            'Mögliche Ursachen:<br>' +
+            '• Ad-Blocker oder Privacy-Extension aktiv<br>' +
+            '• Netzwerk- oder Firewall-Einschränkungen<br><br>' +
+            'Bitte deaktivieren Sie Ad-Blocker für diese Seite.';
+          fallback.style.display = 'block';
+        }
+        var overlay = document.getElementById('overlay-loader');
+        if (overlay) {
+          overlay.style.display = 'none';
+        }
+      }
+    }, MODEL_VIEWER_LOAD_TIMEOUT);
+  </script>
 
   <style>
     html {
@@ -307,8 +340,8 @@
     <div id="viewer-wrapper">
       <model-viewer
         id="viewer"
-        src="Maschine Kopie.glb"
-        ios-src="Maschine Kopie.usdz"
+        src="Maschine-Kopie.glb"
+        ios-src="Maschine-Kopie.usdz"
         ar
         ar-modes="scene-viewer quick-look webxr"
         camera-controls

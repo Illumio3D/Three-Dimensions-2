@@ -28,6 +28,40 @@
   <!-- Model Viewer einbinden -->
   <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
   <script nomodule src="https://unpkg.com/@google/model-viewer/dist/model-viewer-legacy.js"></script>
+  
+  <!-- Error handling for model-viewer loading -->
+  <script>
+    // Configuration
+    var MODEL_VIEWER_LOAD_TIMEOUT = 3000; // milliseconds to wait before showing error
+    
+    // Check if model-viewer is loaded after a delay
+    setTimeout(function() {
+      if (!window.customElements.get('model-viewer')) {
+        console.error('model-viewer library failed to load from CDN. This may be due to:');
+        console.error('1. Ad blocker or privacy extension blocking unpkg.com');
+        console.error('2. Network/firewall restrictions');
+        console.error('3. CDN unavailability');
+        console.error('Please disable ad blockers or check network settings.');
+        
+        // Show user-friendly error message
+        var arFallback = document.getElementById('ar-fallback');
+        if (arFallback) {
+          // Using innerHTML with static content only (no user input, no XSS risk)
+          arFallback.innerHTML = '⚠️ Das 3D-Modell konnte nicht geladen werden.<br><br>' +
+            'Mögliche Ursachen:<br>' +
+            '• Ad-Blocker oder Privacy-Extension aktiv<br>' +
+            '• Netzwerk- oder Firewall-Einschränkungen<br><br>' +
+            'Bitte deaktivieren Sie Ad-Blocker für diese Seite.';
+          arFallback.style.display = 'block';
+        }
+        var arOverlay = document.getElementById('ar-overlay-loader');
+        if (arOverlay) {
+          arOverlay.style.display = 'none';
+        }
+      }
+    }, MODEL_VIEWER_LOAD_TIMEOUT);
+  </script>
+  
   <style>
     @font-face {
       font-family: 'Mandioca';
@@ -654,7 +688,7 @@
   </header>
   <div class="video-container">
     <video autoplay muted playsinline preload="metadata" aria-label="AR-Produktvisualisierung Hero Video - Kaffeemaschine">
-      <source src="Hero shot kafeemaschine0001-0349.mp4" type="video/mp4">
+      <source src="Hero-shot-kafeemaschine0001-0349.mp4" type="video/mp4">
     </video>
   </div>
   <div class="white-gradient-section">
@@ -664,9 +698,9 @@
         <p class="ar-description-text">3D zeigt Produkte klarer, AR macht sie erlebbar. Kunden verstehen sofort,<br>was sie kaufen und treffen sichere Entscheidungen.<br>Für dich heißt das, weniger Retouren und steigende Verkäufe.</p>
         <div class="iphone-video-container">
           <video autoplay muted playsinline aria-label="AR-Demo auf iPhone - Produktvisualisierung in Augmented Reality">
-            <source src="Iphone fbegining00086400.webm" type='video/webm; codecs="vp9"'>
+            <source src="Iphone-fbegining00086400.webm" type='video/webm; codecs="vp9"'>
             <!-- Safari fallback: HEVC with alpha channel -->
-            <source src="Iphone fbegining-HEVC.mov" type='video/mp4; codecs="hvc1"' data-alpha-format="hevc">
+            <source src="Iphone-fbegining-HEVC.mov" type='video/mp4; codecs="hvc1"' data-alpha-format="hevc">
           </video>
         </div>
       </div>
@@ -682,8 +716,8 @@
             <div id="ar-overlay-loader">🔄 Wird geladen...</div>
             <model-viewer
               id="ar-viewer"
-              src="Maschine Kopie.glb"
-              ios-src="Maschine Kopie.usdz"
+              src="Maschine-Kopie.glb"
+              ios-src="Maschine-Kopie.usdz"
               ar
               ar-modes="scene-viewer quick-look webxr"
               camera-controls
