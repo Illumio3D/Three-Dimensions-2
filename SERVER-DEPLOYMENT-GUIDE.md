@@ -75,8 +75,9 @@ Edit `backend/.env` with your values:
 # Your domain(s) - comma-separated for wildcard
 ALLOWED_ORIGINS=https://yourdomain.com,https://www.yourdomain.com,https://*.yourdomain.com
 
-# Generate with: node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"
-ENCRYPTION_KEY=your-64-character-hex-key-here
+# Generate 32 bytes (produces 64-character hex string):
+# node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"
+ENCRYPTION_KEY=your-64-character-hex-string-here
 
 # Your admin password (enter in plaintext - auto-hashed internally)
 ADMIN_PASSWORD=YourSecurePassword123!
@@ -263,7 +264,7 @@ server {
 curl https://yourdomain.com/api/health
 
 # Expected response:
-# {"status":"ok","timestamp":"2026-01-04T..."}
+# {"status":"ok","timestamp":"YYYY-MM-DDTHH:mm:ss.sssZ"}
 ```
 
 ---
@@ -286,7 +287,7 @@ If not set in `.env`, these defaults apply (from `backend/config.js`):
 
 | Setting | Default Value |
 |---------|---------------|
-| Admin Password | `ThreeD2026!` |
+| Admin Password | *(set in config.js - change immediately!)* |
 | Port | `3000` |
 | Retention Days | `180` |
 | Allowed Origins | `localhost:3000, 127.0.0.1:3000` |
