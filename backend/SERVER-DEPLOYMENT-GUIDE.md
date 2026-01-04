@@ -204,16 +204,14 @@ sudo systemctl start three-dimensions
 
 ### Step 5: Configure Web Server
 
-**Nginx Configuration:**
+**Nginx Configuration (HTTP - Initial Setup):**
+
+This configuration uses HTTP initially. See [Enabling HTTPS](#enabling-https) section below for switching to HTTPS once you have your real domain.
 
 ```nginx
 server {
-    listen 443 ssl http2;
+    listen 80;
     server_name yourdomain.com www.yourdomain.com;
-
-    # SSL Configuration (wildcard certificate)
-    ssl_certificate /path/to/your/wildcard.crt;
-    ssl_certificate_key /path/to/your/wildcard.key;
 
     # Security headers
     add_header X-Frame-Options "SAMEORIGIN" always;
@@ -223,6 +221,17 @@ server {
     # Document root
     root /var/www/three-dimensions;
     index index.html;
+
+    # Clean URL rewrites - Map friendly URLs to actual files
+    # /Home -> index.html
+    location = /Home {
+        try_files /index.html =404;
+    }
+
+    # /Kontakt -> Three-Dimensions-Anfrageformular.html
+    location = /Kontakt {
+        try_files /Three-Dimensions-Anfrageformular.html =404;
+    }
 
     # Proxy API requests to Node.js backend
     location /api/ {
@@ -237,7 +246,102 @@ server {
         proxy_cache_bypass $http_upgrade;
     }
 
-    # Serve static files
+    # Serve static files - removes .html extension from URLs
+    # e.g., /Ueber-Mich serves Ueber-Mich.html
+    location / {
+        try_files $uri $uri.html $uri/ =404;
+    }
+
+    # Cache static assets
+    location ~* \.(jpg|jpeg|png|webp|gif|ico|css|js|woff|woff2|mp4|webm|glb|usdz)$ {
+        expires 30d;
+        add_header Cache-Control "public, immutable";
+    }
+}
+```
+
+---
+
+## Enabling HTTPS
+
+Once you have your real domain and SSL certificate, follow these steps to enable HTTPS:
+
+### Option 1: Using Let's Encrypt (Free SSL - Recommended)
+
+1. **Install Certbot:**
+   ```bash
+   sudo apt update
+   sudo apt install certbot python3-certbot-nginx
+   ```
+
+2. **Obtain SSL Certificate:**
+   ```bash
+   sudo certbot --nginx -d yourdomain.com -d www.yourdomain.com
+   ```
+
+3. **Certbot will automatically:**
+   - Obtain the SSL certificate
+   - Update your Nginx configuration to use HTTPS
+   - Set up automatic certificate renewal
+
+4. **Verify auto-renewal:**
+   ```bash
+   sudo certbot renew --dry-run
+   ```
+
+### Option 2: Using Your Own SSL Certificate
+
+1. **Update Nginx configuration to use HTTPS:**
+
+```nginx
+server {
+    listen 443 ssl http2;
+    server_name yourdomain.com www.yourdomain.com;
+
+    # SSL Configuration
+    ssl_certificate /path/to/your/certificate.crt;
+    ssl_certificate_key /path/to/your/private.key;
+    
+    # SSL Security Settings (recommended)
+    ssl_protocols TLSv1.2 TLSv1.3;
+    ssl_prefer_server_ciphers on;
+    ssl_ciphers ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384;
+
+    # Security headers
+    add_header X-Frame-Options "SAMEORIGIN" always;
+    add_header X-Content-Type-Options "nosniff" always;
+    add_header X-XSS-Protection "1; mode=block" always;
+    add_header Strict-Transport-Security "max-age=31536000; includeSubDomains" always;
+
+    # Document root
+    root /var/www/three-dimensions;
+    index index.html;
+
+    # Clean URL rewrites - Map friendly URLs to actual files
+    # /Home -> index.html
+    location = /Home {
+        try_files /index.html =404;
+    }
+
+    # /Kontakt -> Three-Dimensions-Anfrageformular.html
+    location = /Kontakt {
+        try_files /Three-Dimensions-Anfrageformular.html =404;
+    }
+
+    # Proxy API requests to Node.js backend
+    location /api/ {
+        proxy_pass http://127.0.0.1:3000;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection 'upgrade';
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_cache_bypass $http_upgrade;
+    }
+
+    # Serve static files - removes .html extension from URLs
     location / {
         try_files $uri $uri.html $uri/ =404;
     }
@@ -256,6 +360,27 @@ server {
     return 301 https://$server_name$request_uri;
 }
 ```
+
+2. **Test Nginx configuration:**
+   ```bash
+   sudo nginx -t
+   ```
+
+3. **Reload Nginx:**
+   ```bash
+   sudo systemctl reload nginx
+   ```
+
+### After Enabling HTTPS
+
+Once HTTPS is enabled, update the canonical URLs in your HTML files from `http://` to `https://`:
+
+```bash
+# Run this command in your website directory to update all HTML files
+sed -i 's|http://three-dimensions.de|https://three-dimensions.de|g' *.html
+```
+
+---
 
 ### Step 6: Test Deployment
 
