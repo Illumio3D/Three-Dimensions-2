@@ -90,7 +90,7 @@ For mobile testing, use your computer's local IP address (e.g., http://192.168.1
 
 1. Try accessing the 3D model file directly:
    ```
-   http://localhost:3000/Maschine-Kopie.glb
+   http://localhost:3000/Maschine.glb
    ```
 2. Your browser should either display binary content or prompt you to download the file
 3. This confirms static file serving is working correctly
@@ -219,7 +219,7 @@ Use this checklist to systematically debug issues:
 
 ### File Access Issues
 - [ ] Model files exist in root directory
-- [ ] Model files accessible at http://localhost:3000/Maschine-Kopie.glb
+- [ ] Model files accessible at http://localhost:3000/Maschine.glb
 - [ ] No 404 errors in browser console
 - [ ] Static file serving configured correctly
 
@@ -242,7 +242,7 @@ Use this checklist to systematically debug issues:
 
 ```bash
 # Should return Access-Control-Allow-Origin header
-curl -H "Origin: http://192.168.1.100:3000" -I http://localhost:3000/Maschine-Kopie.glb
+curl -H "Origin: http://192.168.1.100:3000" -I http://localhost:3000/Maschine.glb
 ```
 
 ### Test from Different Network

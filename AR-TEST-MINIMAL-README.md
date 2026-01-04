@@ -45,7 +45,7 @@ The minimal test page checks:
    - Detects ad-blocker or network blocking
 
 2. ✅ **3D Model File Loading**
-   - Tests if `Maschine-Kopie.glb` can be loaded
+   - Tests if `Maschine.glb` can be loaded
    - Shows loading progress percentage
    - Displays specific error messages
 
@@ -95,7 +95,7 @@ If you see:
 
 **Solutions:**
 - Ensure backend server is running (`cd backend && node server.js`)
-- Check that `Maschine-Kopie.glb` exists in the root directory
+- Check that `Maschine.glb` exists in the root directory
 - Verify file permissions
 
 ## Comparison with Main AR Page
@@ -127,8 +127,8 @@ If you see:
 - **HTML Page**: `/ar-test-minimal.html`
 - **Backend Route**: Added to `/backend/server.js` (line ~102)
 - **3D Models**: 
-  - `/Maschine-Kopie.glb` (GLB format, ~50MB)
-  - `/Maschine-Kopie.usdz` (USDZ format for iOS)
+  - `/Maschine.glb` (GLB format, ~50MB)
+  - `/Maschine.usdz` (USDZ format for iOS)
 
 ## Technical Details
 

@@ -51,7 +51,7 @@ If you see: "WebGL-Problem erkannt"
 ### Scenario 4: Model File Not Found ❌
 If you see: "Modell konnte nicht geladen werden" with 404 error
 - **Problem**: Server can't find the `.glb` file
-- **Solution**: Make sure `Maschine-Kopie.glb` is in the root directory
+- **Solution**: Make sure `Maschine.glb` is in the root directory
 
 ## Why This Helps
 
