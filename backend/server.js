@@ -99,8 +99,7 @@ const urlMappings = {
   '/ar-produktvisualisierung': '/ar-produktvisualisierung.html',
   '/details-durch-3d': '/Details-durch-3D.html',
   '/3d-renderings-fuer-shops': '/3D-Renderings-fuer-Shops.html',
-  '/interaktives-ar-umfeld': '/Interaktives-AR-Umfeld.html',
-  '/ar-test-minimal': '/ar-test-minimal.html'
+  '/interaktives-ar-umfeld': '/Interaktives-AR-Umfeld.html'
 };
 
 // Handle clean URLs - redirect to actual HTML files
