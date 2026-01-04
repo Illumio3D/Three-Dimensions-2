@@ -310,6 +310,15 @@ curl -H "Origin: http://192.168.1.100:3000" -I http://localhost:3000/Maschine-Ko
 
 ## Recent Fixes
 
+### January 4, 2026 - Pinned model-viewer Version Fix
+- ✅ **Fixed AR viewer loadfailure issue** - Pinned model-viewer to stable version 3.5.0
+- ✅ Previously used unpinned CDN URLs which could load breaking versions
+- ✅ Changed primary CDN from unpkg to jsdelivr (more reliable)
+- ✅ Added fallback CDN (Google's ajax.googleapis.com)
+- ✅ Added WebGL context loss detection for Safari users
+- ✅ Enhanced error messages with browser-specific guidance
+- ✅ Updated CSP to allow all required CDN domains
+
 ### January 4, 2026 - Cross-Origin-Resource-Policy Fix
 - ✅ **Fixed AR viewer loading issue** - Changed `Cross-Origin-Resource-Policy` header from `same-origin` to `cross-origin`
 - ✅ This allows the model-viewer web component to properly load GLB/USDZ files
@@ -329,6 +338,17 @@ curl -H "Origin: http://192.168.1.100:3000" -I http://localhost:3000/Maschine-Ko
 - ✅ Added comprehensive error handling for CDN failures
 - ✅ Added user-friendly error messages in German
 - ✅ Improved code quality (extracted magic numbers, added comments)
+
+## Model-Viewer Version Management
+
+The AR viewer uses the `@google/model-viewer` web component. **Always use a pinned version** to avoid unexpected issues from breaking changes in new releases.
+
+Current pinned version: **3.5.0** (most stable v3.x release)
+
+To update the version:
+1. Edit `ar-produktvisualisierung.html`
+2. Change the `MODEL_VIEWER_VERSION` variable
+3. Test thoroughly before deploying
 
 ## Environment Variables
 

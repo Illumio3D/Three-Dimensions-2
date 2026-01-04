@@ -31,10 +31,15 @@
     var MODEL_VIEWER_LOAD_TIMEOUT = 30000; // 30 seconds - model file is ~50MB so needs time to load
     var MODEL_VIEWER_FALLBACK_TIMEOUT = 2000; // milliseconds to wait before trying fallback
     
-    // Primary CDN (unpkg)
-    var primaryCDN = 'https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js';
-    // Fallback CDN (jsdelivr)
-    var fallbackCDN = 'https://cdn.jsdelivr.net/npm/@google/model-viewer/dist/model-viewer.min.js';
+    // Pin to stable version 3.5.0 for better browser compatibility
+    // Note: Unpinned versions (e.g., @google/model-viewer without version) can cause
+    // issues when the latest version has bugs or breaking changes
+    var MODEL_VIEWER_VERSION = '3.5.0';
+    
+    // Primary CDN (jsdelivr - widely accessible, CDN-distributed)
+    var primaryCDN = 'https://cdn.jsdelivr.net/npm/@google/model-viewer@' + MODEL_VIEWER_VERSION + '/dist/model-viewer.min.js';
+    // Fallback CDN (Google's official CDN)
+    var fallbackCDN = 'https://ajax.googleapis.com/ajax/libs/model-viewer/' + MODEL_VIEWER_VERSION + '/model-viewer.min.js';
     
     // Function to load script dynamically
     function loadScript(src, onSuccess, onError) {
@@ -48,12 +53,12 @@
     
     // Try to load from primary CDN first
     loadScript(primaryCDN, function() {
-      console.log('model-viewer loaded from primary CDN (unpkg)');
+      console.log('model-viewer v' + MODEL_VIEWER_VERSION + ' loaded from primary CDN (jsdelivr)');
     }, function() {
-      console.warn('Primary CDN (unpkg) failed, trying fallback CDN (jsdelivr)...');
+      console.warn('Primary CDN (jsdelivr) failed, trying fallback CDN (Google)...');
       // Try fallback CDN
       loadScript(fallbackCDN, function() {
-        console.log('model-viewer loaded from fallback CDN (jsdelivr)');
+        console.log('model-viewer v' + MODEL_VIEWER_VERSION + ' loaded from fallback CDN (Google)');
       }, function() {
         console.error('Both CDNs failed to load model-viewer');
       });
@@ -817,13 +822,64 @@
         console.error('Error details:', event.detail);
         console.error('Model src:', arViewer.src);
         console.error('Check if model file exists at:', window.location.origin + '/' + arViewer.src);
+        
+        // Check for empty sourceError which often indicates WebGL context issues
+        var hasEmptySourceError = event.detail && 
+          (typeof event.detail === 'object') && 
+          (Object.keys(event.detail.sourceError || {}).length === 0);
+        
         if (arOverlay) {
           arOverlay.style.display = "none";
         }
         if (arFallback) {
+          // Provide specific guidance for empty sourceError (common WebGL issue)
+          if (hasEmptySourceError) {
+            // Using innerHTML with static content only (no user input, no XSS risk)
+            arFallback.innerHTML = '⚠️ Das 3D-Modell konnte nicht geladen werden.<br><br>' +
+              '<strong>WebGL-Problem erkannt</strong><br><br>' +
+              'Mögliche Lösungen:<br>' +
+              '• Seite neu laden<br>' +
+              '• Browser-Cache leeren<br>' +
+              '• Browser neu starten<br>' +
+              '• Anderen Browser verwenden';
+          }
           arFallback.style.display = "block";
         }
       });
+
+      /* WebGL Context Loss Detection */
+      // Model-viewer uses WebGL internally; context loss causes load failures
+      (function setupWebGLContextLossDetection() {
+        var checkInterval = setInterval(function() {
+          try {
+            if (arViewer && arViewer.shadowRoot) {
+              var canvas = arViewer.shadowRoot.querySelector('canvas');
+              if (canvas) {
+                clearInterval(checkInterval);
+                canvas.addEventListener('webglcontextlost', function(e) {
+                  e.preventDefault();
+                  console.warn('WebGL context lost - this is a known browser issue');
+                  if (arFallback) {
+                    // Using innerHTML with static content only (no user input, no XSS risk)
+                    arFallback.innerHTML = '⚠️ WebGL-Kontext verloren<br><br>' +
+                      'Dies ist ein bekanntes Browser-Problem.<br><br>' +
+                      'Bitte laden Sie die Seite neu<br>' +
+                      'oder starten Sie den Browser neu.';
+                    arFallback.style.display = 'block';
+                  }
+                  if (arOverlay) {
+                    arOverlay.style.display = 'none';
+                  }
+                });
+              }
+            }
+          } catch (e) {
+            // Ignore errors during setup
+          }
+        }, 500);
+        // Stop checking after 10 seconds
+        setTimeout(function() { clearInterval(checkInterval); }, 10000);
+      })();
 
       // Originale AR-Buttons im Shadow DOM visuell ausblenden
       function hideOriginalARButtons() {
