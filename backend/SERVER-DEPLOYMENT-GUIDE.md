@@ -17,15 +17,27 @@ Complete guide for deploying Three Dimensions to your own Linux server with wild
 
 ### ✅ Automatic/Dynamic Links (No Changes Needed)
 
-All **internal navigation links** use relative paths and will work automatically on any domain:
+All **internal navigation links** use clean URLs and will work automatically on any domain:
 
 | Link Type | Example | Status |
 |-----------|---------|--------|
-| Navigation | `href="index.html"` | ✅ Works |
-| Page links | `href="Three-Dimensions-Anfrageformular.html"` | ✅ Works |
+| Navigation | `href="/"` (Home) | ✅ Works |
+| Page links | `href="/kontakt"` | ✅ Works |
 | Form action | `POST /api/contact` | ✅ Works |
 | CSS/JS | `href="responsive.css"` | ✅ Works |
 | Images | `src="Machine-auf-tisch.webp"` | ✅ Works |
+
+**Clean URL Mappings:**
+| Clean URL | HTML File |
+|-----------|-----------|
+| `/` | `index.html` |
+| `/kontakt` | `Three-Dimensions-Anfrageformular.html` |
+| `/ueber-mich` | `Ueber-Mich.html` |
+| `/datenschutz` | `Datenschutz.html` |
+| `/impressum` | `Impressum.html` |
+| `/ar-produktvisualisierung` | `ar-produktvisualisierung.html` |
+| `/details-durch-3d` | `Details-durch-3D.html` |
+| `/3d-renderings-fuer-shops` | `3D-Renderings-fuer-Shops.html` |
 
 ### ⚠️ SEO Metadata (Requires Manual Update)
 
