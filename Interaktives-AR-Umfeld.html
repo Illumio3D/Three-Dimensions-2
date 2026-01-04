@@ -13,6 +13,9 @@
   
   <!-- Error handling for model-viewer loading -->
   <script>
+    // Configuration
+    var MODEL_VIEWER_LOAD_TIMEOUT = 3000; // milliseconds to wait before showing error
+    
     // Check if model-viewer is loaded after a delay
     setTimeout(function() {
       if (!window.customElements.get('model-viewer')) {
@@ -25,6 +28,7 @@
         // Show user-friendly error message
         var fallback = document.getElementById('fallback');
         if (fallback) {
+          // Using innerHTML with static content only (no user input, no XSS risk)
           fallback.innerHTML = '⚠️ Das 3D-Modell konnte nicht geladen werden.<br><br>' +
             'Mögliche Ursachen:<br>' +
             '• Ad-Blocker oder Privacy-Extension aktiv<br>' +
@@ -37,7 +41,7 @@
           overlay.style.display = 'none';
         }
       }
-    }, 3000);
+    }, MODEL_VIEWER_LOAD_TIMEOUT);
   </script>
 
   <style>
