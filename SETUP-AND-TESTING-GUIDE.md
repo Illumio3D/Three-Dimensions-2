@@ -39,6 +39,8 @@ ALLOWED_ORIGINS=http://localhost:3000,http://127.0.0.1:3000
 
 **Important:** Generate a secure encryption key for production:
 ```bash
+# Generate a random 32-byte (64-character hex) encryption key
+# This key is used to encrypt contact form submissions stored on the server
 node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"
 ```
 
