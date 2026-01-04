@@ -20,8 +20,6 @@ Backend server for the Three Dimensions website, providing:
 
 ### For AR Viewer Testing (Local Development)
 
-**See the comprehensive [SETUP-AND-TESTING-GUIDE.md](../SETUP-AND-TESTING-GUIDE.md) in the root directory for detailed AR viewer setup and mobile testing instructions.**
-
 Quick steps:
 1. `npm install`
 2. Create `.env` from `.env.example` (set `NODE_ENV=development`)
@@ -103,10 +101,6 @@ To test the AR viewer from a mobile device:
   - All localhost variants
   - Local network IPs (192.168.x.x, 10.x.x.x, 172.16-31.x.x)
 - In **production mode**, only domains in `ALLOWED_ORIGINS` are allowed
-
-For detailed troubleshooting and setup instructions, see:
-- [SETUP-AND-TESTING-GUIDE.md](../SETUP-AND-TESTING-GUIDE.md) - Comprehensive setup guide
-- [AR-VIEWER-TROUBLESHOOTING.md](../AR-VIEWER-TROUBLESHOOTING.md) - AR viewer specific issues
 
 ## Deployment
 
