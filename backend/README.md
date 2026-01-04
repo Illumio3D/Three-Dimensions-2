@@ -1,7 +1,8 @@
 # Three Dimensions Backend
 
-Backend server for the Three Dimensions contact form. This server handles form submissions with:
+Backend server for the Three Dimensions website, providing:
 
+## Contact Form Features
 - ✅ **Secure Data Storage** - AES-256-GCM encrypted storage
 - ✅ **6-Month Retention** - Automatic deletion after 6 months (GDPR/DSGVO compliance)
 - ✅ **Email Notifications** - Receive emails when new inquiries arrive
@@ -9,7 +10,26 @@ Backend server for the Three Dimensions contact form. This server handles form s
 - ✅ **Input Validation** - Server-side validation and sanitization
 - ✅ **GDPR Compliance** - Audit logging, data export, and deletion capabilities
 
+## Static Website Serving
+- ✅ **AR Viewer Support** - Serves 3D models (.glb, .usdz) for augmented reality
+- ✅ **Network Access** - Binds to 0.0.0.0 for mobile device testing
+- ✅ **CORS Configuration** - Automatic local network IP support in development mode
+- ✅ **Clean URLs** - URL mapping for user-friendly routes (e.g., `/kontakt` → contact form)
+
 ## Quick Start
+
+### For AR Viewer Testing (Local Development)
+
+**See the comprehensive [SETUP-AND-TESTING-GUIDE.md](../SETUP-AND-TESTING-GUIDE.md) in the root directory for detailed AR viewer setup and mobile testing instructions.**
+
+Quick steps:
+1. `npm install`
+2. Create `.env` from `.env.example` (set `NODE_ENV=development`)
+3. `npm start`
+4. Desktop: Access at `http://localhost:3000`
+5. Mobile: Access at `http://<your-local-ip>:3000` (e.g., `http://192.168.1.100:3000`)
+
+The server automatically allows local network IPs in development mode for easy mobile testing.
 
 ### 1. Install Dependencies
 
@@ -55,6 +75,38 @@ pm2 start server.js --name "three-dimensions-backend"
 ```
 
 The server will start on port 3000 (or the port specified in `.env`).
+
+**Server Binding:**
+- The server binds to `0.0.0.0` (all network interfaces)
+- This enables access from other devices on the same network
+- Perfect for testing AR viewer on mobile devices
+
+**Access URLs:**
+- **Local (desktop)**: `http://localhost:3000`
+- **Network (mobile)**: `http://<your-local-ip>:3000`
+  - Example: `http://192.168.1.100:3000`
+  - Use your computer's actual IP address on the network
+
+### Testing AR Viewer on Mobile
+
+To test the AR viewer from a mobile device:
+
+1. Ensure your mobile device is on the **same WiFi network** as your computer
+2. Find your computer's local IP address:
+   - macOS/Linux: `ifconfig | grep "inet " | grep -v 127.0.0.1`
+   - Windows: `ipconfig` (look for IPv4 Address)
+3. On your mobile device, navigate to: `http://<your-ip>:3000/ar-produktvisualisierung`
+4. The AR viewer should load and allow you to view 3D models in AR
+
+**CORS Configuration:**
+- In **development mode** (`NODE_ENV=development`), the server automatically allows:
+  - All localhost variants
+  - Local network IPs (192.168.x.x, 10.x.x.x, 172.16-31.x.x)
+- In **production mode**, only domains in `ALLOWED_ORIGINS` are allowed
+
+For detailed troubleshooting and setup instructions, see:
+- [SETUP-AND-TESTING-GUIDE.md](../SETUP-AND-TESTING-GUIDE.md) - Comprehensive setup guide
+- [AR-VIEWER-TROUBLESHOOTING.md](../AR-VIEWER-TROUBLESHOOTING.md) - AR viewer specific issues
 
 ## Deployment
 
